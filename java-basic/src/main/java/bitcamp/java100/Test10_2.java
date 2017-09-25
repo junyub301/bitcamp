@@ -14,8 +14,8 @@ public class Test10_2 {
             - 어떤 기능은 인스턴스가 있어야만 사용가능하다.
             - 어떤 기능은 클래스만 있으면 사용가능하다 */
             
-            long currMillis = System.currentTimeMillis();
-            System.out.println(currMillis);
+          long currMillis = System.currentTimeMillis();
+          System.out.println(currMillis);
     }
 
 
