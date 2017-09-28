@@ -3,7 +3,7 @@ package bitcamp.java100;
 public class Test13_7 {
       
     public static void main(String[] args){
-        int a =100;
+        int a = 100;
         int b;
 
         b = a;

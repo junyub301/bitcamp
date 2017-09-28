@@ -1,25 +1,24 @@
 
-
 public class App {
   
     public static void main(String[] args) {
-        String[] names = {"이름: ","국어: ","영어: ","수학: ","총점: ","평균: "};
-        String name ="홍길동";
-        int kor= 97, eng = 85, math = 83, sum =(kor+eng+math);
-        float avg = sum/3.0f;
+        /* 여러명의 성적을 저장하고 출력
+        출력 내용
+        홍길동, 100, 90, 80, 270, 90.0
+        임꺽정, 80, 80, 80, 240, 80.0
+        유관순, 100, 100, 100, 300, 100.0 */
+ 
+        String[] name = {"홍길동","임꺽정","유관순"};
+        int[] kor = {100,80,100};
+        int[] eng = {90,80,100};
+        int[] math = {80,80,100};
 
-        System.out.printf("이름 : %s\n",name);
-        System.out.printf("국어 : %d\n",kor);
-        System.out.printf("영어 : %d\n",eng);
-        System.out.printf("수학 : %d\n",math);
-        System.out.printf("총점 : %d\n",sum);
-        System.out.printf("평균 : %.1f\n",avg);
-
-        System.out.println(names[0] + name);
-        System.out.println(names[1] + kor);
-        System.out.println(names[2] + eng);
-        System.out.println(names[3] + math);
-        System.out.println(names[4] + sum);
-        System.out.println(names[5] + avg);
+        for(int i=0; i<name.length;i++ ){
+            int sum = kor[i] + eng[i] + math[i];
+            float avg = sum / 3.0f;
+            System.out.printf("%-4s%4d%4d%4d%4d%4.1f\n", name[i], kor[i], eng[i], math[i], sum, avg);
+    }
+    
+       
     }
 }
