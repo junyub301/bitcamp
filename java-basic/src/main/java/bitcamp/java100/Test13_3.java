@@ -3,29 +3,23 @@ package bitcamp.java100;
 public class Test13_3 {
       
     public static void main(String[] args){
-
-        //레퍼런스(reference) : 메모리의 주소를 저장하는 변수
+        
         int[] arr1;
-        int arr2[];
-
-        //arr1 = 100; -> 컴파일 오류
-        //arr2 = 100; -> 컴파일 오류
 
         arr1 = new int[3];
-        arr2 = new int[4];
+        
+        // 프로퍼티(property) : 레퍼런스 변수를 통해 사용하는 내부 변수
+        System.out.println(arr1.length);
 
         arr1[0] = 100;
         arr1[1] = 90;
         arr1[2] = 80;
 
-        System.out.printf("%d %d %d\n",arr1[0], arr1[1],arr1[2]);
+        // 인덱스 범위를 벗어나면 실행 오류
+        //  -> java.lang.ArrayIndexOutOfBoundsException 예외 발생
+        arr1[3] =200;
 
-        arr2[0] = 100;
-        arr2[1] = 200;
-        arr2[2] = 300;
-        arr2[3] = 400;
 
-        System.out.printf("%d %d %d %d\n",arr2[0], arr2[1],arr2[2],arr2[3]);
 
 
 

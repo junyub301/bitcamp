@@ -9,7 +9,7 @@ public class Test13_2 {
         int arr2[];
 
         //arr1 = 100; -> 컴파일 오류
-        //arr2 = 100; -> 컴파일 오류
+        //arr2 =x 100; -> 컴파일 오류
 
         arr1 = new int[3];
         arr2 = new int[4];
