@@ -17,9 +17,7 @@ public class Test14_6 {
                              sum = kor + eng + math;
                              avg =  sum / 3.0f;
                         }
-            
                     }
-
                     Score[] scores = new Score[3];
                     
                     scores[0] = new Score();
