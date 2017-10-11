@@ -43,7 +43,7 @@ public class Test15_11_2 {
         System.out.print(p1.otherRead ? "r" : "-");
         System.out.print(p1.otherWrite ? "w" : "-");
         System.out.print(p1.otherExe ? "x" : "-");
-        System.out.println("");
+        System.out.println(""); 
     }
 
 }
