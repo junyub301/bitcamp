@@ -7,43 +7,33 @@ public class Test15_11_2 {
         // 파일의 정보를 저장
         // 디렉토리여부, 소유주/그룹/기타 사용자의 읽기, 쓰기, 권한 정보
         
-        // class를 이용
-        class Privilege {
-            boolean isDirectroy;
-            boolean ownerRead;
-            boolean ownerWrite;
-            boolean ownerExe;
-            boolean groupRead;
-            boolean groupWrite;
-            boolean groupExe;
-            boolean otherRead;
-            boolean otherWrite;
-            boolean otherExe;
-        }
+        // 배열 이용
         
-        Privilege p1 = new Privilege();
-        p1.isDirectroy = false;
-        p1.ownerRead = true;
-        p1.ownerWrite = true;
-        p1.ownerExe = true;
-        p1.groupRead = true;
-        p1.groupWrite = false;
-        p1.groupExe = true;
-        p1.otherRead = true;
-        p1.otherWrite = false;
-        p1.otherExe = true;
+        boolean[] arr = new boolean[10];
+            arr[0] = false;
+            arr[1] = true;
+            arr[2] = true;
+            arr[3] = true;
+            arr[4] = true;
+            arr[5] = false;
+            arr[6] = true;
+            arr[7] = true;
+            arr[8] = false;
+            arr[9] = true;
+                
+        System.out.print(arr[0] ? "d" : "-");
+        System.out.print(arr[1] ? "r" : "-");
+        System.out.print(arr[2]? "w" : "-");
+        System.out.print(arr[3] ? "x" : "-");
+        System.out.print(arr[4] ? "r" : "-");
+        System.out.print(arr[5] ? "w" : "-");
+        System.out.print(arr[6] ? "x" : "-");
+        System.out.print(arr[7] ? "r" : "-");
+        System.out.print(arr[8] ? "w" : "-");
+        System.out.print(arr[9] ? "x" : "-");
+        System.out.println("");
         
-        System.out.print(p1.isDirectroy ? "d" : "-");
-        System.out.print(p1.ownerRead ? "r" : "-");
-        System.out.print(p1.ownerWrite ? "w" : "-");
-        System.out.print(p1.ownerExe ? "x" : "-");
-        System.out.print(p1.groupRead ? "r" : "-");
-        System.out.print(p1.groupWrite ? "w" : "-");
-        System.out.print(p1.groupExe ? "x" : "-");
-        System.out.print(p1.otherRead ? "r" : "-");
-        System.out.print(p1.otherWrite ? "w" : "-");
-        System.out.print(p1.otherExe ? "x" : "-");
-        System.out.println(""); 
+        
     }
 
 }
