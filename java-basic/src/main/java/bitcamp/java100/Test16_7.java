@@ -33,6 +33,8 @@ public class Test16_7 {
 
         System.out.println("----------------------------");
         
+        // Set => 집합 -> 중복값을 가지지 않는다, 들어간 순서대로 못뽑는다.
+        
         java.util.HashSet<String> set = new java.util.HashSet<>();
         set.add("홍길동");
         set.add("임꺽정");
@@ -44,6 +46,9 @@ public class Test16_7 {
         
         for (String n : set)
             System.out.println(n);
+        
+        System.out.println("----------------------------");
+        
     }
 
 }
