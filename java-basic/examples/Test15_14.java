@@ -9,6 +9,9 @@ public class Test15_14 {
 
         int v2 = 44032;
         System.out.println(v2);
+        
+        System.out.println((char)v2);
+        System.out.println((int)v1);
     }
 
 }

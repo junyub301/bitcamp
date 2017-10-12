@@ -1,6 +1,6 @@
 package bitcamp.java100;
 
-public class Test15_12 {
+public class Test15_12_1 {
       
     public static void main(String[] args){
         
