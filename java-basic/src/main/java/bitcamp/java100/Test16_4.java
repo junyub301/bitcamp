@@ -78,18 +78,22 @@ public class Test16_4 {
         
         
         System.out.println("------------------------");
-        int a= 1887421230;
+        int a = 456156;
         int[] cnt = new int[10];
         while (a > 0) {
             System.out.printf("%d ",a % 10);
-            cnt[a %10]++;
+            cnt[a % 10]++;
             a /= 10;
         }
+        
+        System.out.println();
         int b = 0;
+        
         while (b < cnt.length) {
-            System.out.printf("%d = %d\n",b,cnt[b]);
+            System.out.printf("%d = %d\n",b, cnt[b]);
             b++;
         }
+        
         
     }
 
