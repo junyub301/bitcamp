@@ -2,27 +2,34 @@ package bitcamp.java100;
 
 public class Test17_14 {
 
-    static void m1(int value) {
-        value += 50;
-        m2(value);
-        System.out.printf("m1() : %d\n",value);
+    static void swap(int a, int b) {
+        int temp = a;
+        a = b;
+        b = temp;
+        System.out.printf("swap() : a = %d, b = %d \n", a, b);
     }
     
-    static void m2(int value) {
-        value += 40;
-        m3(value);
-        System.out.printf("m2() : %d\n",value);
+    static void swap2 (int[] r) {
+        int temp = r[0];
+        r[0] = r[1];
+        r[1] = temp;
+        System.out.printf("swap2() : r[0] = %d, r[1] = %d \n", r[0], r[1]);
     }
-    
-    static void m3(int value) {
-        value += 30;
-        System.out.printf("m3() : %d\n",value);
-    }
-    
     public static void main(String[] args){
-        int value = 100;
-        m1(value);
-        System.out.printf("main() : %d\n", value);
+        // call by value : 호출할 때 넘기는 값을 넘기는 예
+        int a = 5, b = 7;
+        swap(a,b);
+        
+        System.out.printf("swap() : a = %d, b = %d \n", a, b);
+        
+        // call by reference : 호출할 때 메모리 주소를 넘기는 예
+        int[] arr = new int[2];
+        arr[0] = 5;
+        arr[1] = 7;
+        
+        swap2(arr);
+        System.out.printf("swap2() : arr[0] = %d, arr[1] = %d \n", arr[0], arr[1]);
+
     }
 
 }
