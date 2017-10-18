@@ -16,7 +16,7 @@ public class Test18_6 {
         // \D : 숫자를 제외한 문자
         System.out.println(email.matches("^\\D.+@.+\\..+"));
         
-        // java.uil.regex.Pattern 클래스의 API 문서 참조
+        // java.util.regex.Pattern 클래스의 API 문서 참조
         System.out.println("-------------------------------------------");
         
         String str = "홍길동(hong@test.com),임꺽정(leem@test.com)," +
