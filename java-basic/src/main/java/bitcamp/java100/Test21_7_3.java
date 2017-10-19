@@ -10,7 +10,7 @@ package bitcamp.java100;
 
 import java.io.Console;
 
-public class Test21_7 {
+public class Test21_7_3 {
 
 
     public static void main(String[] args){
@@ -23,14 +23,19 @@ public class Test21_7 {
             System.exit(1); // JVM을 종료한다.
         }
 
-        String str = console.readLine("문자열? ");
-        System.out.println("입력한 값: " + str);
-        System.out.print("거꾸로 바꾼 값: ");
-        for (int i = str.length() - 1; i >= 0; i--) {
-            System.out.print(str.charAt(i));
+        String str = console.readLine("숫자? ");
+        StringBuffer buf = new StringBuffer();
+        buf.append(str);
+
+        for (int left = 0, right = buf.length() - 1; left < buf.length() / 2; left++, right--) {
+            char ch = buf.charAt(left);
+            buf.setCharAt(left, buf.charAt(right));
+            buf.setCharAt(right, ch);
         }
-
-
+        System.out.printf("입력 문자열: %s\n", str);
+        System.out.printf("변경 문자열: %s\n", buf);
     }
 
+
 }
+

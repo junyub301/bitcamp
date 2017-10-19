@@ -10,25 +10,37 @@ package bitcamp.java100;
 
 import java.io.Console;
 
-public class Test21_7 {
+public class Test21_7_1 {
 
+    static Console console; 
+    static void preparConsole() {
 
-    public static void main(String[] args){
-
-
-        Console console = System.console();
+        console = System.console();
 
         if (console == null) {
             System.err.println("콘솔을 지원하지 않습니다.");
             System.exit(1); // JVM을 종료한다.
         }
+    }
 
+    static String inputString() {
         String str = console.readLine("문자열? ");
+        return str;
+    }
+
+    static void printString(String str) {
         System.out.println("입력한 값: " + str);
         System.out.print("거꾸로 바꾼 값: ");
         for (int i = str.length() - 1; i >= 0; i--) {
             System.out.print(str.charAt(i));
         }
+    }
+
+    public static void main(String[] args){
+
+        preparConsole();
+        String str = inputString();
+        printString(str);
 
 
     }

@@ -3,7 +3,7 @@ package bitcamp.java100;
 import java.io.Console;
 import java.util.Scanner;
 
-public class Test21_6 {
+public class Test21_6_2 {
 
 
     public static void main(String[] args){
@@ -16,21 +16,18 @@ public class Test21_6 {
             System.exit(1); // JVM을 종료한다.
         }
 
-        long value = Long.parseLong(console.readLine("숫자? "));
+        StringBuffer buf = new StringBuffer(console.readLine("숫자? "));
+        
         int[] cnt = new int[10];
 
-        while (value > 0) {
-            cnt[(int)(value % 10)]++;
-            value /= 10;
+        for (int i = 0; i< buf.length(); i++) {
+            cnt[buf.charAt(i) - '0']++;
+            
         }
-        int b = 0;
-
-        while (b < cnt.length) {
-            System.out.printf("%d = %d\n", b, cnt[b]);
-            b++;
+        for (int i = 0; i < cnt.length; i++) {
+            System.out.printf("%d = %d\n", i, cnt[i]);
+            
         }
-
-
     }
 
 }
