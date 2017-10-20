@@ -1,4 +1,4 @@
-package bitcamp.java100;
+package bitcamp.java100.test21.ex8.step3;
 
 import java.io.Console;
 import java.util.ArrayList;

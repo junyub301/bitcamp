@@ -6,29 +6,24 @@
 // 꺼꾸로 바꾼 값: 089TTC2BA
 // > 
 
-package bitcamp.java100;
+package bitcamp.java100.test21.ex7;
 
 import java.io.Console;
 
-public class Test21_7_2 {
+public class Test21_7_3 {
 
-    static Console console; 
-    static void preparConsole() {
 
-        console = System.console();
+    public static void main(String[] args){
+
+
+        Console console = System.console();
 
         if (console == null) {
             System.err.println("콘솔을 지원하지 않습니다.");
             System.exit(1); // JVM을 종료한다.
         }
-    }
 
-    static String inputString() {
-        return console.readLine("문자열? ");
-    }
-
-    static String reverseString(String str) {
-        
+        String str = console.readLine("숫자? ");
         StringBuffer buf = new StringBuffer();
         buf.append(str);
 
@@ -37,21 +32,8 @@ public class Test21_7_2 {
             buf.setCharAt(left, buf.charAt(right));
             buf.setCharAt(right, ch);
         }
-        return buf.toString();
-    }
-    
-
-    public static void main(String[] args){
-
-
-        preparConsole();
-        
-        String str = inputString();
-        String str2 = reverseString(str);
-        
-        
         System.out.printf("입력 문자열: %s\n", str);
-        System.out.printf("변경 문자열: %s\n", str2);
+        System.out.printf("변경 문자열: %s\n", buf);
     }
 
 
