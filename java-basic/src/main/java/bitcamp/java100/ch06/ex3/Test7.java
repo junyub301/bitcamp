@@ -17,6 +17,7 @@ public class Test7 {
     
     static class B {
         static int b = 200;
+        
         static {
             System.out.println("B의 스태틱 블록 실행!");
             System.out.printf("B==> b = %d\n",B.b);
