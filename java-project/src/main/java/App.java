@@ -1,6 +1,8 @@
-//: ## ver 08
-//: - 클래스를 관리하기 쉽도록 별도의 파일로 분리하다. 
-//: - 메서드를 사용하여 반복 코드를 분리한다.
+import java.util.Scanner;
+
+//: ## ver 10
+//: - 생성자를 이용하여 인스턴스를 초기화시키라.
+//: - 인스턴스를 다루는 메서드는 인스턴스 메서드로 전환하라.
 //: 
 //: 여러 명의 성적을 저장하고 다음과 같이 출력하라!
 //:
@@ -10,26 +12,41 @@
 //: 임꺽정,  80,  80,  80, 240,  80.0
 //: 유관순, 100, 100, 100, 300, 100.0
 //: ```
- 
+
+
+
+//01026344150
+//jinyoun.eom@gmail.com
+
 public class App {
-    
-    //: 합계와 평균을 계산하는 코드를 다음과 같이 별도의 메서드로 분리한다.
-    
+
+    static boolean confirm(String message) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(message);
+        String response = sc.nextLine().toLowerCase();
+
+        if(response.equals("y") || response.equals("yes")) {
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
-        
-        Score[] scores = {new Score(), new Score(), new Score()};
-        
-        Score.init(scores[0], "홍길동", 100, 90, 80);
-        Score.init(scores[1], "임꺽정", 80, 80, 80);
-        Score.init(scores[2], "유관순", 100, 100, 100);
-        
-        //: 학생 성적을 출력한다.
-        for (Score s : scores) {
-            Score.print(s);
+
+        ScoreDao scores = new ScoreDao();
+
+
+        while(true) {
+            Score score = new Score();
+            score.input();
+            scores.add(score);
+
+            if(!confirm("계속 하시겠습니까?")) break; 
         }
-        
-        
+
+        for (int i = 0; i < scores.size(); i++) {
+            scores.get(i).print();
+        }
     }
 }
 
