@@ -1,7 +1,7 @@
 
 public class ScoreDao3 {
     
-    static void compute(Score score) {
+    static void compute(Score3 score) {
         for (int sub : score.subjects) {
             score.sum += sub;
         }

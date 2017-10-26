@@ -8,11 +8,6 @@ public class Calculator {
         this.result *= value;
     }
 
-//    void divide(int value) { 
-//                    
-//        this.result /= value;
-//    }
-    
     void divide(int value) { 
         if (value == 0) {   
             System.err.println("0은 안됩니다.");

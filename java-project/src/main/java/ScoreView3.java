@@ -17,7 +17,7 @@ public class ScoreView3 {
         System.out.print("수학점수? ");
         score.subjects[2]= scanner.nextInt();
         
-        ScoreDao3.compute();
+        ScoreDao3.compute(score);
     
     }
     

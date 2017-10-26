@@ -21,7 +21,7 @@ public class Score {
         this.name = name;
         this.subjects = new int[]{kor, eng, math};
 
-        ScoreDao3.compute(this);
+        this.compute();
     }
     void input() {
         Scanner scanner = new Scanner(System.in);
