@@ -1,3 +1,4 @@
+package me;
 import java.util.Scanner;
 
 //: ## 생성자와 인스턴스 메서드 도입

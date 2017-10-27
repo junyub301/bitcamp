@@ -1,3 +1,4 @@
+package me;
 
 public class ScoreDao3 {
     

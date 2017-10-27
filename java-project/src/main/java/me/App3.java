@@ -1,3 +1,4 @@
+package me;
 import java.util.Scanner;
 
 //: ## ver 10
