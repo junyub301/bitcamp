@@ -18,8 +18,6 @@ public class Test4 {
         
         System.out.printf("%s, %d, %d, %d, %d, %b, %b\n",
                 c2.model, c2.capacity, c2.enginType, c2.cylinder, c2.valve, c2.auto, c2.sunroof);
-    
     }
-
 
 }
