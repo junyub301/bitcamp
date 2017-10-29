@@ -17,6 +17,7 @@ public class Test6 {
         
         // obj1 = new A(); -> 컴파일 오류
         obj2 = new B();
+    
     }
 
 }
