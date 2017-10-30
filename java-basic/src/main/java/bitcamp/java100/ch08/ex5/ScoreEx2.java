@@ -1,13 +1,13 @@
 package bitcamp.java100.ch08.ex5;
 
-public class ScoreEx extends Score {
+public class ScoreEx2 extends Score {
 
     int sci;
     int soc;
     
-    public ScoreEx() {}
+    public ScoreEx2() {}
     
-    public ScoreEx(int no, String name, int kor, int eng, int math, int sci, int soc) {
+    public ScoreEx2(int no, String name, int kor, int eng, int math, int sci, int soc) {
         super(no, name, kor, eng, math);
         this.sci = sci;
         this.soc = soc;
@@ -33,5 +33,13 @@ public class ScoreEx extends Score {
         this.soc = soc;
         this.compute();
     }
+    
+    @Override
+    protected void compute() {
+        super.compute();
+        this.sum += this.sci + this.soc;
+        this.aver = this.sum / 5f;
+    }
+    
     
 }
