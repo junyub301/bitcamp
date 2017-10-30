@@ -18,9 +18,10 @@ apply plugin: 'eclipse' // 이클립스 관련된 명령어 사용 가능
 eclipse {
   jdt {
    
-    sourceCompatibility = 9
-    targetCompatibility = 9
-    javaRuntimeName = "JavaSE-9"
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    /*
+    javaRuntimeName = "JavaSE-1.8"
 
     file {
     
@@ -35,6 +36,7 @@ eclipse {
          
       }
     }
+    */
   }
 }
 
