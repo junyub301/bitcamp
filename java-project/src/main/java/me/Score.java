@@ -1,4 +1,4 @@
-package java100.app;
+package me;
 import java.util.Scanner;
 
 public class Score {
@@ -38,55 +38,9 @@ public class Score {
         this.compute();
 
     }
-
-    static boolean confirm2(String message) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print(message);
-        String response = sc.nextLine().toLowerCase();
-
-        if(response.equals("n") || response.equals("N") || response.equals("") ) {
-            return false;
-        }
-        return true;
-    }
-
-    public void update() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.printf("국어점수?(%d) ", subjects[0]);
-        int kor = this.subjects[0];
-        try {
-            kor = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {}
-
-        System.out.printf("영어점수?(%d) ", subjects[1]);
-        int eng = this.subjects[1];
-        try {
-            eng = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {}
-
-        System.out.printf("수학점수?(%d) ",subjects[2]);
-        int math = this.subjects[1];
-        try {
-            math = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {}
-
-        if (confirm2("변경하시겠습니까?(y/N) ")) {
-            this.subjects[0] = kor;
-            this.subjects[1] = eng;
-            this.subjects[2] = math;
-            this.compute();
-            System.out.println("변경하였습니다.");
-        } else {
-            System.out.println("변경 취소하였습니다.");
-        }
-
-    }
-
     public void list() {
         System.out.printf("%-4s, %4d, %6.1f\n",  
                 this.name, 
-
                 this.sum, 
                 this.aver);
     }
@@ -100,30 +54,28 @@ public class Score {
                 this.sum, 
                 this.aver);
     }
-
+    
     private void compute() {
-        int sum = 0;
         for (int sub : this.subjects) {
-            sum += sub;
+            this.sum += sub;
         }
-        this.sum = sum;
         this.aver = (float)this.sum / this.subjects.length;
     }
-
+    
     public void view() {
         Scanner sc = new Scanner(System.in);
         System.out.print("이름? ");
         String name = sc.nextLine();
-
-
+        
+        
     }
-
-
-
-
+    
+   
 
     //: ### 인스턴스 메서드
     //: 인스턴스 데이터를 다루는 메서드는 스태틱 보다 인스턴스 메서드로 선언해야 한다W.
+
+
 
 
 }
