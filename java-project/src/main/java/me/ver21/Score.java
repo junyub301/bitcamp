@@ -1,4 +1,4 @@
-package java100.app;
+package me.ver21;
 import java.util.Scanner;
 
 public class Score {
@@ -40,6 +40,16 @@ public class Score {
 
     }
 
+    static boolean confirm2(String message) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(message);
+        String response = sc.nextLine().toLowerCase();
+
+        if(response.equals("n") || response.equals("N") || response.equals("") ) {
+            return false;
+        }
+        return true;
+    }
 
     public void update() {
         Scanner scanner = new Scanner(System.in);
@@ -62,7 +72,7 @@ public class Score {
             math = Integer.parseInt(scanner.nextLine());
         } catch (Exception e) {}
 
-        if (Prompts.confirm2("변경하시겠습니까?(y/N) ")) {
+        if (confirm2("변경하시겠습니까?(y/N) ")) {
             this.subjects[0] = kor;
             this.subjects[1] = eng;
             this.subjects[2] = math;

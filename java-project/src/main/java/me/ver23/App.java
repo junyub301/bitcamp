@@ -1,4 +1,4 @@
-package java100.app;
+package me.ver23;
 import java.util.Scanner;
 
 //01026344150

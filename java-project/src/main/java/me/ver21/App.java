@@ -1,4 +1,6 @@
-package java100.app;
+package me.ver21;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 //01026344150
@@ -9,7 +11,8 @@ public class App {
     static Scanner keyScan = new Scanner(System.in);
     static ScoreController scoreController = new ScoreController();
     static MemberController memberController = new MemberController();
-    static BoardController boardController = new BoardController();
+    static Member member = null;
+    static ArrayList<Member> list = new ArrayList<>();
     public static void main(String[] args) {
 
         loop:
@@ -21,7 +24,7 @@ public class App {
                     switch (input[0]) {
                     case "menu": doMenu(); break;
                     case "help": doHelp(); break;
-                    case "quit": doQuit(); break loop;
+                    case"quit": doQuit(); break loop;
                     case "go": doGo(input[1]); break;
                     default: doError();
 
@@ -38,7 +41,9 @@ public class App {
         switch (menuNo) {
         case "1" : scoreController.execute(); break;
         case "2" : memberController.execute(); break;
-        case "3" : boardController.execute(); break;
+        case "3" :
+            System.out.println("게시판");
+            break;
         default:
             System.out.println("해당 번호에 메뉴가 없습니다.");
 
