@@ -10,6 +10,14 @@ import java.util.Scanner;
 
 public class App {
 
+    static Scanner keyScan = new Scanner(System.in);
+
+    static String prompt(String message ) {
+        Scanner KeyScan = new Scanner(System.in);
+        System.out.print(message);
+        return keyScan.nextLine();
+    }
+
     static boolean confirm(String message) {
         Scanner sc = new Scanner(System.in);
         System.out.print(message);
@@ -21,102 +29,128 @@ public class App {
         return false;
     }
 
+    static boolean confirm2(String message) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(message);
+        String response = sc.nextLine().toLowerCase();
+
+        if(response.equals("n") || response.equals("N") || response.equals("") ) {
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
 
         ArrayList<Score> list = new ArrayList<>();
-        Scanner keyScan = new Scanner(System.in);
-        Score score;
-        while(true) {
-            System.out.print("성적관리> ");
-            String input = keyScan.nextLine();
+        Iterator<Score> iterator;
 
+        loop:
+            while(true) {
+                System.out.print("성적관리> ");
+                String input = keyScan.nextLine();
+                String name = null;
+                Score score = null;
+                switch (input) {
 
-            if (input.equals("add")) {
-                score = new Score();
-                while(true) {
-                    score = new Score();
-                    score.input();
-                    list.add(score);
+                case "add":
+                    System.out.println("[학생 등록]");
 
-                    if (!confirm("계속 하시겠습니까?")) break; }
-            }
+                    while(true) {
 
-            if (input.equals("list")) {
-                Iterator<Score> iterator = list.iterator();
-                while(iterator.hasNext())
-                {
-                    iterator.next().list();
-                }
+                        score = new Score();
+                        score.input();
 
-            }
+                        list.add(score);
 
-            if (input.equals("view")) {
-                System.out.print("이름? ");
-                String name = keyScan.nextLine();
-                for (int i = 0; i < list.size(); i++) {
-
-                    if (name.equals(list.get(i).name)) {
-                        list.get(i).print();
-                        break;
+                        if (!confirm("계속하시겠습니까?(Y/n)"))
+                            break;
                     }
 
+                    break;
+                case "list":
+                    System.out.println("[학생 목록]");
+                    iterator = list.iterator();
+                    while (iterator.hasNext()) {
+                        iterator.next().list();
+                    }
 
-                }
-                
-            }
-
-            if (input.equals("delete")) {
-                System.out.print("이름? ");
-                String name = keyScan.nextLine();
-
-                if(confirm("정말 삭제 하시겠습니까?(y/N) ")) {
-
-                    for (int i = 0; i < list.size(); i++) {
-
-                        if (name.equals(list.get(i).name)) {
-                            list.remove(i);
-                            System.out.println("삭제 하였습니다.");
+                    break;
+                case "view":
+                    System.out.println("[학생 정보]");
+                    name = prompt("이름? ");
+                    score = null;
+                    iterator = list.iterator();
+                    while (iterator.hasNext()) {
+                        Score temp = iterator.next();
+                        if(temp.name.equals(name)) {
+                            score = temp;
                             break;
                         }
                     }
 
-                }
-                else System.out.println("삭제취소하였습니다.");
-            }
+                    if (score == null) {
+                        System.out.printf("'%s'의 성적 정보가 없습니다.\n", name);
+                    } else
+                        score.print();
 
-            
-            if (input.equals("update")) {
-                System.out.print("이름? ");
-                String name = keyScan.nextLine();
+                    break;
+                case "delete":
+                    System.out.println("[학생 삭제]");
 
-                for (int i = 0; i < list.size(); i++) {
-
-                    if (name.equals(list.get(i).name)) {
-                        System.out.printf("국어?(%d) ", list.get(i).subjects[0]);
-                        int kor = keyScan.nextInt();
-                        System.out.printf("영어?(%d) ", list.get(i).subjects[1]);
-                        int eng = keyScan.nextInt();
-                        System.out.printf("수학?(%d) ", list.get(i).subjects[2]);
-                        int math = keyScan.nextInt();
-
-                        if(confirm("변경하시겠습니까(n/Y) ")) {
-                            list.get(i).subjects[0] = kor;
-                            list.get(i).subjects[1] = eng;
-                            list.get(i).subjects[2] = math;
-                            System.out.println("변경하였습니다.");
-                        }else {
-                            System.out.println("취소하였습니다.");
+                    name = prompt("이름? ");
+                    score = null;
+                    iterator = list.iterator();
+                    while (iterator.hasNext()) {
+                        Score temp = iterator.next();
+                        if(temp.name.equals(name)) {
+                            score = temp;
                             break;
                         }
-
                     }
-                }
-                
-               
 
+                    if (score == null) {
+                        System.out.printf("'%s'의 성적 정보가 없습니다.\n", name);
+                    } else {
+                        if (confirm2("정말 삭제하겠습니까?(y/N)")) {
+                            list.remove(score);
+                            System.out.println("삭제했습니다.");
+                        }
+                        else System.out.println("삭제 취소했습니다.");
+                    }
+
+                    break;
+                case "update":
+                    System.out.println("[학생 정보 변경]");
+                    name = prompt("이름? ");
+
+                    score = null;
+                    iterator = list.iterator();
+                    while (iterator.hasNext()) {
+                        Score temp = iterator.next();
+                        if(temp.name.equals(name)) {
+                            score = temp;
+                            break;
+                        }
+                    }
+
+                    if (score == null) {
+                        System.out.printf("'%s'의 성적 정보가 없습니다.\n", name);
+                    } else {
+                        score.update();
+                    }
+                    break;
+                case "quit":
+                    System.out.println("프로그램을 종료합니다.");
+                    break loop;
+                default:
+                    System.out.println("실행할 수 없는 명령입니다.");        
+                }
+
+                System.out.println();
+
+                //           
             }
-            System.out.println();
-        }
 
 
 

@@ -12,7 +12,9 @@ public class App {
 
     static Scanner keyScan = new Scanner(System.in);
 
+    
     static String prompt(String message ) {
+        
         Scanner KeyScan = new Scanner(System.in);
         System.out.print(message);
         return keyScan.nextLine();
