@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import java100.app.control.BoardController;
+import java100.app.control.Controller;
 import java100.app.control.GenericController;
 import java100.app.control.MemberController;
 import java100.app.control.RoomController;
@@ -13,7 +14,7 @@ import java100.app.control.ScoreController;
 
 public class App {
     
-    static HashMap<String,GenericController<?>> controllerMap = new HashMap<>();
+    static HashMap<String,Controller> controllerMap = new HashMap<>();
     static Scanner keyScan = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class App {
         controllerMap.put("2", new MemberController());
         controllerMap.put("3", new BoardController());
         controllerMap.put("4", new RoomController());
-        
+
         loop:
             while(true) {
                 System.out.print("명령> ");
@@ -45,7 +46,7 @@ public class App {
 
 
     private static void doGo(String menuNo) {
-        GenericController<?> controller = controllerMap.get(menuNo);
+        Controller controller = controllerMap.get(menuNo);
         
         if (controller == null) {
             System.out.println("해당 번호에 메뉴가 없습니다.");

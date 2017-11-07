@@ -1,0 +1,6 @@
+package bitcamp.java100.ch12.ex5;
+
+public interface B extends A {
+
+    void m2();
+}
