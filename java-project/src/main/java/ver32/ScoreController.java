@@ -1,48 +1,47 @@
-package java100.app.control;
+package ver32;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import java100.app.domain.Score;
 import java100.app.util.Prompts;
 
 public class ScoreController extends GenericController<Score> {
 
-    private String dataFilePath;
-    
-    public ScoreController(String dataFilePath) {
-        this.dataFilePath = dataFilePath;
-        this.init();
-    }
-
-    @Override
-    public void destroy() {
-        try(FileWriter out = new FileWriter(this.dataFilePath);) {
+    public void save() {
+        try(FileWriter out = new FileWriter("./data/score.csv");) {
             for (Score score : this.list) {
-                out.write(score.toCSVString() + "\n");
+                out.write(String.format("%s,%d,%d,%d,%d,%f\n", score.getName(), score.getKor(),
+                        score.getEng(), score.getMath(), score.getSum(), score.getAver()));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void init() {
-        try (FileReader in = new FileReader(this.dataFilePath);
-                Scanner lineScan = new Scanner(in);) {
-            String csv = null;
-            while(lineScan.hasNextLine()) {
-                csv = lineScan.nextLine();
-                try {
-                    list.add(new Score(csv));
-                } catch (CSVFormatException e) {
-                    System.err.println("CSV 데이터 형식 오류!");
-                    e.printStackTrace();
-                }
+    public static void main(String[] args) {
+        ScoreController obj = new ScoreController();
+        obj.load();
+    }
 
+    public void load() {
+        try (FileReader in = new FileReader("./data/score.csv");){
+            StringBuffer buf = new StringBuffer();
+            int ch;
+            while((ch = in.read()) != -1) {
+                // 윈도우는 엔터가(0d 0a) 이지만 리눅스는 엔터가 (0a)만 있기때문에
+                // 0d일경우는 그냥 넘어가고 0a를 만나면 전까지 다 저장
+                if (ch == 0x0d) // CR(Carrage Return)
+                    continue;
+                if (ch != 0x0a) {
+                    buf.append((char)ch);
+                } else {
+                    
+                    System.out.println(buf.toString());
+                    buf.setLength(0);
+                }
             }
 
         } catch (IOException e) {
@@ -182,9 +181,6 @@ public class ScoreController extends GenericController<Score> {
         }// while
         return null;
     }
-
-
-
 
 
 }

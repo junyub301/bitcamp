@@ -1,16 +1,59 @@
 package java100.app.control;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
 import java100.app.domain.Room;
+import java100.app.domain.Score;
 import java100.app.util.Prompts;
 
 public class RoomController extends ArrayList<Room> implements Controller {
 
+    private String dataFilePath;
     Scanner keyScan = new Scanner(System.in);
-    
+
+    public RoomController(String dataFilePath) {
+        this.dataFilePath = dataFilePath;
+        this.init();
+    }
+
+    @Override
+    public void destroy() {
+        try(FileWriter out = new FileWriter(this.dataFilePath);) {
+            for (Room room : this) {
+                out.write(room.toCSVString() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void init() {
+        try (FileReader in = new FileReader(this.dataFilePath);
+                Scanner lineScan = new Scanner(in);) {
+            String csv = null;
+            while(lineScan.hasNextLine()) {
+                csv = lineScan.nextLine();
+                try {
+                    this.add(new Room(csv));
+                } catch (CSVFormatException e) {
+                    System.err.println("CSV 데이터 형식 오류!");
+                    e.printStackTrace();
+                }
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void execute() {
         loop:
@@ -51,7 +94,7 @@ public class RoomController extends ArrayList<Room> implements Controller {
 
         Room room = new Room();;
         room.setName(Prompts.inputString("강의실 이름? "));
-        
+
         if (find(room.getName()) != null) {
             System.out.println("이미 등록된 강의실 입니다");
             return;
@@ -91,7 +134,7 @@ public class RoomController extends ArrayList<Room> implements Controller {
         return null;
     }
 
-    
 
- 
+
+
 }

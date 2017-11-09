@@ -1,0 +1,23 @@
+package bitcamp.java100.ch14.ex1;
+
+import java.io.File;
+
+public class Test2 {
+
+    public static void main(String[] args) throws Exception {
+        File file = new File("ok.txt");
+        
+        // 파일 생성
+        // => 존재하지 않으면, 만들고 true 리턴
+        // => 존재면, 만들지 않고고 false 리턴
+        System.out.printf("파일생성=%b\n",file.createNewFile());
+        
+        // 파일 및 디렉토리 제거
+        // => 삭제 성공, true 리턴
+        // => 삭제 실패, false 리턴
+        System.out.printf("파일삭제=%b\n",file.delete());
+
+        File file2 = new File("dir1");
+        file2.mkdirs();
+    }
+}
