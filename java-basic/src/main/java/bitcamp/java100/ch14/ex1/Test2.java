@@ -18,6 +18,14 @@ public class Test2 {
         System.out.printf("파일삭제=%b\n",file.delete());
 
         File file2 = new File("dir1");
-        file2.mkdirs();
+        System.out.printf("디렉토리 생성=%b\n",file2.mkdir());
+        System.out.printf("디렉토리 삭제=%b\n",file2.delete());
+        
+        File file3 = new File("aaa/bbb/ccc/test.txt");
+        
+        System.out.printf("디렉토리2 생성=%b\n",file3.mkdir());
+         
+        System.out.printf("디렉토리2 생성=%b\n",file3.mkdirs());
+        
     }
 }
