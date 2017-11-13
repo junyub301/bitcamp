@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-public class Test3 {
+public class Test3_0 {
 
     public static void main(String[] args) throws Exception {
         
