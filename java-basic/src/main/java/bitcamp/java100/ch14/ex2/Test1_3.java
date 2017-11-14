@@ -1,6 +1,5 @@
 package bitcamp.java100.ch14.ex2;
 
-import java.io.File;
 import java.io.FileInputStream;
 
 public class Test1_3 {

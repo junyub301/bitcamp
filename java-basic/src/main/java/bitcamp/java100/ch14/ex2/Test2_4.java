@@ -1,7 +1,5 @@
 package bitcamp.java100.ch14.ex2;
 
-import java.io.FileOutputStream;
-
 public class Test2_4 {
 
     public static void main(String[] args) throws Exception {

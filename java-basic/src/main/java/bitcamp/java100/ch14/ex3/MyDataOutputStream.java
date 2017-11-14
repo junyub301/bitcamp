@@ -16,7 +16,7 @@ public class MyDataOutputStream {
         byte[] bytes = str.getBytes("UTF-8");
 
         worker.write(bytes.length >> 8); // length = 0x -- 00 00 00 | 09
-        worker.write(bytes.length); // length = 0x 00 00 00 09 |
+        worker.write(bytes.length);      // length = 0x 00 00 00 09 |
 
         worker.write(bytes);
     }
@@ -25,8 +25,8 @@ public class MyDataOutputStream {
     
         worker.write(value >> 24); // 0x -- -- -- 00 | 00 03 20
         worker.write(value >> 16); // 0x -- -- 00 00 | 03 20
-        worker.write(value >> 8); // 0x -- 00 00 03 | 20
-        worker.write(value); // 0x 00 00 03 20
+        worker.write(value >> 8 ); // 0x -- 00 00 03 | 20
+        worker.write(value);       // 0x 00 00 03 20
         
     }
 }

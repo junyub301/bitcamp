@@ -18,21 +18,19 @@ public class Test1_1 {
         
         out.write(s.getKor() >> 24); // 0x -- -- -- 00 | 00 03 20
         out.write(s.getKor() >> 16); // 0x -- -- 00 00 | 03 20
-        out.write(s.getKor() >> 8); // 0x -- 00 00 03 | 20
-        out.write(s.getKor()); // 0x 00 00 03 20
+        out.write(s.getKor() >> 8 ); // 0x -- 00 00 03 | 20
+        out.write(s.getKor());       // 0x 00 00 03 20
         
         out.write(s.getEng() >> 24); // 0x -- -- -- 00 | 00 03 84
         out.write(s.getEng() >> 16); // 0x -- -- 00 00 | 03 84
-        out.write(s.getEng() >> 8); // 0x -- 00 00 03 | 84
-        out.write(s.getEng()); // 0x 00 00 03 84
+        out.write(s.getEng() >> 8 ); // 0x -- 00 00 03 | 84
+        out.write(s.getEng());       // 0x 00 00 03 84
         
         out.write(s.getMath() >> 24); // 0x -- -- -- 00 | 00 03 E8
         out.write(s.getMath() >> 16); // 0x -- -- 00 00 | 03 E8
-        out.write(s.getMath() >> 8); // 0x -- 00 00 03 | E8
-        out.write(s.getMath()); // 0x 00 00 03 E8
+        out.write(s.getMath() >> 8 ); // 0x -- 00 00 03 | E8
+        out.write(s.getMath());       // 0x 00 00 03 E8
         
-        out.write(s.getSum());
-//        out.write(s.getAver());
         
         out.close();
         
