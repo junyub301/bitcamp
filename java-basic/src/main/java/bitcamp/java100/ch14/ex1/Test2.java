@@ -19,12 +19,13 @@ public class Test2 {
 
         File file2 = new File("dir1");
         System.out.printf("디렉토리 생성=%b\n",file2.mkdir());
+        // 디렉토리 안에 파일이 있을 경우 삭제하지 않는다.
         System.out.printf("디렉토리 삭제=%b\n",file2.delete());
         
         File file3 = new File("aaa/bbb/ccc/test.txt");
         
         System.out.printf("디렉토리2 생성=%b\n",file3.mkdir());
-         
+        // 파일 경로에서 마지막 이름도 디렉토리로 간주해 생성한다. 
         System.out.printf("디렉토리2 생성=%b\n",file3.mkdirs());
         
     }

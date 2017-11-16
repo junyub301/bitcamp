@@ -8,6 +8,7 @@ public class Test3 {
 
         File file = new File(".");
         
+        
         String[] files = file.list();
         
         for(String name : files) {
