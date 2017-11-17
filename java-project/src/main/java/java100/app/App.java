@@ -1,5 +1,10 @@
 package java100.app;
-import java.util.Collection;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,74 +18,93 @@ import java100.app.control.ScoreController;
 //jinyoun.eom@gmail.com
 
 public class App {
-    
+
     static HashMap<String,Controller> controllerMap = new HashMap<>();
     static Scanner keyScan = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        controllerMap.put("1", new ScoreController("./data/score.csv"));
-        controllerMap.put("2", new MemberController("./data/member.csv"));
-        controllerMap.put("3", new BoardController("./data/board.csv"));
-        controllerMap.put("4", new RoomController("./data/room.csv"));
+    void init() {
+        controllerMap.put("/score", new ScoreController("./data/score.csv"));
+        controllerMap.put("/member", new MemberController("./data/member.csv"));
+        controllerMap.put("/board", new BoardController("./data/board.csv"));
+        controllerMap.put("/room", new RoomController("./data/room.csv"));
 
+
+    }
+
+    void  service() throws Exception {
+        ServerSocket ss = new ServerSocket(9999);
+        System.out.println("서버 시작!");
         loop:
             while(true) {
-                System.out.print("명령> ");
-                String[] input = keyScan.nextLine().toLowerCase().split(" ");
+                try(Socket socket = ss.accept();
 
-                try {
-                    switch (input[0]) {
-                    case "menu": doMenu(); break;
-                    case "help": doHelp(); break;
-                    case "quit": doQuit(); break loop;
-                    case "go": doGo(input[1]); break;
-                    default: doError();
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(socket.getInputStream()));
 
-                    }
-                } catch (Exception e) {
-                    System.out.println("명령처리중 오류 발생");
+                        PrintStream out = new PrintStream(
+                                new BufferedOutputStream(socket.getOutputStream()));
+                        ) {
+                    while (true) {
+                        String command = in.readLine();
+
+                        if (command.equals("/")) {
+                            hello(command, out);
+                        } else if (command.equals("quit")) {
+                            break ;
+                        } else {
+                            request(command, out);
+                        }
+                        out.println(); // 응답 완료를 표시하기 위해 빈줄을 보낸다.
+                        out.flush();
+                    } // while
+                }catch (Exception e) {
+                    e.printStackTrace();
                 }
-                System.out.println();
             } // while
     }
+    
 
+    private void request(String command, PrintStream out) {
 
-    private static void doGo(String menuNo) {
-        Controller controller = controllerMap.get(menuNo);
+        int i = command.indexOf("/", 1); // index번호가 1번부터 "/"가 나올때 까지 찾는다.
+        String menuName = command;
         
+        if (i != -1) {
+            menuName = command.substring(0,i);
+        }
+
+        Controller controller = controllerMap.get(menuName);
+
         if (controller == null) {
-            System.out.println("해당 번호에 메뉴가 없습니다.");
+            out.println("해당 명령을 지원하지 않습니다.");
             return;
         }
-        controller.execute();
+
+        out.println("좋은 명령입니다.");
+//                controller.execute();
 
     }
 
-    private static void doHelp() {
-        System.out.println("[명령]");
-        System.out.println("menu\t\t-메뉴 목록 출력한다.");
-        System.out.println("go 번호\t\t-메뉴로 이동한다");
-        System.out.println("quit\t\t-프로그램을 종료한다.");
+    private void hello(String command, PrintStream out) {
+        out.println("안녕하세요. 성적관리 시스템입니다.");
+        out.println("[성적관리 명령들]");
+        out.println("목록보기: /score/list");
+        out.println("상세보기: /score/view?name=이름");
+        out.println("등록: /score/add?name=이름&kor=점수&eng=점수&math=점수");
+        out.println("변경: /score/update?name=이름&kor=점수&eng=점수&math=점수");
+        out.println("삭제: /score/delete?name=이름");
+        out.println("[회원]");
+        out.println("[게시판]");
+        out.println("[강의실]");
     }
 
-    private static void doMenu() {
-        System.out.println("1 성적관리");
-        System.out.println("2 회원관리");
-        System.out.println("3 게시판");
-        System.out.println("4 강의실");
+    public static void main(String[] args) throws Exception {
+        App app = new App();
+        app.init();
+        app.service();
+
     }
 
-    private static void doError() {
-        System.out.println("잘못된 명령입니다.");
-    }
-
-    private static void doQuit() {
-        Collection<Controller> controls = controllerMap.values();
-        for (Controller control : controls) {
-            control.destroy();
-        }
-        System.out.println("프로그램을 종료합니다.");        
-    }
 
 }
 
