@@ -66,8 +66,8 @@ public class App {
 
     private void request(String command, PrintStream out) {
 
-        int i = command.indexOf("/", 1); // index번호가 1번부터 "/"가 나올때 까지 찾는다.
         String menuName = command;
+        int i = command.indexOf("/", 1); // index번호가 1번부터 "/"가 나올때 까지 찾는다.
         
         if (i != -1) {
             menuName = command.substring(0,i);

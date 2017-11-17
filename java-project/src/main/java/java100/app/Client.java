@@ -16,7 +16,8 @@ public class Client {
         System.out.print("서버주소? ");
         String serverAddr = keyboard.nextLine();
 
-        try (Socket socket = new Socket(serverAddr, 9999);
+        try (
+                Socket socket = new Socket(serverAddr, 9999);
 
                 PrintStream out = new PrintStream(
                         new BufferedOutputStream(socket.getOutputStream()));
