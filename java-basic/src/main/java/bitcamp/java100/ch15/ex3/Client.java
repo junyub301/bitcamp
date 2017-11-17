@@ -8,7 +8,7 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
 
-        Socket socket = new Socket("192.168.0.85",9999);
+        Socket socket = new Socket("localhost",9999);
         System.out.println("서버와 연결 되었다!");
         
         PrintStream out = new PrintStream(socket.getOutputStream());
