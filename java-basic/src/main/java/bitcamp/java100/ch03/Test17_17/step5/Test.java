@@ -1,4 +1,4 @@
-package bitcamp.java100.Test17_17.step5;
+package bitcamp.java100.ch03.Test17_17.step5;
 public class Test {
 
     public static void main(String[] args){

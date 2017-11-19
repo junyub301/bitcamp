@@ -1,5 +1,4 @@
-package bitcamp.java100;
-
+package bitcamp.java100.ch01;
 import java.util.Date;
 
 public class Test10_4 {

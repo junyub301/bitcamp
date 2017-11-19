@@ -1,4 +1,4 @@
-package bitcamp.java100.other;
+package bitcamp.java100.ch03.other;
 
 public class Test17_16_C {
 

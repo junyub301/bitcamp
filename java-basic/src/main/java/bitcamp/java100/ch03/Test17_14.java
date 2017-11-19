@@ -1,5 +1,4 @@
-package bitcamp.java100;
-
+package bitcamp.java100.ch03;
 public class Test17_14 {
 
     static void swap(int a, int b) {

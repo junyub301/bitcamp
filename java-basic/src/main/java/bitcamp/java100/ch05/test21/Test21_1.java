@@ -1,5 +1,4 @@
-package bitcamp.java100.test21;
-
+package bitcamp.java100.ch05.test21;
 import java.util.Scanner;
 
 public class Test21_1 {

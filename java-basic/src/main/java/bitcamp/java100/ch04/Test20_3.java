@@ -1,5 +1,4 @@
-package bitcamp.java100;
-
+package bitcamp.java100.ch04;
 import java.io.File;
 
 public class Test20_3 {

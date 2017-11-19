@@ -1,4 +1,4 @@
-package bitcamp.java100;
+package bitcamp.java100.ch03;
 
 public class Test17_9 {
 

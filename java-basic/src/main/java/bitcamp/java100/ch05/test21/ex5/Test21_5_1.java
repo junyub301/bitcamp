@@ -1,4 +1,4 @@
-package bitcamp.java100.test21.ex5;
+package bitcamp.java100.ch05.test21.ex5;
 
 import java.io.Console;
 import java.util.Scanner;

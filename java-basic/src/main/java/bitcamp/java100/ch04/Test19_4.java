@@ -1,5 +1,4 @@
-package bitcamp.java100;
-
+package bitcamp.java100.ch04;
 import java.util.*;
 import java.io.*;
 import java.net.*;

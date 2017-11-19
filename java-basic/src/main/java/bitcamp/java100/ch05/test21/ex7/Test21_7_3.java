@@ -6,8 +6,7 @@
 // 꺼꾸로 바꾼 값: 089TTC2BA
 // > 
 
-package bitcamp.java100.test21.ex7;
-
+package bitcamp.java100.ch05.test21.ex7;
 import java.io.Console;
 
 public class Test21_7_3 {

@@ -1,4 +1,4 @@
-package bitcamp.java100;
+package bitcamp.java100.ch02;
 //기계가 이해할 수 있는 바이트 코드로 변환하는것을 컴파일이라고 한다. 
 public class Test11_3 {
       

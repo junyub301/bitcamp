@@ -1,4 +1,4 @@
-package bitcamp.java100.Test17_17.step3;
+package bitcamp.java100.ch03.Test17_17.step3;
 
 public class Test {
 

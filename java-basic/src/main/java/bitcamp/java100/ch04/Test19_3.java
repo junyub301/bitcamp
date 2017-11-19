@@ -1,5 +1,4 @@
-package bitcamp.java100;
-
+package bitcamp.java100.ch04;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
