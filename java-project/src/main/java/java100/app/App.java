@@ -60,7 +60,7 @@ public class App {
         int i = command.indexOf("/", 1); // index번호가 1번부터 "/"가 나올때 까지 찾는다.
 
         if (i != -1) {
-            menuName = command.substring(0,i);
+            menuName = command.substring(0,i);// 0부터 i전까지 출력
         }
 
         Controller controller = controllerMap.get(menuName);
