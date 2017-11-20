@@ -1,9 +1,10 @@
 package java100.app.control;
 
+import java.io.PrintStream;
+
 public interface Controller {
     
-    /*public abstract*/ void execute();
-
+    void execute(Request request, Response response);
     // 새 규칙을 추가
     // 기존에 이 규칙에 따라 만든 클래스들 오류가 발생할 것이다.
     // 그런 경우를 고려해 새로 추가한 규칙에 대해 기본으로 메서드를 구현 상태로 만든다.

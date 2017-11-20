@@ -5,7 +5,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import java100.app.domain.Score;
@@ -20,7 +22,7 @@ public class ScoreController extends GenericController<Score> {
         this.init();
     }
 
-    @Override
+      @Override
     public void destroy() {
         try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(this.dataFilePath)));) {
             for (Score score : this.list) {
@@ -55,90 +57,74 @@ public class ScoreController extends GenericController<Score> {
     }
 
     @Override
-    public void execute() {
-        loop:
-            while(true) {
-                System.out.print("성적관리> ");
-                String input = keyScan.nextLine();
+    public void execute(Request request, Response response) {
 
-                switch (input) {
-                case "add": this.doAdd(); break;
-                case "list": this.doList(); break;
-                case "view": this.doView(); break;
-                case "delete": this.doDelete(); break;
-                case "update": this.doUpdate(); break;
-                case "main":; break loop;
-                default:
-                    System.out.println("해당 명령이 없습니다.");
-                }
 
-                System.out.println();
-            } // while        
-    }
-
-    private void doUpdate() {
-        System.out.println("[성적 정보 변경]");
-        String name = Prompts.inputString("이름? ");
-
-        Score score = findByName(name);
-
-        if (score == null) {
-            System.out.printf("'%s'의 성적 정보가 없습니다.\n", name);
-        } else {
-            int kor = score.getKor();
-            try {
-                kor = Prompts.inputInt("국어?(%d)" , score.getKor());
-            } catch (Exception e) {}
-
-            int eng = score.getEng();
-            try {
-                eng = Prompts.inputInt("영어?(%d)" , score.getEng());
-            } catch (Exception e) {}
-
-            int math = score.getMath();
-            try {
-                math = Prompts.inputInt("수학?(%d)" , score.getEng());
-            } catch (Exception e) {}
-
-            if (Prompts.confirm2("변경하시겠습니까?(y/N) ")) {
-                score.setKor(kor);
-                score.setEng(eng);
-                score.setMath(math);
-                System.out.println("변경하였습니다.");
-            } else {
-                System.out.println("변경 취소하였습니다.");
-            }
-        }        
-    }
-
-    private void doDelete() {
-        System.out.println("[성적 삭제]");
-        String name = Prompts.inputString("이름? ");
-
-        Score score = findByName(name);
-
-        if (score == null) {
-            System.out.printf("'%s'의 성적 정보가 없습니다.\n", name);
-        } else {
-            if (Prompts.confirm2("정말 삭제하겠습니까?(y/N)")) {
-                list.remove(score);
-                System.out.println("삭제했습니다.");
-            }
-            else System.out.println("삭제 취소했습니다.");
+        switch (request.getMenuPath()) {
+        case "/score/add": this.doAdd(request, response); break;
+        case "/score/list": this.doList(request, response); break;
+        case "/score/view": this.doView(request, response); break;
+        case "/score/delete": this.doDelete(request, response); break;
+        case "/score/update": this.doUpdate(request, response); break;
+        default:
+            response.getWriter().println("해당 명령이 없습니다.");
         }
+
+        System.out.println();
     }
 
-    private void doView() {
-        System.out.println("[성적 정보]");
-        String name = Prompts.inputString("이름? ");
+    private void doUpdate(Request request, Response response) {
+        PrintWriter out = response.getWriter();
+        String name = request.getParameter("name");
+
+        out.println("[성적 정보 변경]");
+
         Score score = findByName(name);
 
         if (score == null) {
-            System.out.printf("'%s'의 성적 정보가 없습니다.\n", name);
+            out.printf("'%s'의 성적 정보가 없습니다.\n", name);
+            return;
+        } 
+        
+        score.setKor(Integer.parseInt(request.getParameter("kor")));
+        score.setEng(Integer.parseInt(request.getParameter("eng")));
+        score.setMath(Integer.parseInt(request.getParameter("math")));
+        out.println("변경하였습니다.");
+    }
+
+    private void doDelete(Request request, Response response) {
+        PrintWriter out = response.getWriter();
+        
+        String name = request.getParameter("name");
+
+        out.println("[성적 삭제]");
+
+        Score score = findByName(name);
+
+        if (score == null) {
+            out.printf("'%s'의 성적 정보가 없습니다.\n", name);
+            return;
+        } 
+                list.remove(score);
+                out.println("삭제했습니다.");
+        
+    }
+
+    private void doView(Request request, Response response) {
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+
+        Score score = findByName(name);
+
+        out.println("[성적 상세 정보]");
+
+        if (score == null) {
+            out.printf("'%s'의 성적 정보가 없습니다.\n", name);
             return;
         }
 
-        System.out.printf("%-4s, %4d, %4d, %4d, %4d, %6.1f\n",  
+        out.printf("%-4s, %4d, %4d, %4d, %4d, %6.1f\n",  
                 score.getName(), 
                 score.getKor(), 
                 score.getEng(), 
@@ -147,13 +133,14 @@ public class ScoreController extends GenericController<Score> {
                 score.getAver());
     }
 
-    private void doList() {
+    private void doList(Request request, Response response) {
+        PrintWriter out = response.getWriter();
 
-        System.out.println("[성적 목록]");
+        out.println("[성적 목록]");
         Iterator<Score> iterator = list.iterator();
         while (iterator.hasNext()) {
             Score score = iterator.next();
-            System.out.printf("%-4s, %4d, %6.1f\n",  
+            out.printf("%-4s, %4d, %6.1f\n",  
                     score.getName(), 
                     score.getSum(), 
                     score.getAver());
@@ -161,19 +148,19 @@ public class ScoreController extends GenericController<Score> {
 
     }
 
-    private void doAdd() {
-
-        System.out.println("[성적 등록]");
+    private void doAdd(Request request, Response response) {
 
         Score score = new Score();
 
-        score.setName(Prompts.inputString("이름? "));
-        score.setKor(Prompts.inputInt("국어? "));
-        score.setEng(Prompts.inputInt("영어? "));
-        score.setMath(Prompts.inputInt("수학? "));
+        score.setName(request.getParameter("name"));
+        score.setKor(Integer.parseInt(request.getParameter("kor")));
+        score.setEng(Integer.parseInt(request.getParameter("eng")));
+        score.setMath(Integer.parseInt(request.getParameter("math")));
 
         list.add(score);
 
+        PrintWriter out = response.getWriter();
+        out.println("저장하였습니다.");
     }
 
     private Score findByName(String name) {
