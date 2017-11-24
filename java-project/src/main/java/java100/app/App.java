@@ -26,10 +26,24 @@ public class App {
     static Scanner keyScan = new Scanner(System.in);
 
     void init() {
-        controllerMap.put("/score", new ScoreController("./data/score.csv"));
-        controllerMap.put("/member", new MemberController("./data/member.csv"));
-        controllerMap.put("/board", new BoardController("./data/board.csv"));
-        controllerMap.put("/room", new RoomController("./data/room.csv"));
+        ScoreController scoreController = new ScoreController();
+        scoreController.init();
+        controllerMap.put("/score", scoreController);
+
+        MemberController memberController = new MemberController();
+        memberController.init();
+        controllerMap.put("/member", memberController);
+
+        BoardController boardController = new BoardController();
+        boardController.init();
+        controllerMap.put("/board",boardController);
+        
+        RoomController roomController = new RoomController();
+        roomController.init();
+       controllerMap.put("/room",roomController);
+    
+        
+
 
 
     }

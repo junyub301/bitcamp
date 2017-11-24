@@ -1,48 +1,49 @@
 package java100.app.domain;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
-
-import java100.app.control.CSVFormatException;
+import java.sql.Date;
 
 public class Member {
-
+    protected int no;
     protected String name;
     protected String email;
     protected String pwd;
+    protected Date createdDate;
 
     //: ### 생성자 
 
     public Member() {}
 
-    public Member(String name, String email, String pwd) {
+    public Member(int no, String name, String email) {
+        this.no = no;
         this.name = name;
         this.email = email;
-        this.pwd = pwd;
+        
     }
     
-    public Member(String csv) throws CSVFormatException{
-        String[] rec = csv.split(",");
-        if (rec.length != 3)
-            throw new CSVFormatException("CSV 데이터 항목의 개수가 올바르지 않습니다.");
+   
+  
 
-            this.name = rec[0];
-            this.email = rec[1];
-            this.pwd = rec[2];
-    }
-    
     @Override
     public String toString() {
-        return "Member [name=" + name + ", email=" + email + ", pwd=" + pwd + "]";
+        return "Member [no=" + no + ", name=" + name + ", email=" + email + ", pwd=" + pwd + ", createdDate="
+                + createdDate + "]";
     }
 
-    public String toCSVString() {
-        return String.format("%s,%s,%s", 
-                this.getName(), 
-                this.getEmail(),
-                this.getPwd());
+    public Date getCreatedDate() {
+        return createdDate;
     }
-    
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
+
     public String getName() {
         return name;
     }

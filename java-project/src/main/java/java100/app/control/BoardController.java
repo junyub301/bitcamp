@@ -1,54 +1,26 @@
 package java100.app.control;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Iterator;
 
 import java100.app.domain.Board;
-import java100.app.util.Prompts;
 
 public class BoardController extends GenericController<Board>  {
     
-    private String dataFilePath;
-    
-    public BoardController(String dataFilePath) {
-        this.dataFilePath = dataFilePath;
-        this.init();
-    }
-    
     @Override
-    public void destroy() {
-        try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(this.dataFilePath)));) {
-            for (Board board : this.list) {
-                out.println(board.toCSVString());
-            }
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    public void destroy() {}
 
     @Override
     public void init() {
-        try (BufferedReader in =  new BufferedReader(new FileReader(this.dataFilePath));) {
-            String csv = null;
-            while((csv =in.readLine()) != null) {
-                try {
-                    list.add(new Board(csv));
-                } catch (CSVFormatException e) {
-                    System.err.println("CSV 데이터 형식 오류!");
-                    e.printStackTrace();
-                }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
 
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("JDBC 드라이버 클래스를 찾을 수 없습니다.");
         }
     }
 
@@ -71,14 +43,24 @@ public class BoardController extends GenericController<Board>  {
         
         PrintWriter out = response.getWriter();
         out.println("[게시물 목록]");
-        Iterator<Board> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            Board board = iterator.next();
-            out.printf("%d, %s, %s, %d\n",  
-                    board.getNo(), 
-                    board.getTitle(),
-                    board.getRegDate().toString(),
-                    board.getViewCount());
+        
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/studydb", "study", "1111");
+                PreparedStatement pstmt = con.prepareStatement(
+                        "select no,title,regdt,vwcnt from ex_board");
+                ResultSet rs = pstmt.executeQuery();
+
+                ){
+            while (rs.next()) {
+                out.printf("%4d, %-4s, %4s, %s\n",  
+                        rs.getInt("no"),
+                        rs.getString("title"),
+                        rs.getDate("regdt"),
+                        rs.getInt("vwcnt")); 
+            }
+        } catch (Exception e ) {
+            e.printStackTrace();
+            out.println(e.getMessage());
         }
 
     }
@@ -87,38 +69,55 @@ public class BoardController extends GenericController<Board>  {
 
         PrintWriter out = response.getWriter();
 
-        Board board = new Board();
-        board.setNo(Integer.parseInt(request.getParameter("no")));
-        if (findByNo(board.getNo()) != null) {
-            out.println("이미 등록된 번호 입니다");
-            return;
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/studydb", "study", "1111");
+                PreparedStatement pstmt = con.prepareStatement(
+                        "insert into ex_board(title,conts,regdt) values(?,?,now())");
+
+                ){
+            pstmt.setString(1, request.getParameter("title"));
+            pstmt.setString(2, request.getParameter("contents"));
+
+            pstmt.executeUpdate();
+            out.println("저장하였습니다.");
+
+
+        } catch (Exception e ) {
+            e.printStackTrace();
+            out.println(e.getMessage());
         }
-
-        board.setTitle(request.getParameter("title"));
-        board.setContent(request.getParameter("content"));
-        board.setRegDate(new Date(System.currentTimeMillis()));
-
-        list.add(board);
-        out.println("저장하였습니다.");
     }
 
     private void doView(Request request, Response response) {
         PrintWriter out = response.getWriter();
         
         out.println("[회원 정보]");
-        int no =Integer.parseInt(request.getParameter("no"));
+        
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/studydb", "study", "1111");
+                
+                PreparedStatement pstmt = con.prepareStatement(
+                        "select no,title,conts,regdt,vwcnt from ex_board where no=?");
+                ){
 
-        Board board = findByNo(no);
+            pstmt.setInt(1, Integer.parseInt(request.getParameter("no")));
 
-        if (board == null) {
-            out.printf("%d번 게시물이 없습니다.\n", no);
-        } 
-        board.setViewCount(board.getViewCount() + 1);
-        out.printf("제목: %s\n내용 %s\n등록일: %s\n조회수: %d\n",  
-                board.getTitle(), 
-                board.getContent(),
-                board.getRegDate().toString(),
-                board.getViewCount());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                out.printf("번호: %d\n", rs.getInt("no"));
+                out.printf("이름: %s\n", rs.getString("title"));
+                out.printf("이메일: %s\n", rs.getString("conts"));
+                out.printf("등록일: %s\n", rs.getString("regdt"));
+                out.printf("조회수: %s\n", rs.getInt("vwcnt"));
+            } else {
+                out.printf("'%s'번의 성적 정보가 없습니다.\n", request.getParameter("no"));
+            }
+            rs.close();
+        } catch (Exception e ) {
+            e.printStackTrace();
+            out.println(e.getMessage());
+        }
 
     }
 
