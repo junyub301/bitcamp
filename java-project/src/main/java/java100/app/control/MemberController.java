@@ -1,10 +1,6 @@
 package java100.app.control;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 import java100.app.dao.MemberDao;
@@ -62,7 +58,6 @@ public class MemberController implements Controller  {
             out.println(e.getMessage());
         }
 
-
     }
 
     private void doAdd(Request request, Response response) {
@@ -109,8 +104,6 @@ public class MemberController implements Controller  {
             e.printStackTrace();
             out.println(e.getMessage());
         }
-
-
     }
 
     private void doUpdate(Request request, Response response) {
@@ -154,10 +147,6 @@ public class MemberController implements Controller  {
             out.println(e.getMessage());
         }
 
-
-
-
     }
-
 
 }
