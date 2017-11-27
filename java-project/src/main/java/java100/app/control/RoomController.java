@@ -4,10 +4,15 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
 import java.util.Scanner;
 
+import java100.app.dao.RoomDao;
+import java100.app.domain.Room;
+
 public class RoomController implements Controller {
+    
+    RoomDao roomDao = new RoomDao();
 
     private static final long serialVersionUID = 1L;
 
@@ -47,19 +52,14 @@ public class RoomController implements Controller {
         out.println("[강의실 목록]");
      
 
-            try (Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/studydb", "study", "1111");
-                    PreparedStatement pstmt = con.prepareStatement(
-                            "select no,loc,name,capacity from ex_room");
-                    ResultSet rs = pstmt.executeQuery();
-
-                    ){
-                while (rs.next()) {
+            try {
+                List<Room> list = roomDao.selectList();
+                for (Room room : list) {
                     out.printf("%4d, %4s, %4s, %4s\n",  
-                            rs.getInt("no"),
-                            rs.getString("loc"),
-                            rs.getString("name"),
-                            rs.getString("capacity")
+                            room.getNo(),
+                            room.getLocation(),
+                            room.getName(),
+                            room.getCapacity()
                             ); 
                 }
             } catch (Exception e ) {
@@ -72,16 +72,13 @@ public class RoomController implements Controller {
 
         PrintWriter out = response.getWriter();
         
-        try (Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/studydb", "study", "1111");
-                PreparedStatement pstmt = con.prepareStatement(
-                        "insert into ex_room(name,loc,capacity) values(?,?,?)");
-                ){
-            pstmt.setString(1, request.getParameter("name"));
-            pstmt.setString(2, request.getParameter("loc"));
-            pstmt.setString(3, request.getParameter("capacity"));
-
-            pstmt.executeUpdate();
+        try {
+            Room room = new Room();
+            room.setName(request.getParameter("name"));
+            room.setLocation(request.getParameter("loc"));
+            room.setCapacity(Integer.parseInt(request.getParameter("capacity")));
+            
+            roomDao.insert(room);
             out.println("저장하였습니다.");
 
         } catch (Exception e ) {
@@ -95,17 +92,14 @@ public class RoomController implements Controller {
     private void doDelete(Request request, Response response) {
         PrintWriter out = response.getWriter();
 
-        try (Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/studydb", "study", "1111");
-                PreparedStatement pstmt = con.prepareStatement(
-                        "delete from ex_room where no=?");
-                ){
-            pstmt.setInt(1, Integer.parseInt(request.getParameter("no")));
+        try {
+            
+            int no = Integer.parseInt(request.getParameter("no"));
 
-            if (pstmt.executeUpdate() > 0) {
+            if (roomDao.delete(no) > 0) {
                 out.println("삭제했습니다.");
             } else {
-                out.printf("'%s'의 성적 정보가 없습니다.\n", request.getParameter("no"));
+                out.printf("'%s'의 성적 정보가 없습니다.\n", no);
             }
         } catch (Exception e ) {
             e.printStackTrace();

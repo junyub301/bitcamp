@@ -5,6 +5,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -16,6 +19,7 @@ import java100.app.control.Request;
 import java100.app.control.Response;
 import java100.app.control.RoomController;
 import java100.app.control.ScoreController;
+import java100.app.dao.DaoException;
 
 //01026344150
 //jinyoun.eom@gmail.com
@@ -26,6 +30,7 @@ public class App {
     static Scanner keyScan = new Scanner(System.in);
 
     void init() {
+        
         ScoreController scoreController = new ScoreController();
         scoreController.init();
         controllerMap.put("/score", scoreController);
@@ -37,14 +42,10 @@ public class App {
         BoardController boardController = new BoardController();
         boardController.init();
         controllerMap.put("/board",boardController);
-        
+
         RoomController roomController = new RoomController();
         roomController.init();
-       controllerMap.put("/room",roomController);
-    
-        
-
-
+        controllerMap.put("/room",roomController);
 
     }
 
@@ -64,8 +65,6 @@ public class App {
         for (Controller controller : controllers) {
             controller.destroy();
         }
-
-
     }
 
     private void request(String command, PrintWriter out) {
@@ -122,42 +121,42 @@ public class App {
         }
         @Override
         public void run() {
-                try(
-                        Socket socket = this.socket; 
-                        BufferedReader in = new BufferedReader(
-                                new InputStreamReader(socket.getInputStream()));
+            try(
+                    Socket socket = this.socket; 
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(socket.getInputStream()));
 
-                        PrintWriter out = new PrintWriter(
-                                new BufferedOutputStream(socket.getOutputStream()));
-                        ) {
+                    PrintWriter out = new PrintWriter(
+                            new BufferedOutputStream(socket.getOutputStream()));
+                    ) {
 
-                    String command = in.readLine().split(" ")[1];
-                    
-                    String header = null;
-                    while (true) {
-                        header = in.readLine();
-                        if (header.equals(""))
-                            break;
-                    }
-                    
-                    out.println("HTTP/1.1 200 OK");
-                    
-                    out.println("Content-Type:text/plain;charset=UTF-8");
-                    
-                    out.println();
-                    
-                    if (command.equals("/")) {
-                        hello(command, out);
-                    } else {
-                        request(command, out);
-                        save();
-                    }
-                    out.println(); // 응답 완료를 표시하기 위해 빈줄을 보낸다.
-                    out.flush();
+                String command = in.readLine().split(" ")[1];
 
-                }catch (Exception e) {
-                    e.printStackTrace();
+                String header = null;
+                while (true) {
+                    header = in.readLine();
+                    if (header.equals(""))
+                        break;
                 }
+
+                out.println("HTTP/1.1 200 OK");
+
+                out.println("Content-Type:text/plain;charset=UTF-8");
+
+                out.println();
+
+                if (command.equals("/")) {
+                    hello(command, out);
+                } else {
+                    request(command, out);
+                    save();
+                }
+                out.println(); // 응답 완료를 표시하기 위해 빈줄을 보낸다.
+                out.flush();
+
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }        
     }
 

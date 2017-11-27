@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class Request {
     private String menuPath;
     private HashMap<String, String> params = new HashMap<>();
+    
 
     public Request(String command) {
         String[] path = command.split("\\?");
