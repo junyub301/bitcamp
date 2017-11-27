@@ -115,13 +115,11 @@ public class BoardDao {
     public Board selectOne(int no) {
         
         Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
 
         try {
+            con = DataSource.getConnection();
             try { 
-                con = DataSource.getConnection();
-                pstmt = con.prepareStatement(
+                PreparedStatement pstmt = con.prepareStatement(
                         "update ex_board set vwcnt=vwcnt+1 where no=?");
                 pstmt.setInt(1, no);
                 pstmt.executeUpdate();
@@ -129,12 +127,11 @@ public class BoardDao {
             } catch(Exception e) {throw e;}
 
             try {
-                con = DataSource.getConnection();
-                pstmt = con.prepareStatement(
+                PreparedStatement pstmt = con.prepareStatement(
                         "select no,title,conts,regdt,vwcnt from ex_board where no=?");
                 pstmt.setInt(1, no);
 
-                rs = pstmt.executeQuery();
+                ResultSet rs = pstmt.executeQuery();
                 Board board = null;
                 if (rs.next()) {
                     board = new Board();
