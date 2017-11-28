@@ -84,7 +84,7 @@ public class ApplicationContext {
             Object dependency = findObject(getFirstParameterType(m));
 
             if (dependency == null) continue;
-
+            
 
             // 셋터가 원하는 타입의 객체를 찾았으면, 셋터를 호출하여 그 객체를 주입한다.
             try {
