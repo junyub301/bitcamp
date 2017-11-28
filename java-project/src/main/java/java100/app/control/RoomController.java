@@ -1,9 +1,6 @@
 package java100.app.control;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Scanner;
 
@@ -48,9 +45,7 @@ public class RoomController implements Controller {
     private void doList(Request request, Response response) {
 
         PrintWriter out = response.getWriter();
-
         out.println("[강의실 목록]");
-     
 
             try {
                 List<Room> list = roomDao.selectList();

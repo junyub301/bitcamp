@@ -5,13 +5,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import java100.app.beans.BeansException;
 import java100.app.control.BoardController;
 import java100.app.control.Controller;
 import java100.app.control.MemberController;
@@ -19,34 +16,48 @@ import java100.app.control.Request;
 import java100.app.control.Response;
 import java100.app.control.RoomController;
 import java100.app.control.ScoreController;
-import java100.app.dao.DaoException;
+import java100.app.util.DataSource;
 
 //01026344150
 //jinyoun.eom@gmail.com
 
 public class App {
     ServerSocket ss;
-    static HashMap<String,Controller> controllerMap = new HashMap<>();
-    static Scanner keyScan = new Scanner(System.in);
-
+    Scanner keyScan = new Scanner(System.in);
+    static HashMap<String,Object> beanContainer = new HashMap<>();
+    
+    public static Object getBean(String name) {
+        Object bean = beanContainer.get(name);
+        if (bean == null)
+            throw new BeansException("빈을 찾을 수 없습니다.");
+        return bean;
+    }
+    
     void init() {
         
         ScoreController scoreController = new ScoreController();
         scoreController.init();
-        controllerMap.put("/score", scoreController);
+        beanContainer.put("/score", scoreController);
 
         MemberController memberController = new MemberController();
         memberController.init();
-        controllerMap.put("/member", memberController);
+        beanContainer.put("/member", memberController);
 
         BoardController boardController = new BoardController();
         boardController.init();
-        controllerMap.put("/board",boardController);
+        beanContainer.put("/board",boardController);
 
         RoomController roomController = new RoomController();
         roomController.init();
-        controllerMap.put("/room",roomController);
+        beanContainer.put("/room",roomController);
 
+        DataSource ds = new DataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost:3306/studydb");
+        ds.setUsername("study");
+        ds.setPassword("1111");
+
+        beanContainer.put("mysqlDataSource", ds);
     }
 
     void  service() throws Exception {
@@ -60,12 +71,6 @@ public class App {
         // 모든 컨트롤러에 대해 마무리 작업을 지시한다.
     }
 
-    private void save() {
-        Collection<Controller> controllers = controllerMap.values();
-        for (Controller controller : controllers) {
-            controller.destroy();
-        }
-    }
 
     private void request(String command, PrintWriter out) {
 
@@ -76,9 +81,9 @@ public class App {
             menuName = command.substring(0,i);// 0부터 i전까지 출력
         }
 
-        Controller controller = controllerMap.get(menuName);
+        Object controller = beanContainer.get(menuName);
 
-        if (controller == null) {
+        if (controller == null && controller instanceof Controller ) {
             out.println("해당 명령을 지원하지 않습니다.");
             return;
         }
@@ -88,7 +93,7 @@ public class App {
         Response response = new Response();
         response.setWriter(out);
 
-        controller.execute(request, response);
+        ((Controller)controller).execute(request, response);
         //                controller.execute();
 
     }
@@ -149,7 +154,6 @@ public class App {
                     hello(command, out);
                 } else {
                     request(command, out);
-                    save();
                 }
                 out.println(); // 응답 완료를 표시하기 위해 빈줄을 보낸다.
                 out.flush();
