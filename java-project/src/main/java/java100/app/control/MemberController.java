@@ -8,7 +8,12 @@ import java100.app.domain.Member;
 
 public class MemberController implements Controller  {
 
-    MemberDao memberDao = new MemberDao();
+    MemberDao memberDao;
+
+    
+    public void setMemberDao(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
 
     @Override
     public void destroy() {}

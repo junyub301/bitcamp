@@ -1,10 +1,6 @@
 package java100.app.control;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 import java100.app.dao.ScoreDao;
@@ -12,7 +8,11 @@ import java100.app.domain.Score;
 
 public class ScoreController implements Controller {
 
-    ScoreDao scoreDao = new ScoreDao();
+    ScoreDao scoreDao;
+    
+    public void setScoreDao(ScoreDao scoreDao) {
+        this.scoreDao = scoreDao;
+    }
 
     @Override
     public void destroy() {}

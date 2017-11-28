@@ -2,18 +2,17 @@ package java100.app.control;
 
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Scanner;
 
 import java100.app.dao.RoomDao;
 import java100.app.domain.Room;
 
 public class RoomController implements Controller {
     
-    RoomDao roomDao = new RoomDao();
+    RoomDao roomDao;
 
-    private static final long serialVersionUID = 1L;
-
-    Scanner keyScan = new Scanner(System.in);
+    public void setRoomDao(RoomDao roomDao) {
+        this.roomDao = roomDao;
+    }
 
     @Override
     public void destroy() {}

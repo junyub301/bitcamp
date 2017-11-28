@@ -1,10 +1,6 @@
 package java100.app.control;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 import java100.app.dao.BoardDao;
@@ -12,7 +8,11 @@ import java100.app.domain.Board;
 
 public class BoardController implements Controller  {
     
-    BoardDao boardDao = new BoardDao();
+    BoardDao boardDao;
+    
+    public void setBoardDao(BoardDao boardDao) {
+        this.boardDao = boardDao;
+    }
 
     @Override
     public void destroy() {}

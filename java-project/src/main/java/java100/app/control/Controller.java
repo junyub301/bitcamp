@@ -1,7 +1,5 @@
 package java100.app.control;
 
-import java.io.PrintStream;
-
 public interface Controller {
     
     void execute(Request request, Response response);
