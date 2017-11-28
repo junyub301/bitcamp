@@ -21,14 +21,12 @@ public class ApplicationContext {
         try(FileReader in = new FileReader(propsPath)) {
             props.load(in);
 
-            Set<Object> keySet = props.keySet();
+            Set<Object> keySet = props.keySet(); //keySet() : key를 다 가지고온다.
             for (Object key : keySet) {
                 
                 String name = (String)key;
-                Class<?> clazz = Class.forName(props.getProperty(name));
-
+                Class<?> clazz = Class.forName(props.getProperty(name)); //getProperty : key가 가르키는 값을 출력
                 Object obj = clazz.newInstance();
-
                 pool.put(name, obj);
             }
             
@@ -82,15 +80,15 @@ public class ApplicationContext {
 
             // 셋터가 원하는 타입의 객체가 pool에 들어 있는지 찾아본다.
             Object dependency = findObject(getFirstParameterType(m));
-
             if (dependency == null) continue;
             
 
             // 셋터가 원하는 타입의 객체를 찾았으면, 셋터를 호출하여 그 객체를 주입한다.
+            //invoke() 메소드의 첫번째 파라미터는 메소드를 호출할 객체를 나타내며, 두번째 파라미터는 메소드를 호출할 때 전달할 파라미터를 나타낸다.
             try {
                 m.invoke(obj, dependency);
-                // System.out.printf("%s.%s) 호출됨!\n", obj.getClass().getName(),
-                //        m.getName());
+                  // System.out.printf("%s().%s) 호출됨!\n", obj.getClass().getName(),
+                  //      m.getName());
             } catch (Exception e) {
                 throw new BeansException(obj.getClass().getName() + "클래스의" + 
                         m.getName() + "메서드 호출 오류!");
