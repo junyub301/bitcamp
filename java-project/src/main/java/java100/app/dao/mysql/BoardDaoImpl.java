@@ -6,11 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import java100.app.annotation.Component;
 import java100.app.dao.BoardDao;
 import java100.app.dao.DaoException;
 import java100.app.domain.Board;
 import java100.app.util.DataSource;
-
+@Component 
 public class BoardDaoImpl implements BoardDao {
     DataSource ds;
 

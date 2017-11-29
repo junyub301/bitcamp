@@ -1,36 +1,49 @@
 package java100.app.beans;
 
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileFilter;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Properties;
+import java.util.List;
 import java.util.Set;
+
+import org.reflections.Reflections;
+
+import java100.app.annotation.Component;
 
 public class ApplicationContext {
 
     HashMap<String,Object> pool = new HashMap<>();
 
     public ApplicationContext() {}
+    
+    public ApplicationContext(String basePackage) {
 
-    public ApplicationContext(String propsPath) {
-
-        // 프로퍼티 파일은 일련의 키-값의 쌍들로 이루어지며 파일에 저장된다
-        Properties props = new Properties();
-        
-        try(FileReader in = new FileReader(propsPath)) {
-            props.load(in);
-
-            Set<Object> keySet = props.keySet(); //keySet() : key를 다 가지고온다.
-            for (Object key : keySet) {
-                
-                String name = (String)key;
-                Class<?> clazz = Class.forName(props.getProperty(name)); //getProperty : key가 가르키는 값을 출력
-                Object obj = clazz.newInstance();
-                pool.put(name, obj);
-            }
+        try {
+            Reflections reflections = new Reflections(basePackage);
             
+            Set<Class<?>> classes = reflections.getTypesAnnotatedWith(Component.class);
+
+            for(Class<?> clazz : classes) {
+                
+                System.out.println(clazz.getName());
+                
+                Component compAnno = clazz.getAnnotation(Component.class);
+                if (compAnno == null) continue;
+
+                Object obj = clazz.newInstance();
+                
+                if (compAnno.value().length() == 0) {
+                    pool.put(clazz.getName(),obj);
+                } else {
+                    pool.put(compAnno.value(), obj);
+                }
+            }
+
             injectDependency();
+            
         } catch (Exception e) {
             throw new BeansException("프로퍼티 파일 로딩 중 오류 발생!");    
         }
@@ -81,15 +94,15 @@ public class ApplicationContext {
             // 셋터가 원하는 타입의 객체가 pool에 들어 있는지 찾아본다.
             Object dependency = findObject(getFirstParameterType(m));
             if (dependency == null) continue;
-            
+
 
             // 셋터가 원하는 타입의 객체를 찾았으면, 셋터를 호출하여 그 객체를 주입한다.
             // invoke() 메소드의 첫번째 파라미터는 메소드를 호출할 객체를 나타내며, 두번째 파라미터는 메소드를 호출할 때
             // 전달할 파라미터를 나타낸다.
             try {
                 m.invoke(obj, dependency);
-                  // System.out.printf("%s().%s) 호출됨!\n", obj.getClass().getName(),
-                  //      m.getName());
+                // System.out.printf("%s().%s) 호출됨!\n", obj.getClass().getName(),
+                //      m.getName());
             } catch (Exception e) {
                 throw new BeansException(obj.getClass().getName() + "클래스의" + 
                         m.getName() + "메서드 호출 오류!");
@@ -115,7 +128,7 @@ public class ApplicationContext {
 
         return null;
     }
-    
+
     // 빈 컨테이너에 객체가 추가되거나 제거되었을 때 의존 객체 주입을 다시해야 한다.
     public void refreshBeanFactory() {
         injectDependency();

@@ -6,11 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import java100.app.annotation.Component;
 import java100.app.dao.DaoException;
 import java100.app.dao.RoomDao;
 import java100.app.domain.Room;
 import java100.app.util.DataSource;
-
+@Component 
 public class RoomDaoImpl implements RoomDao {
 
     DataSource ds;

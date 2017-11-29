@@ -3,9 +3,11 @@ package java100.app.control;
 import java.io.PrintWriter;
 import java.util.List;
 
+import java100.app.annotation.Component;
 import java100.app.dao.BoardDao;
 import java100.app.domain.Board;
 
+@Component("/board")
 public class BoardController implements Controller  {
     
     BoardDao boardDao;

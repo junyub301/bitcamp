@@ -10,10 +10,6 @@ import java100.app.beans.ApplicationContext;
 import java100.app.control.Controller;
 import java100.app.control.Request;
 import java100.app.control.Response;
-import java100.app.dao.mysql.BoardDaoImpl;
-import java100.app.dao.mysql.MemberDaoImpl;
-import java100.app.dao.mysql.RoomDaoImpl;
-import java100.app.dao.mysql.ScoreDaoImpl;
 import java100.app.util.DataSource;
 
 //01026344150
@@ -26,7 +22,7 @@ public class App {
     
     void init() {
         
-        beanContainer = new ApplicationContext("./bin/application-context.properties");
+        beanContainer = new ApplicationContext("java100.app");
         
         DataSource ds = new DataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
