@@ -84,7 +84,8 @@ public class ApplicationContext {
             
 
             // 셋터가 원하는 타입의 객체를 찾았으면, 셋터를 호출하여 그 객체를 주입한다.
-            //invoke() 메소드의 첫번째 파라미터는 메소드를 호출할 객체를 나타내며, 두번째 파라미터는 메소드를 호출할 때 전달할 파라미터를 나타낸다.
+            // invoke() 메소드의 첫번째 파라미터는 메소드를 호출할 객체를 나타내며, 두번째 파라미터는 메소드를 호출할 때
+            // 전달할 파라미터를 나타낸다.
             try {
                 m.invoke(obj, dependency);
                   // System.out.printf("%s().%s) 호출됨!\n", obj.getClass().getName(),
