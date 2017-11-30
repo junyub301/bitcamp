@@ -6,36 +6,55 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import java100.app.beans.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
 import java100.app.control.Controller;
 import java100.app.control.Request;
 import java100.app.control.Response;
+import java100.app.control.ScoreController;
 import java100.app.util.DataSource;
 
 //01026344150
 //jinyoun.eom@gmail.com
 
+
+// 이 클래스가 스프링 IoC 컨테이너를 위한 설정 클래스임을 표시
+@Configuration 
+// @Component가 붙은 클래스가 어느 패키지에 있는지 표시
+@ComponentScan("java100.app")
 public class App {
     ServerSocket ss;
     
-    ApplicationContext beanContainer;
+    AnnotationConfigApplicationContext iocContainer;
     
-    void init() {
-        
-        beanContainer = new ApplicationContext("java100.app");
+    // 스프링 IoC 컨테이너에게 getDataSource() 메서드를 호출해서
+    // 이 메서드가 리턴한 객체를 꼭 컨테이너에 보관해달라고 표시!
+    @Bean
+    DataSource getDataSource() {
         
         DataSource ds = new DataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/studydb");
         ds.setUsername("study");
         ds.setPassword("1111");
+        return ds;
+    }
+    
+    void init() {
+        // @Bean이 붙은 메서드의 리턴값을 다 저장하고, @Component가 있는클래스를 다 찾는다.
+        iocContainer = new AnnotationConfigApplicationContext(App.class);
         
-        beanContainer.addBean("mysqlDataSource", ds);
         
-//        System.out.println("--------------------------------------");
         
-        beanContainer.refreshBeanFactory();
-        
+        //확인
+//        String[] names = iocContainer.getBeanDefinitionNames();
+//        for (String name : names) {
+//            Object obj = iocContainer.getBean(name);
+//            System.out.printf("%s ==> %s\n", name, obj.getClass().getName());
+//        }
     }
 
     void  service() throws Exception {
@@ -59,7 +78,7 @@ public class App {
             menuName = command.substring(0,i);// 0부터 i전까지 출력
         }
 
-        Object controller = beanContainer.getBean(menuName);
+        Object controller = iocContainer.getBean(menuName);
 
         if (controller == null && controller instanceof Controller ) {
             out.println("해당 명령을 지원하지 않습니다.");

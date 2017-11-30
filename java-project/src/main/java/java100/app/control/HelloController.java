@@ -2,7 +2,7 @@ package java100.app.control;
 
 import java.io.PrintWriter;
 
-import java100.app.annotation.Component;
+import org.springframework.stereotype.Component;
 @Component("/hello")
 public class HelloController implements Controller {
     
