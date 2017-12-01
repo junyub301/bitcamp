@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 엘리먼트 타입 - 여러 개 중에 한 개의 엘리먼트 선택
+    - <!ELEMENT 이름 (태그1 | 태그2 | 태그3)*>
+-->
+
+<!DOCTYPE items [
+<!ELEMENT itmes (book|dvd)?>
+<!ELEMENT book (title,author+,press,page,description?,photo*,(cd|tape|usb)?)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT press (#PCDATA)>
+<!ELEMENT page (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT photo (#PCDATA)>
+<!ELEMENT cd EMPTY>
+<!ELEMENT tape EMPTY>
+<!ELEMENT dvd (title,price)>
+<!ELEMENT price (#PCDATA)>
+
+]>
+
+
+<items>
+    <book>
+        <title>aaa</title>
+        <author>bbb</author>
+        <press>ccc</press>
+        <page>300</page>
+    </book>
+    <dvd>
+        <title>aaa</title>
+        <price>20000</price>
+    </dvd>
+    <book>
+        <title>aaa</title>
+        <author>bbb</author>
+        <press>ccc</press>
+        <page>300</page>
+    </book>
+    <book>
+        <title>aaa</title>
+        <author>bbb</author>
+        <press>ccc</press>
+        <page>300</page>
+    </book>
+    <dvd>
+        <title>aaa</title>
+        <price>20000</price>
+    </dvd>
+</items>
