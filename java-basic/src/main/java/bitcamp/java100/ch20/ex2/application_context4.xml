@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3">
+        <constructor-arg type="String"><value>홍길동</value></constructor-arg>
+    </bean>
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3">
+        <constructor-arg type="String" value="홍길동"></constructor-arg>
+    </bean>
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3" 
+        c:name="홍길동"/>
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3">
+        <constructor-arg type="float"><value>1.5</value></constructor-arg>
+        <constructor-arg type="float"><value>1.2</value></constructor-arg>
+    </bean>
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3">
+        <constructor-arg type="float" value="1.5"></constructor-arg>
+        <constructor-arg type="float" value="1.2"></constructor-arg>
+    </bean>
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3" 
+        c:left="1.5" c:right="1.2"/>
+    
+    <bean id="obj1" class="bitcamp.java100.ch20.ex2.MyClass"/>
+    <bean id="obj2" class="bitcamp.java100.ch20.ex2.MyClass2"/>
+    
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3">
+        <constructor-arg><ref bean="obj1"/></constructor-arg>
+    </bean> 
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3">
+        <constructor-arg><ref bean="obj2"/></constructor-arg>
+    </bean> 
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3">
+        <constructor-arg ref="obj1"/>
+    </bean> 
+    
+    <bean class="bitcamp.java100.ch20.ex2.MyClass3" 
+        c:myClass-ref="obj1"/>
+    
+    
+        
+</beans>

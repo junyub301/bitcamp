@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    
+    <bean class="bitcamp.java100.ch20.ex2.MyClass"
+    c:p1="홍길동"/>
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass"
+    c:p1="100"/>
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass2"
+    c:age="100"/>
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass2"
+    c:name="홍길동"/>
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass2"
+    c:name="홍길동" c:age="20"/>
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass2"
+    c:age="20" c:name="홍길동"/>
+
+    <bean class="bitcamp.java100.ch20.ex2.MyClass2"
+    c:age="20" c:name="홍길동" c:working="true"/>
+    
+    <bean class="bitcamp.java100.ch20.ex2.MyClass2"
+    c:_1="20" c:_0="홍길동" c:_2="true"/>
+    
+</beans>
