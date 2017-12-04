@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="c1" class="bitcamp.java100.ch20.ex6.CarFactory3">
+        <property name="tires">
+            <array>
+                <bean class="bitcamp.java100.ch20.ex6.Tire" p:maker="한국타이어"/>
+                <bean class="bitcamp.java100.ch20.ex6.Tire" p:maker="한국타이어"/>
+                <bean class="bitcamp.java100.ch20.ex6.Tire" p:maker="금호타이어"/>
+                <bean class="bitcamp.java100.ch20.ex6.Tire" p:maker="금호타이어"/>
+            </array>
+        </property>
+        <property name="model" value="티코 골드"/>
+    </bean>
+
+    <bean id="c2" class="bitcamp.java100.ch20.ex6.CarFactory3">
+        <property name="model" value="에쿠스"/>
+    </bean>
+
+
+    <bean id="c3" class="bitcamp.java100.ch20.ex6.CarFactory3">
+        <property name="model" value="소나타"/>
+    </bean>
+
+</beans>
+
+<!-- 배열을 쓸때 (array/list/set) 중 아무거나 써도 된다.
+    그래도 타입에 맞춰서 쓰는게 좋다. -->

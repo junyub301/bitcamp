@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="c1" class="bitcamp.java100.ch20.ex3.Car">
+		<property name="engine">
+			<bean id="e1" class="bitcamp.java100.ch20.ex3.Engine" 
+			p:name="비트엔진" p:cc="5000" p:valve="16" />
+		</property>
+	</bean>
+
+	<bean id="c2" class="bitcamp.java100.ch20.ex3.Car">
+		<property name="engine">
+			<bean id="e1" class="bitcamp.java100.ch20.ex3.Engine" 
+			p:name="비트엔진2" p:cc="6000" p:valve="32" />
+		</property>
+	</bean>
+
+
+
+</beans>
+
+<!-- 원시타입 and String은 value로 나머지는 ref로 넘긴다. -->

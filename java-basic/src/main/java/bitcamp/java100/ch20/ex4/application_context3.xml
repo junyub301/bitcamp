@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="c1" class="bitcamp.java100.ch20.ex4.Car">
+        <property name="jukebox">
+            <array>
+                <bean class="bitcamp.java100.ch20.ex4.CD" p:title="겨울비"/>
+                <bean class="bitcamp.java100.ch20.ex4.CD" p:title="스프링"/>
+            </array>
+        </property>
+    </bean>
+    
+    <bean id="c2" class="bitcamp.java100.ch20.ex4.Car">
+        <property name="jukebox">
+            <list>
+                <bean class="bitcamp.java100.ch20.ex4.CD" p:title="겨울비"/>
+                <bean class="bitcamp.java100.ch20.ex4.CD" p:title="스프링"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="c3" class="bitcamp.java100.ch20.ex4.Car">
+        <property name="jukebox">
+            <set>
+                <bean class="bitcamp.java100.ch20.ex4.CD" p:title="겨울비"/>
+                <bean class="bitcamp.java100.ch20.ex4.CD" p:title="스프링"/>
+            </set>
+        </property>
+    </bean>
+    
+
+</beans>
+
+<!-- Set을 쓸때 (array/list/set) 중 아무거나 써도 된다.
+    그래도 타입에 맞춰서 쓰는게 좋다. -->

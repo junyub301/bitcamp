@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="c1" class="bitcamp.java100.ch20.ex5.MyClass">
+        <property name="varDate" value="2017-12-4"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+    <property name="customEditors">
+        <map>
+            <entry key="java.sql.Date" 
+                   value="bitcamp.java100.ch20.ex5.MyDateEditor"/>
+        </map>
+    </property>
+</bean>
+
+</beans>
+
+<!-- 배열을 쓸때 (array/list/set) 중 아무거나 써도 된다.
+    그래도 타입에 맞춰서 쓰는게 좋다. -->

@@ -5,19 +5,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="e1" class="bitcamp.java100.ch20.ex3.Engine"
-	   p:name="비트엔진" p:cc="5000" p:valve="16"/>
         
 	<bean id="c1" class="bitcamp.java100.ch20.ex3.Car">
         <property name="engine"><ref bean="e1"/></property>
 	</bean>
 
-	<bean id="c2" class="bitcamp.java100.ch20.ex3.Car">
-        <property name="engine" ref="e1"></property>
-	</bean>
-        
-	<bean id="c3" class="bitcamp.java100.ch20.ex3.Car"
-        p:engine-ref="e1"/>
+	<bean id="e1" class="bitcamp.java100.ch20.ex3.Engine"
+	   p:name="비트엔진" p:cc="5000" p:valve="16"/>
         
     
 </beans>
