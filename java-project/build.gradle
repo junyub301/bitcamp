@@ -12,6 +12,7 @@ apply plugin: 'java'
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
 apply plugin: 'eclipse' // 이클립스 관련된 명령어 사용 가능
+apply plugin: 'war'
 
 
 
@@ -21,6 +22,7 @@ eclipse {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
     javaRuntimeName = "JavaSE-1.8"
+    
     /*
     file {
     
@@ -63,6 +65,12 @@ dependencies {
     
     // Spring IoC 컨테이너 라이브러리 
     compile 'org.springframework:spring-context:5.0.2.RELEASE'
+    
+    // JavaEE의 Servlet기술을 지원하는 라이브러리
+    // "provided" 선언된 라이브러리는 컴파일할 때 사용하고 배포할 때는 제외한다.
+    // 프로그램을 배포하는서블릿 컨테이너에 
+    // 이 라이브러리 파일이 내장되어있기 때문에 또 배포할 필요가 없다.
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:22.0'

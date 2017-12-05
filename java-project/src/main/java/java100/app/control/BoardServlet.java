@@ -1,50 +1,72 @@
 package java100.app.control;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import java100.app.AppInitServlet;
 import java100.app.dao.BoardDao;
 import java100.app.domain.Board;
 
-@Component("/board")
-public class BoardController implements Controller  {
-  
-    // 스프링 IoC 컨테이너가 DataSource 객체를 주입하도록 표시 
-    @Autowired
+@WebServlet(urlPatterns="/board/*")
+public class BoardServlet implements Servlet  {
+
+    ServletConfig servletConfig;
+
     BoardDao boardDao;
 
     @Override
     public void destroy() {}
 
     @Override
-    public void init() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
+    public void init(ServletConfig config) throws ServletException {
+        this.servletConfig = config;
+        boardDao = AppInitServlet.iocContainer.getBean(BoardDao.class);
 
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("JDBC 드라이버 클래스를 찾을 수 없습니다.");
-        }
+    }
+    
+    @Override
+    public ServletConfig getServletConfig() {
+        return this.servletConfig;
+    }
+    
+    @Override
+    public String getServletInfo() {
+        return "게시물관리 서블릿";
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public void service(ServletRequest request, ServletResponse response) 
+            throws ServletException, IOException {
 
-        switch (request.getMenuPath()) {
-        case "/board/add": this.doAdd(request, response); break;
-        case "/board/list": this.doList(request, response); break;
-        case "/board/view": this.doView(request, response); break;
-        case "/board/delete": this.doDelete(request, response); break;
-        case "/board/update": this.doUpdate(request, response); break;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        
+        httpResponse.setContentType("text/plain;charset=UTF-8");
+        
+        switch (httpRequest.getPathInfo()) {
+        case "/add": this.doAdd(httpRequest, httpResponse); break;
+        case "/list": this.doList(httpRequest, httpResponse); break;
+        case "/view": this.doView(httpRequest, httpResponse); break;
+        case "/delete": this.doDelete(httpRequest, httpResponse); break;
+        case "/update": this.doUpdate(httpRequest, httpResponse); break;
         default:
             response.getWriter().println("해당 명령이 없습니다.");
         }
         System.out.println();
     }
 
-    private void doList(Request request, Response response) {
+    private void doList(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
         out.println("[게시물 목록]");
@@ -65,7 +87,8 @@ public class BoardController implements Controller  {
 
     }
 
-    private void doAdd(Request request, Response response) {
+    private void doAdd(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
 
@@ -84,7 +107,8 @@ public class BoardController implements Controller  {
         }
     }
 
-    private void doView(Request request, Response response) {
+    private void doView(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 
         out.println("[회원 정보]");
@@ -92,18 +116,18 @@ public class BoardController implements Controller  {
         try {
 
             int no = Integer.parseInt(request.getParameter("no"));
-           
-                Board board = boardDao.selectOne(no);
-                if (board != null) {
-                    out.printf("번호: %d\n", board.getNo());
-                    out.printf("제목: %s\n", board.getTitle());
-                    out.printf("내용: %s\n", board.getContent());
-                    out.printf("등록일: %s\n", board.getRegDate());
-                    out.printf("조회수: %s\n", board.getViewCount());
-                } else {
-                    out.printf("'%s'번의 성적 정보가 없습니다.\n", no);
-                }
-         
+
+            Board board = boardDao.selectOne(no);
+            if (board != null) {
+                out.printf("번호: %d\n", board.getNo());
+                out.printf("제목: %s\n", board.getTitle());
+                out.printf("내용: %s\n", board.getContent());
+                out.printf("등록일: %s\n", board.getRegDate());
+                out.printf("조회수: %s\n", board.getViewCount());
+            } else {
+                out.printf("'%s'번의 성적 정보가 없습니다.\n", no);
+            }
+
         } catch (Exception e ) {
             e.printStackTrace();
             out.println(e.getMessage());
@@ -112,7 +136,8 @@ public class BoardController implements Controller  {
     }
 
 
-    private void doUpdate(Request request, Response response) {
+    private void doUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
 
@@ -141,7 +166,8 @@ public class BoardController implements Controller  {
     }    
 
 
-    private void doDelete(Request request, Response response) {
+    private void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         try {
             int no = Integer.parseInt(request.getParameter("no"));

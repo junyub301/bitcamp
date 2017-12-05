@@ -1,38 +1,63 @@
 package java100.app.control;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import java100.app.AppInitServlet;
 import java100.app.dao.ScoreDao;
 import java100.app.domain.Score;
 
-// 이 클래스의 객체를 자동 생성해야함을 표시
-@Component("/score") 
-public class ScoreController implements Controller {
+@WebServlet(urlPatterns="/score/*")
+public class ScoreServlet implements Servlet {
 
-    // 스프링 IoC 컨테이너가 DataSource 객체를 주입하도록 표시
-    @Autowired
+    ServletConfig servletConfig;
+
     ScoreDao scoreDao;
 
     @Override
     public void destroy() {}
 
     @Override
-    public void init() {}
+    public void init(ServletConfig config) throws ServletException {
+        this.servletConfig = config;
+        scoreDao = AppInitServlet.iocContainer.getBean(ScoreDao.class);
+    }
+    @Override
+    public ServletConfig getServletConfig() {
+        return this.servletConfig;
+    }
+    
+    @Override
+    public String getServletInfo() {
+        return "성적관리 서블릿";
+    }
+    
 
     @Override
-    public void execute(Request request, Response response) {
+    public void service(ServletRequest request, ServletResponse response) 
+            throws ServletException, IOException {
 
-
-        switch (request.getMenuPath()) {
-        case "/score/add": this.doAdd(request, response); break;
-        case "/score/list": this.doList(request, response); break;
-        case "/score/view": this.doView(request, response); break;
-        case "/score/delete": this.doDelete(request, response); break;
-        case "/score/update": this.doUpdate(request, response); break;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        
+        httpResponse.setContentType("text/plain;charset=UTF-8");
+        
+        switch (httpRequest.getPathInfo()) {
+        case "/add": this.doAdd(httpRequest, httpResponse); break;
+        case "/list": this.doList(httpRequest, httpResponse); break;
+        case "/view": this.doView(httpRequest, httpResponse); break;
+        case "/delete": this.doDelete(httpRequest, httpResponse); break;
+        case "/update": this.doUpdate(httpRequest, httpResponse); break;
         default:
             response.getWriter().println("해당 명령이 없습니다.");
         }
@@ -40,7 +65,8 @@ public class ScoreController implements Controller {
         System.out.println();
     }
 
-    private void doUpdate(Request request, Response response) {
+    private void doUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
         PrintWriter out = response.getWriter();
 
         out.println("[성적 변경]");
@@ -66,7 +92,8 @@ public class ScoreController implements Controller {
 
     }
 
-    private void doDelete(Request request, Response response) {
+    private void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 
         out.println("[성적 삭제]");
@@ -87,14 +114,15 @@ public class ScoreController implements Controller {
 
     }
 
-    private void doView(Request request, Response response) {
+    private void doView(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
         out.println("[성적 상세 정보]");
 
         try {
-            
-            
+
+
             int no = Integer.parseInt(request.getParameter("no"));
 
             Score score = scoreDao.selectOne(no); 
@@ -115,7 +143,8 @@ public class ScoreController implements Controller {
         }
     }
 
-    private void doList(Request request, Response response) {
+    private void doList(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 
         out.println("[성적 목록]");
@@ -137,7 +166,8 @@ public class ScoreController implements Controller {
 
     }
 
-    private void doAdd(Request request, Response response) {
+    private void doAdd(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
 
