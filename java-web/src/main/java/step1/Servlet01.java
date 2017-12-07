@@ -21,7 +21,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("/step1/Servlet01")
+@WebServlet("/step1/Servlet01")   
 public class Servlet01 implements javax.servlet.Servlet {
     
     // init()에서 받은 파라미터 값을 저장하는 변수
@@ -31,7 +31,7 @@ public class Servlet01 implements javax.servlet.Servlet {
         System.out.println("step1.Servlet01.Servlet01()");
     }
     
-    @Override
+    @Override   
     public void init(ServletConfig config) throws ServletException {
         
         // 파라미터 값을 인스턴스 변수에 저장해 두었다가

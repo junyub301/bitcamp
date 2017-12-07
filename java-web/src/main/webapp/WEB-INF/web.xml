@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  version="3.1"
+  metadata-complete="false">
+  <!-- 애노테이션으로도 배치정보를 설정할 수 있게 하려면 
+        metadata-complete 속성의 값을"false" 설정 해야한다.-->
+    
+    <listener>
+        <listener-class>step3.Listener02</listener-class>
+    </listener>
+    
+    <filter>
+        <filter-name>Filter02</filter-name>
+        <filter-class>step3.Filter02</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>Filter02</filter-name>
+        <url-pattern>/step3/*</url-pattern>
+    </filter-mapping>
+    
+    <servlet>
+        <servlet-name>Servlet03</servlet-name>
+        <servlet-class>step1.Servlet03</servlet-class>
+    </servlet>
+
+
+    <!-- 서블릿과 URL을 연결해야 한다.
+         그래야 클라이언트에서 해당 URL로 요청할 것이다. -->
+    <servlet-mapping>
+        <!-- 위에서 지정한 서블릿 이름 -->
+        <servlet-name>Servlet03</servlet-name>
+        <url-pattern>/step1/Servlet03</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>
