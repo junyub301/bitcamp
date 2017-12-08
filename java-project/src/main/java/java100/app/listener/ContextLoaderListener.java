@@ -3,13 +3,11 @@ package java100.app.listener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java100.app.util.DataSource;
 
-@WebListener
 public class ContextLoaderListener implements ServletContextListener {
 
     public static AnnotationConfigApplicationContext iocContainer;
