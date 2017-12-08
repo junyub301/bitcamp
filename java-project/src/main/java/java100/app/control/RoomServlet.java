@@ -13,9 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java100.app.AppInitServlet;
 import java100.app.dao.RoomDao;
 import java100.app.domain.Room;
+import java100.app.listener.ContextLoaderListener;
 
 @WebServlet(urlPatterns="/room/*") 
 public class RoomServlet implements Servlet {
@@ -30,7 +30,7 @@ public class RoomServlet implements Servlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.servletConfig = config;
-        roomDao = AppInitServlet.iocContainer.getBean(RoomDao.class);
+        roomDao = ContextLoaderListener.iocContainer.getBean(RoomDao.class);
 
     }
     

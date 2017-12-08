@@ -13,9 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java100.app.AppInitServlet;
 import java100.app.dao.MemberDao;
 import java100.app.domain.Member;
+import java100.app.listener.ContextLoaderListener;
 
 @WebServlet(urlPatterns="/member/*")
 public class MemberServlet implements Servlet {
@@ -30,7 +30,7 @@ public class MemberServlet implements Servlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.servletConfig = config;
-        memberDao = AppInitServlet.iocContainer.getBean(MemberDao.class);
+        memberDao = ContextLoaderListener.iocContainer.getBean(MemberDao.class);
 
     }
     

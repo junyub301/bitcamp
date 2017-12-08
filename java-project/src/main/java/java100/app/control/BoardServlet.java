@@ -13,9 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java100.app.AppInitServlet;
 import java100.app.dao.BoardDao;
 import java100.app.domain.Board;
+import java100.app.listener.ContextLoaderListener;
 
 @WebServlet(urlPatterns="/board/*")
 public class BoardServlet implements Servlet  {
@@ -30,7 +30,7 @@ public class BoardServlet implements Servlet  {
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.servletConfig = config;
-        boardDao = AppInitServlet.iocContainer.getBean(BoardDao.class);
+        boardDao = ContextLoaderListener.iocContainer.getBean(BoardDao.class);
 
     }
     
