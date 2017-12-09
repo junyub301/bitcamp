@@ -8,6 +8,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- @Component(빈의 이름 명시)
+    -->
     <context:component-scan base-package="bitcamp.java100.ch20.ex15"/>
      
 </beans>

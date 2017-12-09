@@ -14,11 +14,12 @@
         <property name="cc" value="1980"/>
     </bean>
     -->
+    
+     <!-- @Autowired는 기본이 필수 항목이다. 
+                    주입할 의존 객체가 없다면 오류 발생!
+                    선택사항으로 만들고 싶다면 required 속성을 false로 설정하라! -->
     <bean id="c1" class="bitcamp.java100.ch20.ex10.Car">
         <property name="model" value="티코"/>
         <property name="color" value="빨강"/>
     </bean>
 </beans>
-
-<!-- 배열을 쓸때 (array/list/set) 중 아무거나 써도 된다.
-    그래도 타입에 맞춰서 쓰는게 좋다. -->

@@ -34,7 +34,7 @@
     
     <book title="aaaa" press="p001" author="a003">
         press는 기존의 ID값을 지정하는 속성이다.
-        존재하는 ID값을 지정해야 한다.
+                존재하는 ID값을 지정해야 한다.
         author또한 존재하는 ID값을 지정하는 속성이다.
     </book>
     <book title="aaaa" press="p001" author="a003 a002 a001">

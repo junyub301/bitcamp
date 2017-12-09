@@ -60,6 +60,11 @@ public class Car {
         return engine;
     }
 
+    // required의 기본 값이 true이다.
+    // 따라서 의존 객체가 없다면 셋터를 호출할 수 없기 때문에 
+    // Car 객체 생성 오류가 발생한다.
+    // 선택사항으로 바꾸고 싶다면,
+    // false로 설정하라!
     @Autowired(required=false)
     public void setEngine(Engine engine) {
         this.engine = engine;

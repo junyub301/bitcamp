@@ -6,7 +6,7 @@
 -->
      
 <!ENTITY bitcamp "비트캠프@2017 02-1111-2222">
-
+<!ENTITY % string "CDATA #REQUIRED"> 
 <!ENTITY % coreattrs 
     "name  %string;
      id    ID #REQUIRED"

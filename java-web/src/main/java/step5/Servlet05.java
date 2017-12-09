@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 @WebServlet("/step5/Servlet05")   
-public class Servlet5 extends HttpServlet {
+public class Servlet05 extends HttpServlet {
     
 
     @Override
@@ -20,7 +20,7 @@ public class Servlet5 extends HttpServlet {
         
         
         // req.setCharacterEncoding("UTF-8");
-        // res.setContentType("text/plain;charset=UTF-8");
+        res.setContentType("text/plain;charset=UTF-8");
         
         PrintWriter out = res.getWriter();
         out.printf("이름: %s\n", req.getParameter("name"));

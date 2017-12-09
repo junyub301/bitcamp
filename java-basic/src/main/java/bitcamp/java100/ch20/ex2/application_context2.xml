@@ -8,7 +8,7 @@
     <bean class="bitcamp.java100.ch20.ex2.MyClass"/>
     
     <!-- 파라미터가 있는 생성자 호출하기
-        생성자의 파라미터 타입이 지정되지 않으면
+                생성자의 파라미터 타입이 지정되지 않으면
         String 타입의 파라미터 값을 받는 생성자부터 찾는다. -->
         <!-- Objec obj = new MyClass("홍길동") -->
     <bean class="bitcamp.java100.ch20.ex2.MyClass">
@@ -16,8 +16,8 @@
     </bean>
     
     <!-- 그래서 다음 설정도 String을 받는 생성자를 호출한다.
-        이런 이유로 가능한 어느 타입의 파라미터를 갖는 생성자를
-        호출할 것인지 명시하는 것이 유지보수에 좋다. -->
+                이런 이유로 가능한 어느 타입의 파라미터를 갖는 생성자를
+                호출할 것인지 명시하는 것이 유지보수에 좋다. -->
     <bean class="bitcamp.java100.ch20.ex2.MyClass">
         <constructor-arg><value>100</value></constructor-arg>
     </bean>
@@ -28,8 +28,8 @@
 
 
     <!-- 여러 개의 파라미터를 지정할 때 파라미터의 타입의 타입으로도 
-         정활하게 지정하지 못할 수도 있다. 
-         이런 경우 파라미터의 순서까지 지정하라 -->    
+                정활하게 지정하지 못할 수도 있다. 
+                이런 경우 파라미터의 순서까지 지정하라 -->    
     <bean class="bitcamp.java100.ch20.ex2.MyClass">
         <constructor-arg type="java.lang.String" index="0" ><value>1</value></constructor-arg>
         <constructor-arg type="int" index="1"><value>100</value></constructor-arg>

@@ -5,6 +5,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- 애노테이션으로 의존 객체 주입하기
+         => Car 클래스의 setEngine() 메서드에 
+            @Autowired 애노테이션을 붙여야 한다.
+         => 그리고 이 애노테이션이 붙은 셋터를 찾아서 
+                        처리해주는 객체를 등록해야 한다.
+    -->
+    
+    <!-- 객체(bean)를 생성한 후 
+         @Autowired 애노테이션을 처리하는 객체를 등록한다. 
+         
+         스프링 IoC 컨테이너에게 뭔가의 일을 시키고 싶은가?
+         1) 그렇다면, Spring IoC 컨테이너에서 제공하는 객체를 등록하라!
+         2) 또는 Spring IoC 컨테이너가 정한 규칙(인터페이스)에 따라
+                        클래스를 만들어 객체를 등록하라!
+    -->
+
     <!-- Bean을 실행한후 Autowired Annotation을 찾아서 호출 -->
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
     
@@ -20,5 +36,3 @@
     </bean>
 </beans>
 
-<!-- 배열을 쓸때 (array/list/set) 중 아무거나 써도 된다.
-    그래도 타입에 맞춰서 쓰는게 좋다. -->

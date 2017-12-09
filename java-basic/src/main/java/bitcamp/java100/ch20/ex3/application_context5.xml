@@ -5,6 +5,25 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
+     <!-- 셋터를 호출할 때 객체 생성하기 
+         <property> 태그 안에 <bean> 태그 작성하기
+         
+         Car c1 = new Car();
+         Engine temp = new Engine();
+         temp.setName("비트엔진");
+         temp.setCc(5000);
+         temp.setValve(16); 
+         c1.setEngine(temp);
+         
+         Car c2 = new Car();
+         Engine temp = new Engine();
+         temp.setName("비트엔진2");
+         temp.setCc(6000);
+         temp.setValve(32); 
+         c2.setEngine(temp);
+    -->
+       
+
 	<bean id="c1" class="bitcamp.java100.ch20.ex3.Car">
 		<property name="engine">
 			<bean id="e1" class="bitcamp.java100.ch20.ex3.Engine" 

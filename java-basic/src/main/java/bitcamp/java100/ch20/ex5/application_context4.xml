@@ -5,6 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+        <!-- String ==> Engine 변환기 등록하기   
+        -->
     <bean id="c1" class="bitcamp.java100.ch20.ex5.Car">
         <property name="engine" value="비트엔진,16,3800"/>
     </bean>
@@ -12,6 +14,11 @@
     <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
     <property name="customEditors">
         <map>
+        
+             <!-- key => 문자열을 어떤 타입의 객체로 바꿀지 지정
+                 value => 문자열을 해당 타입의 객체로 바꿔는 변환기 지정           
+            -->
+            
             <entry key="java.sql.Date" 
                    value="bitcamp.java100.ch20.ex5.MyDateEditor"/>  
                    
@@ -22,6 +29,3 @@
 </bean>
 
 </beans>
-
-<!-- 배열을 쓸때 (array/list/set) 중 아무거나 써도 된다.
-    그래도 타입에 맞춰서 쓰는게 좋다. -->

@@ -8,6 +8,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- @Autowired + @Qualifier = @Resource로 대체할 수 있다. 
+         @Autowired와 @Qualifier는 스프링에서 제공하는 애노테이션이다.
+         @Resource는 자바에서 제공하는 애노테이션이다.
+    -->
     <context:annotation-config/>
      
     <bean id="e1" class="bitcamp.java100.ch20.ex12.Engine">

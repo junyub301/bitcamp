@@ -5,6 +5,17 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+        <!-- Map 컬렉션 객체 주입하기 
+            Car c1 = new Car();
+        
+            Map<String,String> map = new HashMap<>();
+            map.put("sunroof", "yes");
+            map.put("airbag", "yes");
+            map.put("blackbox", "no");
+        
+            c1.setOptions(map);    
+    -->
+
     <bean id="c1" class="bitcamp.java100.ch20.ex4.Car">
         <property name="options">
             <map>

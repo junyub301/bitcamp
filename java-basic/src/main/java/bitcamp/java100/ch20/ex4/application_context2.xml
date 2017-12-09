@@ -5,6 +5,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+        <!-- List 컬렉션 객체 주입하기 
+            Car c1 = new Car();
+        
+            List<Seat> list = new ArrayList<>();
+        
+            Seat s1 = new Seat();
+            s1.setType("가죽");
+            list.add(s1);
+        
+            Seat s2 = new Seat();
+            s2.setType("가죽");
+            list.add(s2);
+        
+            Seat s3 = new Seat();
+            s3.setType("가죽");
+            list.add(s3);
+        
+            c1.setSeats(list);    
+    -->
+
 	<bean id="c1" class="bitcamp.java100.ch20.ex4.Car">
 		<property name="seats">
 			<array>

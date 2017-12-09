@@ -39,7 +39,7 @@ public class CarFactory3 implements FactoryBean<Car> {
         case "티코": 
             car = createTico();
             break;
-        case "티코 콜드": 
+        case "티코 골드": 
             car =  createTicoGole();
             break;
         case "소나타": 

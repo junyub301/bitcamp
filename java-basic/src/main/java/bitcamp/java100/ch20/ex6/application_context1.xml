@@ -4,9 +4,18 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+        <!-- 스태틱 팩토리 메서드를 호출하여 객체 생성하기   
+            class="공장메서드를 갖고 있는 클래스명"
+            factory-method="스태틱으로 선언된 공장메서드 이름"
+            id="공장 메서드가 리턴한 값을 저장할 때 사용할 이름"
+         
+            => 스프링 IoC 컨테이너에 저장되는 객체는 CarFactory가 아니라, 
+            CarFactory.createCar() 메서드가 리턴한 값이다.
+    -->
 
     <!-- 실제 CarFactory 값이 저장되는것이 아니라 
-         createCar의 리턴 타입(Car)을 저장한다. -->
+         createCar()의 리턴 타입(Car)을 저장한다. -->
     <bean id="c1" class="bitcamp.java100.ch20.ex6.CarFactory"
         factory-method="createCar">
         <constructor-arg value="티코 골드"/>
@@ -25,5 +34,3 @@
 
 </beans>
 
-<!-- 배열을 쓸때 (array/list/set) 중 아무거나 써도 된다.
-    그래도 타입에 맞춰서 쓰는게 좋다. -->
