@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" >
+<title>파일 업로드</title>
+
+</head>
+<body>
+<h1>파일 업로드</h1>
+<p>
+파일 업로드는 POST 방식으로 요청해야 한다.
+하지만 일반적인 POST 형식으로는 바이너리 파일을 서버에 보낼 수 없다.
+"멀티파트 전송 방식"을 사용해야 한다.
+</p>
+<form action="Servlet07" method="POST">
+이름: <input type="text" name="name"><br>
+나이: <input type="text" name="age"><br>
+사진1: <input type="file" name="photo1"><br>
+사진2: <input type="file" name="photo2"><br>
+<button>전송</button>
+</form>
+
+</body>
+</html>
