@@ -25,15 +25,13 @@ public class Servlet09 extends HttpServlet {
         String photo1Filename = null;
         String photo2Filename = null;
         
-        String savePath = req.getServletContext().getRealPath("sample");
+        String savePath = req.getServletContext().getRealPath("/step8");
         
         MultipartRequest multi = new MultipartRequest(req, savePath, "UTF-8");
         name = multi.getParameter("name");
         age = multi.getParameter("age");
         photo1Filename = multi.getFilesystemName("photo1Filename");
         photo2Filename = multi.getFilesystemName("photo2Filename");
-        
-        
         
         req.setCharacterEncoding("UTF-8");
         res.setContentType("text/plain;charset=UTF-8");
