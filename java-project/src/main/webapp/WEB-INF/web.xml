@@ -6,6 +6,8 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1"
   metadata-complete="false">
+
+      
     <context-param>
             <!-- 이 값은 오직 이 서블릿만 사용할 수 있다. -->
             <param-name>contextConfigLocation</param-name>
@@ -16,6 +18,18 @@
         <listener-class>java100.app.listener.ContextLoaderListener</listener-class>
     </listener>
 
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>java100.app.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>  
+        <url-pattern>*</url-pattern>  
+    </filter-mapping>
     
 
 

@@ -84,8 +84,8 @@ public class MemberDaoImpl implements MemberDao {
             con = ds.getConnection();
             pstmt = con.prepareStatement(
                     "update ex_memb set name=?,email=?,pwd=password(?) where no=?");
-            pstmt.setString(1, member.getEmail());
-            pstmt.setString(2, member.getName());
+            pstmt.setString(1, member.getName());
+            pstmt.setString(2, member.getEmail());
             pstmt.setString(3, member.getPwd());
             pstmt.setInt(4, member.getNo());
 
