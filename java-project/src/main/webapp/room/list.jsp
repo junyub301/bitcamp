@@ -20,12 +20,7 @@
 <body>
 <div class='container'>
 
-<%
-out.flush();
-
-RequestDispatcher rd = request.getRequestDispatcher("/header");
-rd.include(request, response);
-%>
+<jsp:include page = "/header.jsp"/>
 
 <h1>강의실목록</h1>
 <p><a href='form.jsp' class='btn btn-success btn-sm'>추가</a></p>
@@ -38,37 +33,29 @@ rd.include(request, response);
 <tbody>
 <%
 try {
-    PrintWriter out2 = new PrintWriter(out);
     List<Room> list = roomDao.selectList();
     for (Room room : list) {
-        out2.printf("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td>"
-                + "<td><a href='delete.jsp?no=%d' class='btn btn-danger btn-sm'>삭제</a></td></tr>\n",  
-                room.getNo(),
-                room.getLocation(),
-                room.getName(),
-                room.getCapacity(),
-                room.getNo()    
-                ); 
-    }
+%>
+      <tr>
+        <td><%=room.getNo() %></td>
+        <td><%=room.getLocation() %></td>
+        <td><%=room.getName() %></td>
+        <td><%=room.getCapacity() %></td>
+        <td><a href='delete.jsp?no=<%=room.getNo() %>' class='btn btn-danger btn-sm'>삭제</a></td>
+      </tr>
+<%    }
 } catch (Exception e ) {
-    e.printStackTrace();
-    out.println(e.getMessage());
-}
+    e.printStackTrace();%>
+    <%= e.getMessage()%>
+<%}
 %>
 </tbody>
 </table>
 
-<%
-out.flush();
-
-rd = request.getRequestDispatcher("/footer");
-rd.include(request, response);
-%>
+<jsp:include page = "/footer.jsp"/>
 
 </div>
-<script src='../node_modules/jquery/dist/jquery.slim.min.js' ></script>
-<script src='../node_modules/popper.js/dist/umd/popper.min.js' ></script>
-<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js' ></script>
+<%@ include file="../jslib.txt" %>
 </body>
 </html>
     

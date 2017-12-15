@@ -17,12 +17,7 @@
 <body>
 <div class='container'>
 
-<%
-out.flush();
-
-RequestDispatcher rd = request.getRequestDispatcher("/header");
-rd.include(request, response);
-%>
+<jsp:include page = "/header.jsp"/>
 
 <h1>회원 변경</h1>
 <%
@@ -33,25 +28,22 @@ try {
     member.setPwd(request.getParameter("password"));
 
     memberDao.insert(member);
-    out.println("<p>저장하였습니다.</p>");
-
+%>
+    <p>저장하였습니다.</p>
+<%
 } catch (Exception e ) {
     e.printStackTrace();
-    out.println(e.getMessage());
+%>
+    <%=e.getMessage() %>
+<%
 }
 %>
 <p><a href='list.jsp' class='btn btn-primary btn-sm'>목록</a></p>
 
-<%
-out.flush();
+<jsp:include page = "/footer.jsp"/>
 
-rd = request.getRequestDispatcher("/footer");
-rd.include(request, response);
-%>
 </div>
-<script src='../node_modules/jquery/dist/jquery.slim.min.js' ></script>
-<script src='../node_modules/popper.js/dist/umd/popper.min.js' ></script>
-<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js' ></script>
+<%@ include file="../jslib.txt" %>
 </body>
 </html>
     

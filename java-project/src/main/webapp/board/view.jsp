@@ -19,12 +19,7 @@
 <body>
 <div class='container'>
 
-<%
-out.flush();
-
-RequestDispatcher rd = request.getRequestDispatcher("/header");
-rd.include(request, response);
-%>
+<jsp:include page = "/header.jsp"/>
 
 <h1>게시판 정보</h1>
 <%
@@ -33,72 +28,68 @@ try {
     int no = Integer.parseInt(request.getParameter("no"));
     Board board = boardDao.selectOne(no);
     if (board != null) {
-        out.println("<form action='update.jsp' method='post'>");
+%>
+         <form action='update.jsp' method='post'> 
         
-        out.println("<div class='form-group row'>");
-        out.println("<label for='no'class='col-sm-2 col-form-label'>번호</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' readonly id='no' type='text' type='number' name='no' value='%d'>\n", board.getNo());
-        out.println("</div>");
-        out.println("</div>");
+         <div class='form-group row'> 
+         <label for='no'class='col-sm-2 col-form-label'>번호</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' readonly id='no' type='text' type='number' name='no' value='<%=board.getNo()%>'>
+         </div> 
+         </div> 
         
-        out.println("<div class='form-group row'>");
-        out.println("<label for='title'class='col-sm-2 col-form-label'>제목</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' id='title' type='text' name='title' value='%s'>\n", board.getTitle());
-        out.println("</div>");
-        out.println("</div>");
+         <div class='form-group row'> 
+         <label for='title'class='col-sm-2 col-form-label'>제목</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' id='title' type='text' name='title' value='<%=board.getTitle()%>'>
+         </div> 
+         </div> 
         
-        out.println("<div class='form-group row'>");
-        out.println("<label for='content'class='col-sm-2 col-form-label'>내용</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' id='content' type='text' name='contents' value='%s'>\n", board.getContent());
-        out.println("</div>");
-        out.println("</div>");
+         <div class='form-group row'> 
+         <label for='content'class='col-sm-2 col-form-label'>내용</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' id='content' type='text' name='contents' value='<%=board.getContent()%>'>
+         </div> 
+         </div> 
         
-        out.println("<div class='form-group row'>");
-        out.println("<label for='regdate'class='col-sm-2 col-form-label'>등록일</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' readonly id='regdate' type='text' name='regdt' value='%s'>\n", board.getRegDate());
-        out.println("</div>");
-        out.println("</div>");
+         <div class='form-group row'> 
+         <label for='regdate'class='col-sm-2 col-form-label'>등록일</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' readonly id='regdate' type='text' name='regdt' value='<%= board.getRegDate()%>'>
+         </div> 
+         </div> 
         
-        out.println("<div class='form-group row'>");
-        out.println("<label for='viewcount'class='col-sm-2 col-form-label'>조회수</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' readonly id='viewcount' type='text' name='vwcnt' value='%s'>\n", board.getViewCount());
-        out.println("</div>");
-        out.println("</div>");
+         <div class='form-group row'> 
+         <label for='viewcount'class='col-sm-2 col-form-label'>조회수</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' readonly id='viewcount' type='text' name='vwcnt' value='<%=board.getViewCount()%>'>
+         </div> 
+         </div> 
         
-        out.println("<div class='form-group row'>");
-        out.println("<div class='col-sm-10'>");
-        out.println("<button  class=\"btn btn-primary\">변경</button>");
-        out2.printf("<a href='delete.jsp?no=%d' class=\"btn btn-danger\">삭제</a>\n", board.getNo());
-        out.println("</div>");
-        out.println("</div>");
-        out.println("</form>");
-        
+         <div class='form-group row'> 
+         <div class='col-sm-10'> 
+         <button  class= "btn btn-primary ">변경</button> 
+         <a href='delete.jsp?no=<%=board.getNo()%>' class= "btn btn-danger ">삭제</a>
+         </div> 
+         </div> 
+         </form> 
+<%        
     } else {
-        out2.printf("'%s'번의 성적 정보가 없습니다.\n", no);
-    }
+%>
+         '<%= no %>'번의 성적 정보가 없습니다.
+<%    }
 
 } catch (Exception e ) {
-    e.printStackTrace();
-    out.println(e.getMessage());
-}
+    e.printStackTrace(); 
+%>
+    <%=e.getMessage() %>
+<%}
 %>
 
-<%
-out.flush();
-
-rd = request.getRequestDispatcher("/footer");
-rd.include(request, response);
-%>
+<jsp:include page = "/footer.jsp"/>
 
 </div>
-<script src='../node_modules/jquery/dist/jquery.slim.min.js' ></script>
-<script src='../node_modules/popper.js/dist/umd/popper.min.js' ></script>
-<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js' ></script>
+<%@ include file="../jslib.txt" %>
 </body>
 </html>
     

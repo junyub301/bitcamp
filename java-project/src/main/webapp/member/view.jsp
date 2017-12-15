@@ -18,81 +18,69 @@
 <body>
 <div class='container'>
 
-<%
-out.flush();
-
-RequestDispatcher rd = request.getRequestDispatcher("/header");
-rd.include(request, response);
-%>
+<jsp:include page = "/header.jsp"/>
 
 <h1>회원 상세 정보</h1>
 <%
 try {
 
     int no = Integer.parseInt(request.getParameter("no"));
-    PrintWriter out2 = new PrintWriter(out);
     Member member = memberDao.selectOne(no);
     if (member != null) {
-
-        out.println("<form action='update.jsp' method='post'>");
-        
-        out.println("<div class='form-group row'>");
-        out.println("<label for='no'class='col-sm-2 col-form-label'>번호</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' readonly id='no' type='text' type='number' name='no' value='%d'>\n", member.getNo());
-        out.println("</div>");
-        out.println("</div>");
-
-        out.println("<div class='form-group row'>");
-        out.println("<label for='name'class='col-sm-2 col-form-label'>이름</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' id='name' type='text' name='name' value='%s'>\n", member.getName());
-        out.println("</div>");
-        out.println("</div>");
-
-        out.println("<div class='form-group row'>");
-        out.println("<label for='email'class='col-sm-2 col-form-label'>이메일</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' id='email' type='text' name='email' value='%s'>\n", member.getEmail());
-        out.println("</div>");
-        out.println("</div>");
-
-        out.println("<div class='form-group row'>");
-        out.println("<label for='creatdate'class='col-sm-2 col-form-label'>등록일</label>");
-        out.println("<div class='col-sm-10'>");
-        out2.printf("<input class='form-control' readonly id='creatdate' type='text' name='vwcnt' value='%s'>\n",member.getCreatedDate());
-        out.println("</div>");
-        out.println("</div>");
-        
-        out.println("<div class='form-group row'>");
-        out.println("<div class='col-sm-10'>");
-        out.println("<button  class=\"btn btn-primary\">변경</button>");
-        out2.printf("<a href='delete.jsp?no=%d' class=\"btn btn-danger\">삭제</a>\n", member.getNo());
-        out.println("</div>");
-        out.println("</div>");
-        out.println("</form>");
-
-    } else {
-        out2.printf("'%s'번의 성적 정보가 없습니다.\n", no);
-    }
-} catch (Exception e ) {
-    e.printStackTrace();
-    out.println(e.getMessage());
-}
-
 %>
 
+         <form action='update.jsp' method='post'> 
+        
+         <div class='form-group row'> 
+         <label for='no'class='col-sm-2 col-form-label'>번호</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' readonly id='no' type='text' type='number' name='no' value='<%=member.getNo() %>'>
+         </div> 
+         </div> 
+
+         <div class='form-group row'> 
+         <label for='name'class='col-sm-2 col-form-label'>이름</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' id='name' type='text' name='name' value='<%=member.getName()%>'>
+         </div> 
+         </div> 
+
+         <div class='form-group row'> 
+         <label for='email'class='col-sm-2 col-form-label'>이메일</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' id='email' type='text' name='email' value='<%=member.getEmail()%>'> 
+         </div> 
+         </div> 
+
+         <div class='form-group row'> 
+         <label for='creatdate'class='col-sm-2 col-form-label'>등록일</label> 
+         <div class='col-sm-10'> 
+         <input class='form-control' readonly id='creatdate' type='text' name='vwcnt' value='<%=member.getCreatedDate()%>'>
+         </div> 
+         </div> 
+        
+         <div class='form-group row'> 
+         <div class='col-sm-10'> 
+         <button  class="btn btn-primary">변경</button> 
+         <a href='delete.jsp?no=<%= member.getNo() %>' class="btn btn-danger">삭제</a>
+         </div> 
+         </div> 
+         </form> 
 <%
-out.flush();
+    } else {%>
+         '<%=no%>'번의 성적 정보가 없습니다.
+<%    }
+} catch (Exception e ) {
+    e.printStackTrace(); %>
+    <%=e.getMessage()%> 
+<%}
 
-rd = request.getRequestDispatcher("/footer");
-rd.include(request, response);
 %>
+
+<jsp:include page = "/footer.jsp"/>
 
 </div>
-<script src='../node_modules/jquery/dist/jquery.slim.min.js' ></script>
-<script src='../node_modules/popper.js/dist/umd/popper.min.js' ></script>
-<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js' ></script>
+<%@ include file="../jslib.txt" %>
 </body>
 </html>
     
