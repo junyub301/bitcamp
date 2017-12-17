@@ -15,10 +15,10 @@
 
 <h2>종류</h2>
 <pre class="jsp">
-&lt;jsp:useBean/>
-&lt;jsp:param/>
-&lt;jsp:include/>
-&lt;jsp:forward/>
+&lt;%jsp:useBean/>
+&lt;%jsp:param/>
+&lt;%jsp:include/>
+&lt;%jsp:forward/>
 등이 있다.
 %>
 </pre> 
