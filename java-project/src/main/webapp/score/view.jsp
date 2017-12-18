@@ -1,11 +1,7 @@
-<%@page import="java.io.PrintWriter"%>
 <%@page import="java100.app.domain.Score"%>
-<%@page import="java100.app.listener.ContextLoaderListener"%>
-<%@page import="java100.app.dao.ScoreDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<% ScoreDao scoreDao = ContextLoaderListener.iocContainer.getBean(ScoreDao.class); %>
     
 <!DOCTYPE html>
 <html>
@@ -20,70 +16,67 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>성적 상세 정보</h1>
+
+<jsp:useBean id="score" type ="java100.app.domain.Score" scope="request"></jsp:useBean>
 <%
 try {
-
-
-    int no = Integer.parseInt(request.getParameter("no"));
-    PrintWriter out2 = new PrintWriter(out);
-    Score score = scoreDao.selectOne(no); 
     if (score != null) {
 %>
-         <form action='update.jsp' method='post'>    
+         <form action='update' method='post'>    
         
          <div class='form-group row'>    
          <label for='no'class='col-sm-2 col-form-label'>번호</label>    
          <div class='col-sm-10'>    
-         <input class='form-control' readonly  id='no' type='text' type='number' name='no' value='<%=score.getNo() %>'>
+         <input class='form-control' readonly  id='no' type='text' type='number' name='no' value='${score.no}'>
          </div>    
          </div>    
         
          <div class='form-group row'>    
          <label for='name'class='col-sm-2 col-form-label'>이름</label>    
          <div class='col-sm-10'>    
-         <input class='form-control' id='name' type='text' name='name' value='<%=score.getName() %>'>
+         <input class='form-control' id='name' type='text' name='name' value='${score.name}'>
          </div>    
          </div>    
         
          <div class='form-group row'>    
          <label for='kor' class='col-sm-2 col-form-label'>국어</label>    
          <div class='col-sm-10'>    
-         <input class='form-control' id='kor'  type='number' name='kor' value='<%=score.getKor() %>'>
+         <input class='form-control' id='kor'  type='number' name='kor' value='${score.kor}'>
          </div>    
          </div>    
         
          <div class='form-group row'>    
          <label for='eng' class='col-sm-2 col-form-label'>영어</label>    
          <div class='col-sm-10'>    
-         <input class='form-control' id='eng' type='number' name='eng' value='<%=score.getEng()%>'>
+         <input class='form-control' id='eng' type='number' name='eng' value='${score.eng}'>
          </div>    
          </div>    
         
          <div class='form-group row'>    
          <label for='math' class='col-sm-2 col-form-label'>수학</label>    
          <div class='col-sm-10'>    
-         <input class='form-control' id='math'  type='text' type='number' name='math' value='<%=score.getMath()%>'>
+         <input class='form-control' id='math'  type='text' type='number' name='math' value='${score.math}'>
          </div>    
          </div>    
         
          <div class='form-group row'>    
          <label for='sum' class='col-sm-2 col-form-label'>합계</label>    
          <div class='col-sm-10'>    
-         <input class='form-control' readonly  id='sum' type='text' value='<%=score.getSum() %>'>
+         <input class='form-control' readonly  id='sum' type='text' value='${score.sum}'>
          </div>    
          </div>    
         
          <div class='form-group row'>    
          <label for='aver' class='col-sm-2 col-form-label'>평균</label>    
          <div class='col-sm-10'>    
-         <input class='form-control' readonly  id='aver' type='text' value='<%=score.getAver()%>'>  
+         <input class='form-control' readonly  id='aver' type='text' value='${score.aver}'>  
          </div>    
          </div>    
         
          <div class='form-group row'>    
          <div class='col-sm-10'>    
          <button  class='btn btn-primary'>변경</button>    
-         <a href='delete.jsp?no=<%=score.getNo() %>' class="btn btn-danger">삭제</a>
+         <a href='delete?no=${score.no}' class="btn btn-danger">삭제</a>
          </div>    
          </div>    
          </form>    
@@ -91,12 +84,13 @@ try {
 <%  
     } else {
 %>
-        '<%=no %>'의 성적 정보가 없습니다.
+        '${param.no}'의 성적 정보가 없습니다.
 <%
     }
-} catch (Exception e ) {
-    e.printStackTrace();
-    out.println(e.getMessage());
+} catch (Exception e) {
+    e.printStackTrace(); // for developer%>
+    <%=e.getMessage()%>
+    <%
 }
 %>
 

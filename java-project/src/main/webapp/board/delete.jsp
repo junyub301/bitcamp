@@ -19,19 +19,18 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>게시물 삭제</h1>
+<jsp:useBean id="count" type="java.lang.Integer" scope="request"></jsp:useBean>
 <%
 try {
-    PrintWriter out2 = new PrintWriter(out);
-    int no = Integer.parseInt(request.getParameter("no"));
-
-    if (boardDao.delete(no) > 0) {
+    
+    if (count > 0) {
 %>
 
         <p>삭제했습니다.</p>
 <%
     } else {
 %>
-        <p>'<%= no %>'의 성적 정보가 없습니다.</p>
+        <p>'${param.no}'의 성적 정보가 없습니다.</p>
 <%
     }
 } catch (Exception e ) {
@@ -39,7 +38,7 @@ try {
     out.println(e.getMessage());
 }
 %>
-<p><a href='list.jsp' class='btn btn-primary btn-sm'>목록</a></p>
+<p><a href='list' class='btn btn-primary btn-sm'>목록</a></p>
 
 <jsp:include page = "/footer.jsp"/>
 

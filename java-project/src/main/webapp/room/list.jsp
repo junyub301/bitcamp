@@ -1,14 +1,11 @@
-<%@page import="java.io.PrintWriter"%>
 <%@page import="java100.app.domain.Room"%>
 <%@page import="java.util.List"%>
-<%@page import="java100.app.listener.ContextLoaderListener"%>
 <%@page import="java100.app.dao.RoomDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
 
-<% RoomDao roomDao = ContextLoaderListener.iocContainer.getBean(RoomDao.class); %>
     
 <!DOCTYPE html>
 <html>
@@ -23,7 +20,7 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>강의실목록</h1>
-<p><a href='form.jsp' class='btn btn-success btn-sm'>추가</a></p>
+<p><a href='form' class='btn btn-success btn-sm'>추가</a></p>
 <table class='table table-hover'>
 <thead>
 <tr>
@@ -31,17 +28,19 @@
 </tr>
 </thead>
 <tbody>
+
+<jsp:useBean id="list" type="java.util.List<Room>" scope="request"></jsp:useBean>
 <%
 try {
-    List<Room> list = roomDao.selectList();
     for (Room room : list) {
+        pageContext.setAttribute("room", room);
 %>
       <tr>
-        <td><%=room.getNo() %></td>
-        <td><%=room.getLocation() %></td>
-        <td><%=room.getName() %></td>
-        <td><%=room.getCapacity() %></td>
-        <td><a href='delete.jsp?no=<%=room.getNo() %>' class='btn btn-danger btn-sm'>삭제</a></td>
+        <td>${room.no}</td>
+        <td>${room.location}</td>
+        <td>${room.name}</td>
+        <td>${room.capacity}</td>
+        <td><a href='delete?no=${room.no}' class='btn btn-danger btn-sm'>삭제</a></td>
       </tr>
 <%    }
 } catch (Exception e ) {

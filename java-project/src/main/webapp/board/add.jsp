@@ -21,23 +21,9 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>게시물 등록 결과</h1>
-<%
-try {
-    Board board = new Board();
-    board.setTitle(request.getParameter("title"));
-    board.setContent(request.getParameter("contents"));
-
-    boardDao.insert(board);
-%>
     <p>저장하였습니다.</p>
-<%
 
-} catch (Exception e ) {
-    e.printStackTrace();
-    out.println(e.getMessage());
-}
-%>
-<p><a href='list.jsp' class='btn btn-primary btn-sm'>목록</a></p>
+<p><a href='list' class='btn btn-primary btn-sm'>목록</a></p>
 
 <jsp:include page = "/footer.jsp"/>
 

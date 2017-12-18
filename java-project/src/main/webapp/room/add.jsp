@@ -20,25 +20,10 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>강의실 등록 결과</h1>
-<%
-try {
-    
-    Room room = new Room();
-    room.setName(request.getParameter("name"));
-    room.setLocation(request.getParameter("loc"));
-    room.setCapacity(Integer.parseInt(request.getParameter("capacity")));
-    
-    roomDao.insert(room);
-%>
+
     <p>저장하였습니다.</p>
-<%
-} catch (Exception e ) {
-    e.printStackTrace();%>
     
-    <%=e.getMessage() %>
-<%}
-%>
-<p><a href='list.jsp' class='btn btn-primary btn-sm'>목록</a></p>
+<p><a href='list' class='btn btn-primary btn-sm'>목록</a></p>
 
 <jsp:include page = "/footer.jsp"/>
 

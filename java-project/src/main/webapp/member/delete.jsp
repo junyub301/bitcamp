@@ -5,7 +5,6 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
-<% MemberDao memberDao = ContextLoaderListener.iocContainer.getBean(MemberDao.class); %>
 
 <!DOCTYPE html>
 <html>
@@ -20,17 +19,18 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>회원 삭제</h1>
+<jsp:useBean id="count" type="java.lang.Integer" scope="request"></jsp:useBean>
+
 <%
 try {
-    int no = Integer.parseInt(request.getParameter("no"));
 
-    if (memberDao.delete(no) > 0) {
+    if (count > 0) {
 %>
         <p>삭제했습니다.</p>
 <%
     } else {
 %>
-        <p>'<%=no %>'의 성적 정보가 없습니다.</p>
+        <p>'${param.no}'의 성적 정보가 없습니다.</p>
 <%
     }
 } catch (Exception e ) {
@@ -39,7 +39,7 @@ try {
     <%=e.getMessage() %>
 <%}
 %>
-<p><a href='list.jsp' class='btn btn-primary btn-sm'>목록</a></p>
+<p><a href='list' class='btn btn-primary btn-sm'>목록</a></p>
 
 <jsp:include page = "/footer.jsp"/>
 

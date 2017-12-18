@@ -15,7 +15,7 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>강의실 상세 정보</h1>
-<form action='add.jsp' method='post'>
+<form action='add' method='post'>
 <div class='form-group row'>
 <label for='loc'class='col-sm-2 col-form-label'>지역</label>
 <div class='col-sm-10'>
