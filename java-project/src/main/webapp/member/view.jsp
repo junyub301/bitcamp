@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
     
 <!DOCTYPE html>
 <html>
@@ -18,13 +19,7 @@
 
 <h1>회원 상세 정보</h1>
 
-<jsp:useBean id="member" type="java100.app.domain.Member" scope="request"></jsp:useBean>
-
-<%
-try {
-
-    if (member != null) {
-%>
+<c:if test="${not empty member}">
 
          <form action='update' method='post'> 
         
@@ -63,16 +58,10 @@ try {
          </div> 
          </div> 
          </form> 
-<%
-    } else {%>
+ </c:if>
+ <c:if test="${empty member }">
          '${param.no}'번의 성적 정보가 없습니다.
-<%    }
-} catch (Exception e ) {
-    e.printStackTrace(); %>
-    <%=e.getMessage()%> 
-<%}
-
-%>
+ </c:if>
 
 <jsp:include page = "/footer.jsp"/>
 

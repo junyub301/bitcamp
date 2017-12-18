@@ -6,7 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
     
 <!DOCTYPE html>
 <html>
@@ -21,28 +21,13 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>회원 변경</h1>
-
-<jsp:useBean id="count" type="java.lang.Integer" scope="request"></jsp:useBean>
-<%
-try {
-    
-    // executeUpdate()의 리턴값은 변경된 레코드들의 개수이다.
-    // 만약 해당 번호와 일치하는 데이터를 찾지 못해 변경할게 없다면 0을 리턴한다.
-    if (count > 0 ) { 
-%>
+<c:if test="count > 0">
         <p>변경하였습니다..</p>
-<%
-    } else {
-%>
+</c:if>
+<c:if test="count == 0">
         <p>'${param.no }'의 성적 정보가 없습니다.</p>
-<%    }
+</c:if>
 
-} catch (Exception e ) {
-    e.printStackTrace();
-%>
-    <%= e.getMessage()%>
-<%}
-%>
 <p><a href='list' class='btn btn-primary btn-sm'>목록</a></p>
 
 <jsp:include page = "/footer.jsp"/>

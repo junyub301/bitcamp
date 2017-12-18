@@ -6,6 +6,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +21,7 @@
 
 <h1>게시판 정보</h1>
 
-<jsp:useBean id="board" type="java100.app.domain.Board" scope="request"></jsp:useBean>
-<%
-try {
-    if (board != null) {
-%>
+<c:if test="${not empty board }">
          <form action='update' method='post'> 
         
          <div class='form-group row'> 
@@ -69,18 +66,10 @@ try {
          </div> 
          </div> 
          </form> 
-<%        
-    } else {
-%>
+</c:if>
+<c:if test="${empty board }">
          '${param.no}'번의 성적 정보가 없습니다.
-<%    }
-
-} catch (Exception e ) {
-    e.printStackTrace(); 
-%>
-    <%=e.getMessage() %>
-<%}
-%>
+</c:if>
 
 <jsp:include page = "/footer.jsp"/>
 

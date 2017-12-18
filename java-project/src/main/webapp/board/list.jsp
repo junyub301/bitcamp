@@ -8,6 +8,7 @@
     trimDirectiveWhitespaces="true"%>
 
    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -31,27 +32,14 @@
 </thead>
 <tbody>
 
-<jsp:useBean id="list" type="java.util.List<Board>" scope="request"></jsp:useBean>
-
-<%
-try {
-            for (Board board : list) {
-            	pageContext.setAttribute("board", board);
-%>
+<c:forEach items="${list}" var="board">
       <tr>
        <td>${board.no}</td>
        <td><a href='view?no=${board.no}'>${board.title}</a></td>
        <td>${board.regDate}</td><td>${board.viewCount}</td>
       </tr>
-<%
-            }
-        } catch (Exception e ) {
-            e.printStackTrace();
-%>
-            <%=e.getMessage() %>
-<% 
-        }
-%>
+</c:forEach>
+
 </tbody>
 </table>
 

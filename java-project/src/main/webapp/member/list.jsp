@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
- 
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,27 +28,14 @@
 </thead>
 <tbody>
 
-<jsp:useBean id="list" type="java.util.List<Member>" scope="request"></jsp:useBean>
-
-<%
-try {
-    
-    for (Member member : list) {
-        pageContext.setAttribute("member", member);
-%>
+<c:forEach items="${list}" var="member">
       <tr>
-        <td><%=member.getNo() %></td>
+        <td>${member.no}</td>
         <td><a href='view?no=${member.no}'>${member.name}</a></td>
         <td>${member.email}</td>
         <td>${member.createdDate}</td>
       </tr> 
-<%
-    }
-} catch (Exception e ) {
-    e.printStackTrace(); %>
-    <%=e.getMessage()%>
-<%}
-%>
+</c:forEach>
 </tbody>
 </table>
 

@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
     
 <!DOCTYPE html>
 <html>
@@ -29,12 +29,7 @@
 </thead>
 <tbody>
 
-<jsp:useBean id="list" type="java.util.List<Room>" scope="request"></jsp:useBean>
-<%
-try {
-    for (Room room : list) {
-        pageContext.setAttribute("room", room);
-%>
+<c:forEach items="${list}" var="room"> 
       <tr>
         <td>${room.no}</td>
         <td>${room.location}</td>
@@ -42,12 +37,7 @@ try {
         <td>${room.capacity}</td>
         <td><a href='delete?no=${room.no}' class='btn btn-danger btn-sm'>삭제</a></td>
       </tr>
-<%    }
-} catch (Exception e ) {
-    e.printStackTrace();%>
-    <%= e.getMessage()%>
-<%}
-%>
+</c:forEach>
 </tbody>
 </table>
 
