@@ -1,7 +1,7 @@
 <%@page import="java100.app.domain.Score"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
     
 <!DOCTYPE html>
 <html>
@@ -17,11 +17,7 @@
 
 <h1>성적 상세 정보</h1>
 
-<jsp:useBean id="score" type ="java100.app.domain.Score" scope="request"></jsp:useBean>
-<%
-try {
-    if (score != null) {
-%>
+<c:if test="${not empty score}">
          <form action='update' method='post'>    
         
          <div class='form-group row'>    
@@ -80,20 +76,11 @@ try {
          </div>    
          </div>    
          </form>    
-        
-<%  
-    } else {
-%>
-        '${param.no}'의 성적 정보가 없습니다.
-<%
-    }
-} catch (Exception e) {
-    e.printStackTrace(); // for developer%>
-    <%=e.getMessage()%>
-    <%
-}
-%>
+</c:if>
+<c:if test="${empty score}">
 
+        '${param.no}'의 성적 정보가 없습니다.
+</c:if>
 <jsp:include page = "/footer.jsp"/>
 
 </div>

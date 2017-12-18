@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -24,29 +26,15 @@
 </thead>
 <tbody>
 
-<jsp:useBean id="list" type="java.util.List<Score>" scope="request"></jsp:useBean>
-
-<%
-try {
-   
-    for (Score score : list) {
-    	pageContext.setAttribute("score",score);
-%>
+<c:forEach items="${list}" var="score">
         <tr>
             <td>${score.no}</td>
             <td><a href='view?no=${score.no}'>${score.name}</a></td>
             <td>${score.sum}</td>
             <td>${score.aver}</td>
        </tr>
- <%
-    }
-    
-} catch (Exception e) {
-    e.printStackTrace(); // for developer%>
-    <%=e.getMessage()%>
-    <%
-}
-%>
+
+</c:forEach>
 </tbody>
 </table>
 <jsp:include page = "/footer.jsp"/>

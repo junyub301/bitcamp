@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
     
 <!DOCTYPE html>
 <html>
@@ -16,24 +16,12 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>성적 변경</h1>
-<jsp:useBean id="count" type="java.lang.Integer" scope="request"></jsp:useBean>
-<%
-try {
-            if (count > 0 ) { 
-%>
+<c:if test="${count > 0}">
                 <p>변경하였습니다..</p>
-<%
-            } else {
-%>
+</c:if>
+<c:if test="${count == 0 }">
                 <p>'${param.no}'의 성적 정보가 없습니다.</p>
-<%
-            }
-
-        } catch (Exception e ) {
-            e.printStackTrace();
-            out.println(e.getMessage());
-        }
-%>
+</c:if>
 <p><a href='list' class='btn btn-primary btn-sm'>목록</a></p>
 
 <jsp:include page = "/footer.jsp"/>
