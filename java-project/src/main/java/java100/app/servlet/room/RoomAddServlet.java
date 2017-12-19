@@ -2,7 +2,6 @@ package java100.app.servlet.room;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,13 +25,8 @@ public class RoomAddServlet extends HttpServlet {
         room.setLocation(request.getParameter("loc"));
         room.setCapacity(Integer.parseInt(request.getParameter("capacity")));
         
-        int count = roomDao.insert(room);
-        
-        request.setAttribute("count", count); 
-        
-        response.setContentType("text/html; charset=UTF-8");
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/room/add.jsp");
-        rd.include(request, response);
+        roomDao.insert(room);
+     // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
+        request.setAttribute("viewName", "redirect:list.do");
     }
 }

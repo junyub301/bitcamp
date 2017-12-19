@@ -19,7 +19,7 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>회원목록</h1>
-<p><a href='form' class='btn btn-success btn-sm'>추가</a></p>
+<p><a href='form.do' class='btn btn-success btn-sm'>추가</a></p>
 <table class='table table-hover'>
 <thead>
 <tr>
@@ -31,7 +31,7 @@
 <c:forEach items="${list}" var="member">
       <tr>
         <td>${member.no}</td>
-        <td><a href='view?no=${member.no}'>${member.name}</a></td>
+        <td><a href='view.do?no=${member.no}'>${member.name}</a></td>
         <td>${member.email}</td>
         <td>${member.createdDate}</td>
       </tr> 
