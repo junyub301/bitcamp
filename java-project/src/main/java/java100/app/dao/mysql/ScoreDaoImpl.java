@@ -96,7 +96,7 @@ public class ScoreDaoImpl implements ScoreDao {
             return pstmt.executeUpdate();  
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -116,7 +116,7 @@ public class ScoreDaoImpl implements ScoreDao {
             return pstmt.executeUpdate();
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -151,7 +151,7 @@ public class ScoreDaoImpl implements ScoreDao {
             return score;
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {rs.close();} catch(Exception e) {}
             try {pstmt.close();} catch(Exception e) {}

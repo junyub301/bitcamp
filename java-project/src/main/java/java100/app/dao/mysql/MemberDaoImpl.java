@@ -44,7 +44,7 @@ public class MemberDaoImpl implements MemberDao {
             }
             return list;
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {rs.close();} catch(Exception e) {}
             try {pstmt.close();} catch(Exception e) {}
@@ -69,7 +69,7 @@ public class MemberDaoImpl implements MemberDao {
             return pstmt.executeUpdate();
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -95,7 +95,7 @@ public class MemberDaoImpl implements MemberDao {
             return pstmt.executeUpdate();
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -114,7 +114,7 @@ public class MemberDaoImpl implements MemberDao {
 
             return pstmt.executeUpdate();
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -146,7 +146,7 @@ public class MemberDaoImpl implements MemberDao {
             rs.close();
             return member;
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {rs.close();} catch(Exception e) {}
             try {pstmt.close();} catch(Exception e) {}

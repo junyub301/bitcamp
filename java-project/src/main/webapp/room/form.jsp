@@ -19,7 +19,7 @@
 <div class='form-group row'>
 <label for='loc'class='col-sm-2 col-form-label'>지역</label>
 <div class='col-sm-10'>
-<input class='form-control' id='loc' type='text' name='loc' >
+<input class='form-control' id='loc' type='text' name='location' >
 </div>
 </div>
 <div class='form-group row'>

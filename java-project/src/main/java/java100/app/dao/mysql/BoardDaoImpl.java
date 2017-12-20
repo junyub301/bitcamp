@@ -43,7 +43,7 @@ public class BoardDaoImpl implements BoardDao {
             }
             return list;
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {rs.close();} catch(Exception e) {}
             try {pstmt.close();} catch(Exception e) {}
@@ -66,7 +66,7 @@ public class BoardDaoImpl implements BoardDao {
             return pstmt.executeUpdate();
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -91,7 +91,7 @@ public class BoardDaoImpl implements BoardDao {
             // 만약 해당 번호와 일치하는 데이터를 찾지 못해 변경할게 없다면 0을 리턴한다.
             return pstmt.executeUpdate();
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -112,7 +112,7 @@ public class BoardDaoImpl implements BoardDao {
             return pstmt.executeUpdate();
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -154,7 +154,7 @@ public class BoardDaoImpl implements BoardDao {
             } catch(Exception e) {throw e;}
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         }finally {
             ds.returnConnection(con);
         }

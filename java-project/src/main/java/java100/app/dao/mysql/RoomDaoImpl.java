@@ -66,7 +66,7 @@ public class RoomDaoImpl implements RoomDao {
             return pstmt.executeUpdate();
 
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
@@ -85,7 +85,7 @@ public class RoomDaoImpl implements RoomDao {
 
             return pstmt.executeUpdate();
         } catch (Exception e ) {
-            throw new DaoException();
+            throw new DaoException(e);
         } finally {
             try {pstmt.close();} catch(Exception e) {}
             ds.returnConnection(con);
