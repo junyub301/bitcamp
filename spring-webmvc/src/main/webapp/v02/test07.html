@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<p>À¥¼­¹ö¿¡ text/csv Å¸ÀÔÀÇ °ªÀ» º¸³¾ °æ¿ì
-<button type="button" onclick="f1()">¿äÃ»1</button></p>
+<p>ì›¹ì„œë²„ì— text/csv íƒ€ì…ì˜ ê°’ì„ ë³´ë‚¼ ê²½ìš°
+<button type="button" onclick="f1()">ìš”ì²­1</button></p>
 
-<p>À¥¼­¹ö¿¡ application/json Å¸ÀÔÀÇ °ªÀ» º¸³¾ °æ¿ì
-<button type="button" onclick="f2()">¿äÃ»2</button></p>
+<p>ì›¹ì„œë²„ì— application/json íƒ€ì…ì˜ ê°’ì„ ë³´ë‚¼ ê²½ìš°
+<button type="button" onclick="f2()">ìš”ì²­2</button></p>
 
-<p>ÀÏ¹İ POST ¿äÃ» º¸³»±â
-<button type="button" onclick="f3()">¿äÃ»3</button></p>
+<p>ì¼ë°˜ POST ìš”ì²­ ë³´ë‚´ê¸°
+<button type="button" onclick="f3()">ìš”ì²­3</button></p>
 
-<p>À¥¼­¹ö¿¡ ¼ø¼ö ÅØ½ºÆ® º¸³»±â
-<button type="button" onclick="f4()">¿äÃ»3</button></p>
+<p>ì›¹ì„œë²„ì— ìˆœìˆ˜ í…ìŠ¤íŠ¸ ë³´ë‚´ê¸°
+<button type="button" onclick="f4()">ìš”ì²­3</button></p>
 
 <script>
 function f1(){
-	// À¥ ¼­¹ö¿¡°Ô HTTP ¿äÃ» º¸³»±â
+	// ì›¹ ì„œë²„ì—ê²Œ HTTP ìš”ì²­ ë³´ë‚´ê¸°
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../app/v02/test07', false); // À¥¼­¹ö¿¡ ¿¬°áÇÑ´Ù.
+    xhr.open('POST', '../app/v02/test07', false); // ì›¹ì„œë²„ì— ì—°ê²°í•œë‹¤.
     xhr.setRequestHeader("Content-Type", "text/csv");
-    xhr.send("aaa,20,111-1111,aaa@test.com"); // À¥¼­¹ö¿¡ POST ¿äÃ»À» º¸³½´Ù.
-    window.alert(xhr.responseText); // À¥¼­¹ö°¡ ÀÀ´äÇÑ ³»¿ëÀ» Ãâ·ÂÇÑ´Ù.
+    xhr.send("aaa,20,111-1111,aaa@test.com"); // ì›¹ì„œë²„ì— POST ìš”ì²­ì„ ë³´ë‚¸ë‹¤.
+    window.alert(xhr.responseText); // ì›¹ì„œë²„ê°€ ì‘ë‹µí•œ ë‚´ìš©ì„ ì¶œë ¥í•œë‹¤.
 }
 
 function f2(){
 	var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../app/v02/test07', false); // À¥¼­¹ö¿¡ ¿¬°áÇÑ´Ù.
+    xhr.open('POST', '../app/v02/test07', false); // ì›¹ì„œë²„ì— ì—°ê²°í•œë‹¤.
     xhr.setRequestHeader("Content-Type", "application/json");
     var obj = {
     		name: "aaa",
@@ -39,27 +39,27 @@ function f2(){
     };
     var str = JSON.stringify(obj);
     xhr.send(str);
-    //xhr.send("{\"name\":\"aaa\",\"age\":20,\"tel\":\"111-1111\",\"email\":\"aaa@test.com\"}"); // À¥¼­¹ö¿¡ ¿äÃ»À» º¸³½´Ù.
+    //xhr.send("{\"name\":\"aaa\",\"age\":20,\"tel\":\"111-1111\",\"email\":\"aaa@test.com\"}"); // ì›¹ì„œë²„ì— ìš”ì²­ì„ ë³´ë‚¸ë‹¤.
     
-    window.alert(xhr.responseText); // À¥¼­¹ö°¡ ÀÀ´äÇÑ ³»¿ëÀ» Ãâ·ÂÇÑ´Ù.
+    window.alert(xhr.responseText); // ì›¹ì„œë²„ê°€ ì‘ë‹µí•œ ë‚´ìš©ì„ ì¶œë ¥í•œë‹¤.
     
 }
 
 function f3(){
 	var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../app/v02/test07', false); // À¥¼­¹ö¿¡ ¿¬°áÇÑ´Ù.
+    xhr.open('POST', '../app/v02/test07', false); // ì›¹ì„œë²„ì— ì—°ê²°í•œë‹¤.
     xhr.setRequestHeader("Content-Type", "application/x-www-form-rlencoded");
-    xhr.send("name=aaa&age=20&tel=111-1111&email=aaa@test.com"); // À¥¼­¹ö¿¡ ¿äÃ»À» º¸³½´Ù.
-    window.alert(xhr.responseText); // À¥¼­¹ö°¡ ÀÀ´äÇÑ ³»¿ëÀ» Ãâ·ÂÇÑ´Ù.
+    xhr.send("name=aaa&age=20&tel=111-1111&email=aaa@test.com"); // ì›¹ì„œë²„ì— ìš”ì²­ì„ ë³´ë‚¸ë‹¤.
+    window.alert(xhr.responseText); // ì›¹ì„œë²„ê°€ ì‘ë‹µí•œ ë‚´ìš©ì„ ì¶œë ¥í•œë‹¤.
     
 }
 
 function f4(){
 	var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../app/v02/test07', false); // À¥¼­¹ö¿¡ ¿¬°áÇÑ´Ù.
+    xhr.open('POST', '../app/v02/test07', false); // ì›¹ì„œë²„ì— ì—°ê²°í•œë‹¤.
     xhr.setRequestHeader("Content-Type", "text/plain")    
-    xhr.send("hello!"); // À¥¼­¹ö¿¡ ¿äÃ»À» º¸³½´Ù.
-    window.alert(xhr.responseText); // À¥¼­¹ö°¡ ÀÀ´äÇÑ ³»¿ëÀ» Ãâ·ÂÇÑ´Ù.
+    xhr.send("hello!"); // ì›¹ì„œë²„ì— ìš”ì²­ì„ ë³´ë‚¸ë‹¤.
+    window.alert(xhr.responseText); // ì›¹ì„œë²„ê°€ ì‘ë‹µí•œ ë‚´ìš©ì„ ì¶œë ¥í•œë‹¤.
     
 }
 
