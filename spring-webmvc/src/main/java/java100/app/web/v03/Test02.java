@@ -19,7 +19,7 @@ public class Test02 {
     @RequestMapping("/m1")
     @ResponseBody
     public String m1() {
-        return "hello"; // 리턴 값은 클라리언트로 그래도 출력된다.
+        return "hello"; // 리턴 값은 클라이언트로 그래도 출력된다.
     }
     
     // 한글 출력?
