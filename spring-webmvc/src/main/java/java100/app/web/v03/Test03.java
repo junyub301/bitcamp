@@ -72,7 +72,7 @@ public class Test03 {
 
         // Model 객체에 값을 담아 리턴하면,
         // 프론트 컨트롤러는 모델 객체에 저장되어 있는 값을 꺼내
-        // ServerletRequest로 옮긴다.
+        // ServletRequest로 옮긴다.
         Model model = new ConcurrentModel();
         model.addAttribute("member", new Member("홍길동", 20, true));
 

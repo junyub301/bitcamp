@@ -17,7 +17,7 @@ public class Test04 {
     
      @RequestMapping(value="/m2", produces="text/plain; charset=UTF-8")
      // @ResponseBody // @RestController에 정의된 요청 핸들러가 일반 객체를
-     // 리턴할 때 @ResponseBody를 붙일 필요가 없다.
+                      // 리턴할 때 @ResponseBody를 붙일 필요가 없다.
      public Object m2() {
          return "Hello!안녕!";
      }
