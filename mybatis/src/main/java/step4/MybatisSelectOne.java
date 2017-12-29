@@ -1,4 +1,4 @@
-package step3;
+package step4;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -12,7 +12,7 @@ public class MybatisSelectOne {
 
     public static void main(String[] args) throws Exception {
 
-        InputStream inputStream = Resources.getResourceAsStream("step3/mybatis-config.xml");
+        InputStream inputStream = Resources.getResourceAsStream("step4/mybatis-config.xml");
 
         SqlSessionFactory sqlSessionFactory =
                 new SqlSessionFactoryBuilder().build(inputStream);
