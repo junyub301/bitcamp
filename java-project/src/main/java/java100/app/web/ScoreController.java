@@ -27,7 +27,7 @@ public class ScoreController {
             Model model) throws Exception {
 
         HashMap<String,Object> params = new HashMap<>();
-        params.put("names",names);
+        params.put("words",names);
         params.put("orderColumn",orderColumn);
         params.put("align",align);
         

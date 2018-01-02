@@ -20,13 +20,13 @@ public class MemberController {
     
     
     @RequestMapping("list")
-    public String list(@RequestParam(value="nm", required=false) String[] names,
+    public String list(@RequestParam(value="word", required=false) String[] words,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
 
         HashMap<String,Object> params = new HashMap<>();
-        params.put("names",names);
+        params.put("words",words);
         params.put("orderColumn",orderColumn);
         params.put("align",align);
         

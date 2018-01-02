@@ -20,7 +20,16 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>강의실목록</h1>
-<p><a href='form' class='btn btn-success btn-sm'>추가</a></p>
+
+<div class="toolbar">
+<form action="list" method="get" class="searchbox">
+<input type="text" name="lc">
+<button>검색</button>
+</form>
+<a href='form' class='btn btn-primary btn-sm'>추가</a>
+</div>
+
+
 <table class='table table-hover'>
 <thead>
 <tr>

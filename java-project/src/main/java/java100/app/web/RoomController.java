@@ -19,13 +19,13 @@ public class RoomController {
     
     @RequestMapping("list")
     public String list(
-            @RequestParam(value="nm", required=false) String[] names,
+            @RequestParam(value="lc", required=false) String[] locations,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
 
         HashMap<String,Object> params = new HashMap<>();
-        params.put("names",names);
+        params.put("words",locations);
         params.put("orderColumn",orderColumn);
         params.put("align",align);
         

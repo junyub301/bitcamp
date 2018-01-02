@@ -17,8 +17,16 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>성적목록</h1>
-<p><a href='form' class='btn btn-success btn-sm'>추가</a></p>
-<table class='table table-hover'>
+
+<div class='toolbar'>
+<form action="list" method="get" class='searchbox'>
+<input type="text" name="nm">
+<button>검색</button>
+</form>
+<a href='form' class='btn btn-primary btn-sm'>추가</a>
+</div>
+
+<table class='table table-hover' >
 <thead>
 <tr>
 <th>번호</th><th>이름</th><th>합계</th><th>평균</th>

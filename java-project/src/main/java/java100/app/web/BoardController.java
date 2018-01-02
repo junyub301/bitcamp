@@ -20,13 +20,13 @@ public class BoardController {
     @Autowired BoardDao boardDao;
     @RequestMapping("list")
     public String list(
-            @RequestParam(value="nm", required=false) String[] title,
+            @RequestParam(value="title", required=false) String[] title,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
 
         HashMap<String,Object> params = new HashMap<>();
-        params.put("names",title);
+        params.put("words",title);
         params.put("orderColumn",orderColumn);
         params.put("align",align);
         
