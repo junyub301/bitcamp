@@ -6,17 +6,19 @@
 <html>
 <head>
 <title>성적관리</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<!-- 브라우저 입장에서 경로를 생각해야 한다. 그러므로 ../../~로 설정해야한다. -->
+<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body>
 <div class='container'>
 
+<!-- 서버의 기준으로 생각해서 경로를 잡아야 한다. -->
 <jsp:include page = "/header.jsp"/>
 
 <h1>성적 상세 정보</h1>
 
-<form action='add.do' method='post'>
+<form action='add' method='post'>
 <div class='form-group row'>
 <label for='name'class='col-sm-2 col-form-label'>이름</label>
 <div class='col-sm-10'>

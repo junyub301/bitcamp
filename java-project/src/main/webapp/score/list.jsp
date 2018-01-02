@@ -9,15 +9,15 @@
 <html>
 <head>
 <title>성적관리</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body>
 <div class='container'>
 <jsp:include page = "/header.jsp"/>
 
 <h1>성적목록</h1>
-<p><a href='form.do' class='btn btn-success btn-sm'>추가</a></p>
+<p><a href='form' class='btn btn-success btn-sm'>추가</a></p>
 <table class='table table-hover'>
 <thead>
 <tr>
@@ -29,7 +29,7 @@
 <c:forEach items="${list}" var="score">
         <tr>
             <td>${score.no}</td>
-            <td><a href='view.do?no=${score.no}'>${score.name}</a></td>
+            <td><a href='${score.no}'>${score.name}</a></td>
             <td>${score.sum}</td>
             <td>${score.aver}</td>
        </tr>

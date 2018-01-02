@@ -8,9 +8,9 @@ import java100.app.util.DataSource;
 
 
 // 이 클래스가 스프링 IoC 컨테이너를 위한 설정 클래스임을 표시
-@Configuration 
+//@Configuration 
 // @Component가 붙은 클래스가 어느 패키지에 있는지 표시
-@ComponentScan("java100.app")
+//@ComponentScan("java100.app")
 public class AppConfig {
 
     // 스프링 IoC 컨테이너에게 getDataSource() 메서드를 호출해서

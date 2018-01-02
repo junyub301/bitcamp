@@ -9,8 +9,8 @@
 <html>
 <head>
 <title>회원관리</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body>
 <div class='container'>
@@ -21,7 +21,7 @@
 
 <c:if test="${not empty member}">
 
-         <form action='update.do' method='post'> 
+         <form action='update' method='post'> 
         
          <div class='form-group row'> 
          <label for='no'class='col-sm-2 col-form-label'>번호</label> 
@@ -54,7 +54,7 @@
          <div class='form-group row'> 
          <div class='col-sm-10'> 
          <button  class="btn btn-primary">변경</button> 
-         <a href='delete.do?no=${member.no}' class="btn btn-danger">삭제</a>
+         <a href='delete?no=${member.no}' class="btn btn-danger">삭제</a>
          </div> 
          </div> 
          </form> 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- "jdbc_test" 테이블을 다루는 SQL문이 들어 있다. -->
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.RoomDao">
+
+    <sql id="select1">
+      select 
+           no,
+           loc as location,
+           name,
+           capacity
+    </sql>
+    
+    <select id="findAll" resultType="room" parameterType="map">
+        <include refid="select1"/>
+         from ex_room
+
+        <!-- 첫번째 조건문 앞에 'or'가 붙는데,
+             이런 경우 mybatis가 자동으로 제거한다. -->        
+        <if test="names != null">
+	        <where>
+	            <foreach collection="names" item="name">
+	               or name like '${name}%'
+	            </foreach>
+	        </where>
+        </if>
+        <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
+        order by
+        <choose>
+            <when test="orderColumn == 'name' and align == 'desc'">
+                name desc
+            </when>
+            <when test="orderColumn == 'name' and align == 'asc'">
+                name asc
+            </when>
+            <otherwise>
+                no asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <insert id="insert" parameterType="room">
+        insert into ex_room(name,loc,capacity) 
+        values(#{name},#{location},#{capacity})
+    </insert>
+
+    
+    <delete id="delete" parameterType="int">
+        delete from ex_room 
+        where no=#{value}
+    </delete>
+    
+</mapper>

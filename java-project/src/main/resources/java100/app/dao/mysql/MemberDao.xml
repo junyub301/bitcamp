@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- "jdbc_test" 테이블을 다루는 SQL문이 들어 있다. -->
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.MemberDao">
+
+    <sql id="select1">
+      select 
+           no,
+           name,
+           email,
+           regdt as createdDate
+    </sql>
+    
+    <select id="findAll" resultType="member" parameterType="map">
+        <include refid="select1"/>
+         from ex_memb
+
+        <!-- 첫번째 조건문 앞에 'or'가 붙는데,
+             이런 경우 mybatis가 자동으로 제거한다. -->        
+        <if test="names != null">
+	        <where>
+	            <foreach collection="names" item="name">
+	               or name like '${name}%'
+	            </foreach>
+	        </where>
+        </if>
+        <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
+        order by
+        <choose>
+            <when test="orderColumn == 'name' and align == 'desc'">
+                name desc
+            </when>
+            <when test="orderColumn == 'name' and align == 'asc'">
+                name asc
+            </when>
+            <otherwise>
+                regdt desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="findByNo" resultType="member" parameterType="int">
+         <include refid="select1"/>
+          
+         from ex_memb
+         where no=#{value} 
+    </select>   
+
+    <insert id="insert" parameterType="member">
+        insert into ex_memb(name,email,pwd,regdt) 
+        values(#{name},#{email},password(#{pwd}),now())
+    </insert>
+
+    <update id="update" parameterType="member">
+        update ex_memb set 
+	        name=#{name},
+	        email=#{email},
+	        pwd=password(#{pwd}) 
+        where no=#{no}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from ex_memb
+        where no=#{value}
+    </delete>
+</mapper>

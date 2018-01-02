@@ -6,8 +6,8 @@
 <html>
 <head>
 <title>게시판관리</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body>
 <div class='container'>
@@ -15,7 +15,7 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>게시판 정보</h1>
-<form action='add.do' method='post'>
+<form action='add' method='post'>
 <div class='form-group row'>
 <label for='title'class='col-sm-2 col-form-label'>제목</label>
 <div class='col-sm-10'>
@@ -25,7 +25,7 @@
 <div class='form-group row'>
 <label for='content'class='col-sm-2 col-form-label'>내용</label>
 <div class='col-sm-10'>
-<input class='form-control' id='content' type='text' name='contents'>
+<input class='form-control' id='content' type='text' name='content' >
 </div>
 </div>
 <div class='form-group row'>

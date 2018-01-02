@@ -1,6 +1,5 @@
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java100.app.domain.Board"%>
-<%@page import="java100.app.listener.ContextLoaderListener"%>
 <%@page import="java100.app.dao.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -11,8 +10,8 @@
 <html>
 <head>
 <title>게시판관리</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body>
 <div class='container'>
@@ -22,7 +21,7 @@
 <h1>게시판 정보</h1>
 
 <c:if test="${not empty board }">
-         <form action='update.do' method='post'> 
+         <form action='update' method='post'> 
         
          <div class='form-group row'> 
          <label for='no'class='col-sm-2 col-form-label'>번호</label> 
@@ -41,7 +40,7 @@
          <div class='form-group row'> 
          <label for='content'class='col-sm-2 col-form-label'>내용</label> 
          <div class='col-sm-10'> 
-         <input class='form-control' id='content' type='text' name='contents' value='${board.content}'>
+         <input class='form-control' id='content' type='text' name='content' value='${board.content}'>
          </div> 
          </div> 
         
@@ -62,7 +61,7 @@
          <div class='form-group row'> 
          <div class='col-sm-10'> 
          <button  class= "btn btn-primary ">변경</button> 
-         <a href='delete.do?no=${board.no}' class= "btn btn-danger ">삭제</a>
+         <a href='delete?no=${board.no}' class= "btn btn-danger ">삭제</a>
          </div> 
          </div> 
          </form> 

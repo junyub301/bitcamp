@@ -11,8 +11,8 @@
 <html>
 <head>
 <title>강의실관리</title>
-<link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body>
 <div class='container'>
@@ -20,7 +20,7 @@
 <jsp:include page = "/header.jsp"/>
 
 <h1>강의실목록</h1>
-<p><a href='form.do' class='btn btn-success btn-sm'>추가</a></p>
+<p><a href='form' class='btn btn-success btn-sm'>추가</a></p>
 <table class='table table-hover'>
 <thead>
 <tr>
@@ -35,7 +35,7 @@
         <td>${room.location}</td>
         <td>${room.name}</td>
         <td>${room.capacity}</td>
-        <td><a href='delete.do?no=${room.no}' class='btn btn-danger btn-sm'>삭제</a></td>
+        <td><a href='delete?no=${room.no}' class='btn btn-danger btn-sm'>삭제</a></td>
       </tr>
 </c:forEach>
 </tbody>
