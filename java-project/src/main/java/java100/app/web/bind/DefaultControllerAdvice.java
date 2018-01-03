@@ -31,7 +31,7 @@ public class DefaultControllerAdvice {
     
     @InitBinder // 요청 핸들러가 호출되기 전에 먼저 실행된다.
     protected void initBinder(WebDataBinder binder) {
-        System.out.println("DefaultControllerAdvice.initBinder()");
+        //System.out.println("DefaultControllerAdvice.initBinder()");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));

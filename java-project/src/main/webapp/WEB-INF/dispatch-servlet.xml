@@ -46,7 +46,7 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <!-- 요청 핸들러가 리턴한 값 앞뒤에 붙일 텍스트 설정
              프론트 컨트롤러는 이 값을 가지고 뷰를 실행한다. -->
-        <property name="prefix" value="/"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
     
@@ -88,5 +88,13 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="java100.app.dao" />
     </bean>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/auth/**"/>
+            <bean class="java100.app.web.interceptor.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     
 </beans>

@@ -14,7 +14,7 @@
 <div class='container'>
 
 <!-- 서버의 기준으로 생각해서 경로를 잡아야 한다. -->
-<jsp:include page = "/header.jsp"/>
+<jsp:include page = "../header.jsp"/>
 
 <h1>성적 상세 정보</h1>
 
@@ -50,9 +50,9 @@
 </div>
 </form>
 
-<jsp:include page = "/footer.jsp"/>
+<jsp:include page = "../footer.jsp"/>
 
 </div>
-<%@ include file="../jslib.txt" %>
+<jsp:include page = "../jslib.jsp"/>
 </body>
 </html>

@@ -5,7 +5,7 @@ public class Member {
     protected int no;
     protected String name;
     protected String email;
-    protected String pwd;
+    protected String password;
     protected Date createdDate;
 
     //: ### 생성자 
@@ -19,9 +19,11 @@ public class Member {
         
     }
 
+   
+
     @Override
     public String toString() {
-        return "Member [no=" + no + ", name=" + name + ", email=" + email + ", pwd=" + pwd + ", createdDate="
+        return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", createdDate="
                 + createdDate + "]";
     }
 
@@ -57,13 +59,15 @@ public class Member {
         this.email = email;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+    
     
     
  

@@ -15,7 +15,7 @@
 <body>
 <div class='container'>
 
-<jsp:include page = "/header.jsp"/>
+<jsp:include page = "../header.jsp"/>
 
 <h1>회원 상세 정보</h1>
 
@@ -63,10 +63,10 @@
          '${param.no}'번의 성적 정보가 없습니다.
  </c:if>
 
-<jsp:include page = "/footer.jsp"/>
+<jsp:include page = "../footer.jsp"/>
 
 </div>
-<%@ include file="../jslib.txt" %>
+<jsp:include page = "../jslib.jsp"/>
 </body>
 </html>
     

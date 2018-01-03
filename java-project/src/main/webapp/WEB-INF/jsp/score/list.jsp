@@ -14,10 +14,10 @@
 </head>
 <body>
 <div class='container'>
-<jsp:include page = "/header.jsp"/>
+<jsp:include page = "../header.jsp"/>
 
-<h1>성적목록</h1>
-
+<h1>성적목록</h1> 
+ 
 <div class='toolbar'>
 <form action="list" method="get" class='searchbox'>
 <input type="text" name="nm">
@@ -45,10 +45,10 @@
 </c:forEach>
 </tbody>
 </table>
-<jsp:include page = "/footer.jsp"/>
+<jsp:include page = "../footer.jsp"/>
 
 </div>
-<%@ include file="../jslib.txt" %>
+<jsp:include page = "../jslib.jsp"/>
 </body>
 </html>
     

@@ -9,12 +9,12 @@ footer {
     background-color: navy;
     color: white;
 }
-
+ 
 .toolbar {
     margin: 3px 0px;
-}
+} 
 
-.searchbox { 
+.searchbox {  
     display: inline-block;
     float: right;
 }
