@@ -39,12 +39,17 @@
             <td>${score.no}</td>
             <td><a href='${score.no}'>${score.name}</a></td>
             <td>${score.sum}</td>
-            <td>${score.aver}</td>
+            <td><fmt:formatNumber value="${score.aver}" pattern=".0"/></td>
+            
        </tr>
 
 </c:forEach>
 </tbody>
-</table>
+</table> 
+
+<jsp:include page="../paging.jsp"/>
+    
+
 <jsp:include page = "../footer.jsp"/>
 
 </div>

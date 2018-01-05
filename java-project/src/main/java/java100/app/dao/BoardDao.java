@@ -7,10 +7,11 @@ import java100.app.domain.Board;
 
 public interface BoardDao {
     List<Board> findAll(Map<String,Object> params);
+    Board findByNo(int no); 
+    int countAll();
     int insert(Board board);
     int update(Board board);
     int delete(int no);
     void upView(int no);
-    Board findByNo(int no); 
 
 }

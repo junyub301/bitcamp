@@ -51,6 +51,8 @@
                 regdt desc
             </otherwise>
         </choose>
+        limit #{startIndex}, #{size}
+        
     </select>
     
     <select id="findByNo" resultType="member" parameterType="int">
@@ -67,6 +69,10 @@
          where email=#{email} and pwd=password(#{password})
     </select>   
 
+     <select id="countAll" resultType="int" >
+        select count(*) from ex_memb
+    </select>   
+
     <insert id="insert" parameterType="member">
         insert into ex_memb(name,email,pwd,regdt) 
         values(#{name},#{email},password(#{password}),now())
@@ -76,7 +82,8 @@
         update ex_memb set 
 	        name=#{name},
 	        email=#{email},
-	        pwd=password(#{pwd}) 
+	        pwd=password(#{password})
+	       
         where no=#{no}
     </update>
     

@@ -12,9 +12,16 @@
 
     <resultMap type="board" id="boardMap">
         <id column="no" property="no"/>
+        <result column="title" property="title"/>
         <result column="conts" property="content"/>
         <result column="regdt" property="regDate"/>
         <result column="vwcnt" property="viewCount"/>
+        
+        <!-- 게시글 작성자 정보를 담을 수 있도록 설정한다. -->
+        <association property="writer" javaType="member">
+            <id column="m_no" property="no"/>
+            <result column="m_name" property="name"/>
+        </association>
     </resultMap>
 
     <sql id="select1">
@@ -29,8 +36,14 @@
         update ex_board set vwcnt = vwcnt + 1 where no=#{no}
     </select>    
     <select id="findAll" resultMap="boardMap" parameterType="map">
-        <include refid="select1"/>
-         from ex_board
+        select
+            b.no,
+            b.title,
+            b.regdt,
+            b.vwcnt,
+            m.no as m_no,
+            m.name as m_name
+         from ex_board as b join ex_memb as m on b.mno=m.no
 
         <!-- 첫번째 조건문 앞에 'or'가 붙는데,
              이런 경우 mybatis가 자동으로 제거한다. -->        
@@ -54,6 +67,8 @@
                 no asc
             </otherwise>
         </choose>
+        
+        limit #{startIndex}, #{size}
     </select>
     
    <select id="findByNo" resultMap="boardMap" parameterType="int">
@@ -63,9 +78,14 @@
          where no=#{value} 
     </select>   
 
+    <select id="countAll" resultType="int" >
+        select count(*) from ex_board
+    </select>   
+    
+
     <insert id="insert" parameterType="board">
-        insert into ex_board(title,conts,regdt)
-        values(#{title},#{content},now())
+        insert into ex_board(title,conts,regdt,mno)
+        values(#{title},#{content},now(),#{writer.no})
     </insert>
 
     <update id="update" parameterType="board">

@@ -1,6 +1,7 @@
 package java100.app.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Board {
     protected int no;
@@ -8,16 +9,8 @@ public class Board {
     protected String content;
     protected Date regDate;
     protected int viewCount;
-    
-    public Board() {}
-    
-
-    @Override
-    public String toString() {
-        return "Board [no=" + no + ", title=" + title + ", content=" + content + ", regDate=" + regDate + ", viewCount="
-                + viewCount + "]";
-    }
-
+    protected Member writer;
+    protected List<UploadFile> files;
 
     public int getNo() {
         return no;
@@ -68,7 +61,30 @@ public class Board {
         this.viewCount = viewCount;
     }
 
-    
+
+    public Member getWriter() {
+        return writer;
+    }
+
+
+    public void setWriter(Member writer) {
+        this.writer = writer;
+    }
+
+
+    public List<UploadFile> getFiles() {
+        return files;
+    }
+
+
+    public void setFiles(List<UploadFile> files) {
+        this.files = files;
+    }
+
+
+
+
+
    
    
     

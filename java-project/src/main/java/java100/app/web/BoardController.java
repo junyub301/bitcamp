@@ -5,52 +5,79 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import java100.app.dao.BoardDao;
 import java100.app.domain.Board;
+import java100.app.domain.Member;
+import java100.app.service.BoardService;
 
 @Controller
 @RequestMapping("/board/")
+@SessionAttributes("loginUser")
 public class BoardController {
     
     
-    @Autowired BoardDao boardDao;
+    @Autowired BoardService boardService;
+    
     @RequestMapping("list")
     public String list(
+            @RequestParam(value="pn", defaultValue="1") int pageNo,
+            @RequestParam(value="ps", defaultValue="5") int pageSize,
             @RequestParam(value="title", required=false) String[] title,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
 
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("words",title);
-        params.put("orderColumn",orderColumn);
-        params.put("align",align);
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
         
-        model.addAttribute("list", boardDao.findAll(params));
+        if (pageSize < 5 || pageSize > 15) {
+            pageSize = 5;
+        }
+        
+        HashMap<String,Object> options = new HashMap<>();
+        options.put("words",title);
+        options.put("orderColumn",orderColumn);
+        options.put("align",align);
+        
+        int totalCount = boardService.getTotalCount();
+        int lastPageNo = totalCount / pageSize;
+        if ((totalCount % pageSize) > 0) {
+            lastPageNo++;
+        }
+        
+        model.addAttribute("pageNo", pageNo);
+        model.addAttribute("lastPageNo", lastPageNo);
+        model.addAttribute("list", boardService.list(pageNo, pageSize, options));
         
         // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
         return "board/list";
     }
 
-    @RequestMapping("add")
-    public String add(Board board) throws Exception  {
+    @RequestMapping("{no}")
+    public String view(@PathVariable int no, Model model) throws Exception {
         
-        boardDao.insert(board);
+        boardService.viewCount(no);
+        
+        model.addAttribute("board", boardService.get(no));
         
         
         // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
-        return "redirect:list";
+        return "board/view";
     }
     
-    @RequestMapping("delete")
-    public String delete(int no) throws Exception  {
+    
+    @RequestMapping("add")
+    public String add(Board board, @ModelAttribute("loginUser") Member loginUser) throws Exception  {
         
+        board.setWriter(loginUser);
+        boardService.add(board);
         
-        boardDao.delete(no);
         
         // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
         return "redirect:list";
@@ -68,25 +95,24 @@ public class BoardController {
     public String update(Board board) throws Exception  {
         
         
-        boardDao.update(board);
+        boardService.update(board);
 
+        
+        // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
+        return "redirect:list";
+    }
+    
+    @RequestMapping("delete")
+    public String delete(int no) throws Exception  {
+        
+        
+        boardService.delete(no);
         
         // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
         return "redirect:list";
     }
 
     
-    @RequestMapping("{no}")
-    public String view(@PathVariable int no, Model model) throws Exception {
-        
-        boardDao.upView(no);
-        
-        model.addAttribute("board", boardDao.findByNo(no));
-        
-        
-        // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
-        return "board/view";
-    }
 
     
 }

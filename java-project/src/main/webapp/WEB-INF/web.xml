@@ -42,10 +42,16 @@
              AnnotationConfigWebApplicationContext인 경우     
              @Configuration  애노테이션이 붙은 자가 클래스 이름을 지정한다.
         -->
+        
+        <!-- 스프링 설정파일이 다음의 규칙을 따른다면 생략해도 된다.
+             /WEB-INF/{서블릿이름}-servlet.xml -->
+        <!-- 
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/dispatch-servlet.xml</param-value>
         </init-param>
+         -->
+         
         <!-- 
         <init-param>
             <param-name>contextConfigLocation</param-name>
