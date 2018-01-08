@@ -98,6 +98,9 @@ dependencies {
     
     // Spring JDBC 라이브러리
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.2.RELEASE'
+    
+     // Spring AOP 관련 라이브러리
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.13'
 
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:22.0'

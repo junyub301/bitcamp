@@ -42,10 +42,16 @@
 
 
 <c:forEach items="${list}" var="board">
+    <c:set var="title" value="${fn:length(board.title) == 0 ? 
+    '(제목이 없습니다.)' : board.title }"/>
       <tr>
        <td>${board.no}</td>
-       <td><a href='${board.no}'>${fn:substring(board.title, 0, 20)}
-        ${(fn:length(board.title) > 20) ? '...' : ''}</a></td>
+       <%--
+       <td><a href='${board.no}'>${fn:substring(title, 0, 20)}
+        ${(fn:length(title) > 20) ? '...' : ''}</a></td>
+        --%>
+        <td><a href='${board.no}'><span class="d-inline-block text-truncate" 
+              style="max-width: 300px;">${title }</span></a> </td>
        <td>${board.regDate}</td><td>${board.viewCount}</td>
        <td>${board.writer.name}</td>
       </tr>
