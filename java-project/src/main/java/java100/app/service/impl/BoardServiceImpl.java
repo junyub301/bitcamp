@@ -52,21 +52,23 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    // @Transactional // XML 설정으로 대체한다.
     public int add(Board board) {
         // insert를 하기 전에는 board의 no 프로퍼티값이 0이다.
         // insert를 한 후에는 no 프로버티에 DB에서 생성한 값이 저장된다. 
         int count = boardDao.insert(board);
 
-        List<UploadFile> files = board.getFiles();
-
-        for (UploadFile file : files) {
-            // 파일 정보를 insert하기 전에 게시물 no를 설정한다.
-            file.setBoardNo(board.getNo());
-            fileDao.insert(file);
+        try {
+        // 첨부파일 이름을 DB에 입력한다.
+        addFiles(board.getFiles(),board.getNo());
+        } catch (Exception e) {
+            System.out.println("첨부파일 등록 중 예외 발생!");
         }
+        
+        // 첨부파일 등록
+        this.addFiles(board.getFiles(), board.getNo());
 
         return count;
-
     }
 
     @Override
@@ -77,14 +79,7 @@ public class BoardServiceImpl implements BoardService {
         fileDao.deleteAllByBoardNo(board.getNo());
 
         // 다시 게시물 첨부파일을 저장한다.
-        List<UploadFile> files = board.getFiles();
-
-
-        for (UploadFile file : files) {
-            // 파일 정보를 insert하기 전에 게시물 no를 설정한다.
-            file.setBoardNo(board.getNo());
-            fileDao.insert(file);
-        }
+        addFiles(board.getFiles(),board.getNo());
 
         return count;
     }
@@ -96,7 +91,7 @@ public class BoardServiceImpl implements BoardService {
         // 만약 bno 외부키에 대해 on delete cascade가 지정되어 있다면,
         // ex_board 테이블의 데이터를 지우는 즉시
         // 자동으로 자식테이블인 ex_file의 데이터도 지워진다.
-        
+
         //fileDao.deleteAllByBoardNo(no);
 
         return boardDao.delete(no);
@@ -106,6 +101,18 @@ public class BoardServiceImpl implements BoardService {
     public void viewCount(int no) {
 
         boardDao.upView(no);
+    }
+
+    @Override
+    //@Transactional // XML 설정으로 대체
+    public void addFiles(List<UploadFile> files, int boardNo) {
+
+        for (UploadFile file : files) {
+            // 파일 정보를 insert하기 전에 게시물 no를 설정한다.
+            file.setBoardNo(boardNo);
+            fileDao.insert(file);
+        }
+
     }
 
 }

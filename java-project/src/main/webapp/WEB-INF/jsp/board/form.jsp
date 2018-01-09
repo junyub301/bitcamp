@@ -25,7 +25,7 @@
 <div class='form-group row'>
 <label for='content'class='col-sm-2 col-form-label'>내용</label>
 <div class='col-sm-10'>
-<input class='form-control' id='content' type='text' name='content' >
+<textarea class='form-control' id='content' name='content'></textarea>
 </div>
 </div>
 

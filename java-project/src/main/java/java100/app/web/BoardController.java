@@ -85,7 +85,8 @@ public class BoardController {
         return "board/view";
     }
 
-
+    // XML 설정으로 트랜잭션을 조정한다면 다음 @Transactional 애노테이션은 필요없다.
+    //@Transactional
     @RequestMapping("add")
     public String add(
             Board board, 
@@ -114,10 +115,9 @@ public class BoardController {
         board.setFiles(uploadFiles);
 
         board.setWriter(loginUser);
-
+        // 게시글 등록
         boardService.add(board);
-
-
+        
         // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
         return "redirect:list";
     }
