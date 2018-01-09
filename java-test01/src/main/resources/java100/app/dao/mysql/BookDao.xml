@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- "jdbc_test" 테이블을 다루는 SQL문이 들어 있다. -->
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.BookDao">
+
+<resultMap type="book" id="bookMap">
+        <id column="no" property="no"/>
+        <result column="titl" property="title"/>
+        <result column="dcrt" property="description"/>
+        <result column="pric" property="price"/>
+        <result column="publ" property="publisher"/>
+        <result column="phot" property="photo"/>
+        <result column="pubdt" property="publishedDate"/>
+    </resultMap>
+    
+    <insert id="insert" parameterType="book"
+            useGeneratedKeys="true" keyProperty="no">
+        insert into ex_book(titl,publ,pubdt,pric,dcrt,phot)
+        values(#{title},#{publisher},now(),#{price},#{description},#{photo})
+    </insert>
+    
+     <select id="findAll" resultMap="bookMap" parameterType="map">
+        select
+            no,
+            titl,
+            publ,
+            pric,
+            phot
+        from ex_book
+           
+
+        <!-- 첫번째 조건문 앞에 'or'가 붙는데,
+             이런 경우 mybatis가 자동으로 제거한다. -->        
+        <if test="words != null">
+            <where>
+                <foreach collection="words" item="word">
+                   or titl like '${word}%'
+                </foreach>
+            </where>
+        </if>
+        <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
+        order by
+        <choose>
+            <when test="orderColumn == 'titl' and align == 'desc'">
+                titl desc
+            </when>
+            <when test="orderColumn == 'titl' and align == 'asc'">
+                titl asc
+            </when>
+            <otherwise>
+                no desc
+            </otherwise>
+        </choose>
+        
+        limit #{startIndex}, #{size}
+    </select>
+    
+    <select id="countAll" resultType="int" >
+        select count(*) from ex_book
+    </select>   
+    
+     <select id="findByNo" resultMap="bookMap" parameterType="int">
+         select
+            no,
+            titl,
+            publ,
+            pubdt,
+            pric,
+            dcrt,
+            phot
+         from ex_book
+         where no=#{value} 
+    </select> 
+    
+    <update id="update" parameterType="book">
+        update ex_book set 
+            titl=#{title},
+            publ=#{publisher},
+            pric=#{price},
+            dcrt=#{description},
+            phot=#{photo}
+        where no=#{no}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from ex_book 
+        where no=#{value}
+    </delete>
+
+
+</mapper>
