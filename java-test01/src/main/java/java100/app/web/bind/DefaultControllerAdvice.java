@@ -1,5 +1,6 @@
 package java100.app.web.bind;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,9 +33,23 @@ public class DefaultControllerAdvice {
     @InitBinder // 요청 핸들러가 호출되기 전에 먼저 실행된다.
     protected void initBinder(WebDataBinder binder) {
         //System.out.println("DefaultControllerAdvice.initBinder()");
+        
+        
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+        binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(dateFormat, false));
+
+        @SuppressWarnings("serial")
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd") {
+            @Override
+            public java.util.Date parse(String source) throws ParseException {
+                java.util.Date date = super.parse(source);
+                return new java.sql.Date(date.getTime());
+            }
+            
+        };
+        dateFormat2.setLenient(false);
+        binder.registerCustomEditor(java.sql.Date.class, new CustomDateEditor(dateFormat2, false));
     }
 
 }

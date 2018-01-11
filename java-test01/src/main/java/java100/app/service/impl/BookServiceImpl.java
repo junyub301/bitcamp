@@ -50,8 +50,6 @@ public class BookServiceImpl implements BookService {
         
         int count = bookDao.update(book);
         
-        this.delete(book.getNo());
-
         return count;
         
     }

@@ -116,7 +116,6 @@ public class BookController {
 
         // Book 객체에 저장한 파일명을 등록한다. 
         book.setPhoto(filename);
-
         bookService.update(book);
 
 
@@ -147,8 +146,10 @@ public class BookController {
             count = 0;
             prevMillis = currMillis;
         }
-
-        return  currMillis + "_" + count++ + extractFileExtName(filename); 
+        if (filename != null) {
+            return currMillis + "_" + count++ + extractFileExtName(filename);
+        } 
+        return filename;   
     }
 
     // 파일명에서 뒤의 확장자명을 추출한다.
@@ -165,6 +166,9 @@ public class BookController {
 
         String filename = getNewFilename(part.getOriginalFilename());
         part.transferTo(new File(path + "/" + filename));
+        if (part.isEmpty()) {
+            filename = null;
+        }
         return filename;
     }  
 

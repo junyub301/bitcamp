@@ -62,7 +62,7 @@
          <div class='form-group row'> 
          <label for='publishedDate'class='col-sm-2 col-form-label'>출판일</label> 
          <div class='col-sm-10'> 
-         <input class='form-control' readonly id='publishedDate' type='text' name='publishedDate' value='${book.publishedDate}'>
+         <input class='form-control'  id='publishedDate' type='date' name='publishedDate' value='${book.publishedDate}'>
          </div> 
          </div> 
         

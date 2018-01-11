@@ -33,6 +33,15 @@
 			</div>
 			
 		
+		
+			<div class='form-group row'>
+				<label for='publishedDate' class='col-sm-2 col-form-label'>출판일</label>
+				<div class='col-sm-10'>
+					<input class='form-control' id='publishedDate' type='date' name='publishedDate'>
+				</div>
+			</div>
+			
+		
 			<div class='form-group row'>
 				<label for='price' class='col-sm-2 col-form-label'>가격</label>
 				<div class='col-sm-10'>

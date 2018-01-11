@@ -22,8 +22,8 @@
     
     <insert id="insert" parameterType="book"
             useGeneratedKeys="true" keyProperty="no">
-        insert into ex_book(titl,publ,pubdt,pric,dcrt,phot)
-        values(#{title},#{publisher},now(),#{price},#{description},#{photo})
+        insert into ex_book1(titl,publ,pubdt,pric,dcrt,phot)
+        values(#{title},#{publisher},#{publishedDate},#{price},#{description},#{photo})
     </insert>
     
      <select id="findAll" resultMap="bookMap" parameterType="map">
@@ -33,7 +33,7 @@
             publ,
             pric,
             phot
-        from ex_book
+        from ex_book1
            
 
         <!-- 첫번째 조건문 앞에 'or'가 붙는데,
@@ -63,7 +63,7 @@
     </select>
     
     <select id="countAll" resultType="int" >
-        select count(*) from ex_book
+        select count(*) from ex_book1
     </select>   
     
      <select id="findByNo" resultMap="bookMap" parameterType="int">
@@ -75,22 +75,23 @@
             pric,
             dcrt,
             phot
-         from ex_book
+         from ex_book1
          where no=#{value} 
     </select> 
     
     <update id="update" parameterType="book">
-        update ex_book set 
+        update ex_book1 set 
             titl=#{title},
             publ=#{publisher},
             pric=#{price},
+            pubdt=#{publishedDate},
             dcrt=#{description},
-            phot=#{photo}
+            phot=if(#{photo} is null,phot,#{photo})
         where no=#{no}
     </update>
 
     <delete id="delete" parameterType="int">
-        delete from ex_book 
+        delete from ex_book1
         where no=#{value}
     </delete>
 
