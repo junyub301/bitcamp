@@ -2,6 +2,7 @@
 
 var obj = new Object();
 
+// 키 안에 공백이나 특수문자가 있지 않으면 obj.age을 이용할 수 있다.
 obj.name = "홍길동"; 
 obj.age = 20;
 obj["home tell^^"] = "1111-1111";

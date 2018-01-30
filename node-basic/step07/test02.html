@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1 id="time"></h1>
+<!-- 웹브라우저 빌트인(웹브라우저에서 제공하는 객체) 객체 사용하기 -->
+<script type="text/javascript">
+
+// 타이머
+// 5초 후에 딱 한 번만 파라미터로 받은 함수를 호출한다.
+window.setTimeout(function(){
+    window.alert("오호라!!! 시간이 되었네요.")
+    //window.location.href = "http://www.daum.net"
+}, 5000)
+
+// 반복해서 함수를 호출하기
+window.setInterval(function() {
+    //console.log("ㅋㅋㅋ")
+    var tag = window.document.getElementById("time");
+    var today = new Date();
+    tag.innerHTML = today.getFullYear() + "-" + 
+                    (today.getMonth() + 1) + "-" +
+                    today.getDate() + " " + 
+                    today.getHours() + ":" + today.getMinutes() + ":" +
+                    today.getSeconds();
+    
+}, 1000)
+
+</script>
+
+</body>
+</html>
