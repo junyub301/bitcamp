@@ -34,7 +34,7 @@
         <!-- 정렬 조건에 따라 SQL문을 변경한다. -->
         order by
         <choose>
-            <when test="orderColumn == 'sum' and align == 'desc'">
+           <when test="orderColumn == 'sum' and align == 'desc'">
                 sum desc
             </when>
             <when test="orderColumn == 'sum' and align == 'asc'">

@@ -1,0 +1,44 @@
+<!-- AJAX API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+<button id="btn">비동기요청</button>
+
+
+<script type="text/javascript">
+
+var btn = window.document.querySelector('#btn')
+
+btn.onclick = function() {
+	var xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+	    // 요청 상태를 검사할 수 있다.
+	    console.log(xhr.readyState)
+	    
+	    // 1 => 연결 완료
+	    // 2 => 요청 전송을 완료
+	    // 3 => 응답 수신 중
+	    // 4 => 응답 완료
+	};
+	
+	xhr.open('GET', 'http://localhost:8888/okok', true);
+
+	xhr.send(); // 비동기로 요청할 때는 응답 결과를 기다리지 않고 즉시 리턴한다.
+    
+	// 그래서 responseText값을 꺼내봐야 소용없다.
+	// 왜? 아직 서버에서 응답 결과를 받은 상태가 아니기 때문이다.
+	console.log(xhr.responseText);
+}
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

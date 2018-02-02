@@ -7,7 +7,16 @@
   version="3.1"
   metadata-complete="false">
 
-      
+    <!-- contextConfigLocation은 밑의 ContextLoaderListener가 찾을 때 사용하는 이름이다. -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/application-context.xml</param-value>
+    </context-param>
+
+    <!-- app과 json이 공통으로 사용하는 파일을 이 빈 객체에 둔다. -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
    
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -24,7 +33,7 @@
     
     
      <servlet>
-        <servlet-name>dispatch</servlet-name>
+        <servlet-name>app</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         
         <!-- 스프링 WebMVC가 사용할 IoC 컨테이너 설정한다.
@@ -48,7 +57,7 @@
         <!-- 
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/dispatch-servlet.xml</param-value>
+            <param-value>/WEB-INF/app-servlet.xml</param-value>
         </init-param>
          -->
          
@@ -62,9 +71,24 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>dispatch</servlet-name>
+        <servlet-name>app</servlet-name>
         <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>json</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>json</servlet-name>
+        <url-pattern>/json/*</url-pattern>
+    </servlet-mapping>
+    
+    
+    
     
      <!-- 클라이언트에서 특정 경로의 기본 문서를 요구했을 때 ,
          그 문서를 찾는 순서이다. -->    

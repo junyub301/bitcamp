@@ -1,0 +1,44 @@
+<!-- AJAX API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+<button id="btn">동기요청</button>
+
+
+<script type="text/javascript">
+
+var btn = window.document.querySelector('#btn')
+
+btn.onclick = function() {
+	// 1) HTTP 요청을 수행할 AJAX객체를 준비
+	var xhr = new XMLHttpRequest();
+	
+	// 2) 웹서버에 연결한다.
+	// 첫번째 파라미터 : GET, POST 요청방식
+	// 두번째 파라미터 : 요청할 URL
+	// 세번째 파라미터 : 비동기 요청 여부
+	//      true  : 서버에 요청한 후 응답 결과를 기다리지 말고 즉시 리턴한다.
+	//      false : 서버에 요청한 후 응답이 올 때까지 기다린다.
+	xhr.open('GET', 'http://localhost:8888/okok', false);
+	
+	// 3) 요청 정보를 보낸다.(요청 URL + 헤더 + 데이터 등)
+	xhr.send(); // 동기 요청이기 때문에 서버에서 응답 데이터를 모두 받을 때 까지 
+	            // 리턴하지 않는다.
+	            
+	
+	// 4) 서버에서 받은 결과를 console 창으로 출력한다.
+	//    서버에서 받은 데이터는 responsText라는 이름이로 보관되어있다.
+	console.log(xhr.responseText);
+}
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->
