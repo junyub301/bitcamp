@@ -38,7 +38,7 @@
 			</nav>
 		</header>
 
-		<h1>성적목록</h1>
+		<h1>성적목록(powered by Handlebars)</h1>
 
 		<nav class="navbar navbar-light justify-content-between">
 			<a href='form.html' class='btn btn-primary btn-sm'>추가</a>
@@ -77,11 +77,24 @@
 		</nav>
 		<footer> 비트캠프 자바100기!@2017 </footer>
 	</div>
+	
+<script id="template1" type="text/x-handlebars-template">
+{{#each list}}
+	<tr>
+	   <td>{{no}}</td>
+	   <td><a href="form.html?no={{no}}">{{name}}</a></td>
+	   <td>{{sum}}</td>
+       <td>{{aver}}</td>
+	</tr>
+{{/each}}
+</script>
 
-	<script src='../node_modules/jquery/dist/jquery.min.js'></script>
-	<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
-	<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-   <!--  <script src='../js/bit.js'></script> -->
+<script src='../node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<!--  <script src='../js/bit.js'></script> -->
+
 <script type="text/javascript">
 var words = $('#words'),
     searchBtn = $('#searchBtn'),
@@ -89,7 +102,11 @@ var words = $('#words'),
     currBtn = $('#currBtn'),
     nextBtn = $('#nextBtn'),
     tbody = $('#list > tbody'),
-    currPageNo = 1;
+    currPageNo = 1,
+    member = null,
+    template1Src = $('#template1').html(),
+    template1Engine = Handlebars.compile(template1Src);
+    
 
 
 // 서버에서 목록 데이터를 가져온다.
@@ -119,17 +136,8 @@ function load(pageNo, options) {
         data: options,
         dataType: 'json',
         success: (result) => {
-            tbody.html(""); //<tbody> 콘텐츠를 지운다.
-
-            for (var data of result.list) {
-                $('<tr>')
-                .html(
-                    "<td>" + data.no + "</td>" +
-                    "<td><a href='form.html?no=" + data.no + "'>" + data.name + "</a></td>" +
-                    "<td>" + data.sum + "</td>" +
-                    "<td>" + data.aver + "</td>")
-                    .appendTo(tbody);
-            }
+            console.log(result)
+            tbody.html(template1Engine(result));
             
             currPageNo = result.pageNo;
             currBtn.html(currPageNo);

@@ -56,4 +56,20 @@ public class MemberServiceImpl implements MemberService {
         return memberDao.delete(no);
     }
 
+    @Override
+    public Member get(String email) {
+        
+        return memberDao.findByEmail(email);
+    }
+
+    @Override
+    public Member get(String email, String password) {
+        
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("email", email);
+        params.put("password", password);
+        
+        return memberDao.findByEmailAndPassword(params);
+    }
+
 }
